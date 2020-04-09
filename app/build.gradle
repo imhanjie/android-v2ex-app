@@ -63,6 +63,9 @@ static def getBuildDate() {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(':v2ex-parser')
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${rootProject.ext.kotlin}"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${rootProject.ext.kotlin_coroutines}"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${rootProject.ext.kotlin_coroutines}"
