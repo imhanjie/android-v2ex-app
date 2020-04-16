@@ -1,6 +1,5 @@
 package com.imhanjie.v2ex.view
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.observe
@@ -13,13 +12,9 @@ class MainActivity : BaseActivity<ActivityMainBinding, MyViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        view.welcome.setOnClickListener {
-            startActivity(Intent(this, SecActivity::class.java))
-        }
-
         vm.topicData.observe(this) { topics ->
             for (topic in topics) {
-                Log.e("bingo", topic.node.title)
+                Log.e("bingo", topic.toString())
             }
         }
     }

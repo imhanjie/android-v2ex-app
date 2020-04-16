@@ -84,9 +84,21 @@ dependencies {
     // WorkManager
     implementation "androidx.work:work-runtime-ktx:${rootProject.ext.work_manager}"
 
+    // Paging
+    implementation "androidx.paging:paging-runtime:${rootProject.ext.paging}"
+
+    // Room
+    implementation "androidx.room:room-runtime:${rootProject.ext.room}"
+    kapt "androidx.room:room-compiler:${rootProject.ext.room}"
+    implementation "androidx.room:room-ktx:${rootProject.ext.room}"
+
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:${rootProject.ext.retrofit}"
     implementation "com.squareup.retrofit2:converter-gson:${rootProject.ext.retrofit}"
+    implementation "com.squareup.retrofit2:converter-scalars:${rootProject.ext.retrofit}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${rootProject.ext.okhttp}"
+
+    implementation "com.facebook.stetho:stetho:${rootProject.ext.stetho}"
 
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.13'

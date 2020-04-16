@@ -1,9 +1,14 @@
 package com.imhanjie.v2ex.repository
 
-import com.imhanjie.v2ex.model.Topic
+import com.imhanjie.v2ex.paging.Student
+import com.imhanjie.v2ex.parser.model.TopicItem
 
 interface AppRepository {
 
-    suspend fun loadTopics(): List<Topic>
+    suspend fun loadLatestTopics(pageIndex: Int): List<TopicItem>
+
+    suspend fun loadNodeTopics(nodeTitle: String, pageIndex: Int): List<TopicItem>
+
+    suspend fun loadStudents(pageIndex: Int): List<Student>
 
 }
