@@ -1,3 +1,4 @@
 rootProject.name='android-app-v2ex'
 include ':app'
 include ':v2ex-parser'
+include ':widget'

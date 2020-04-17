@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="WidgetPureTopBar">
+        <attr name="widget_bar_titleText" format="string" />
+        <attr name="widget_bar_rightText" format="string" />
+        <attr name="widget_bar_rightIcon" format="reference" />
+        <attr name="widget_bar_rightTextColor" format="color" />
+        <attr name="widget_bar_rightSecondaryText" format="string" />
+        <attr name="widget_bar_rightSecondaryIcon" format="reference" />
+        <attr name="widget_bar_rightSecondaryTextColor" format="color" />
+        <attr name="widget_bar_leftVisibility">
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="4" />
+            <enum name="gone" value="8" />
+        </attr>
+        <attr name="widget_bar_rightVisibility">
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="4" />
+            <enum name="gone" value="8" />
+        </attr>
+        <attr name="widget_bar_rightSecondaryVisibility">
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="4" />
+            <enum name="gone" value="8" />
+        </attr>
+        <attr name="widget_bar_light_mode" format="boolean" />
+    </declare-styleable>
+</resources>
