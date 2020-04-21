@@ -4,9 +4,9 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.imhanjie.support.e
 import com.imhanjie.support.ext.dp
 import com.imhanjie.support.ext.getResColor
+import com.imhanjie.support.ext.toActivity
 import com.imhanjie.v2ex.BaseFragment
 import com.imhanjie.v2ex.R
 import com.imhanjie.v2ex.databinding.FragmentTabBinding
@@ -53,7 +53,9 @@ class TabFragment : BaseFragment<FragmentTabBinding>() {
                 height = 4f.dp().toInt()
             )
         )
-        val adapter = TopicAdapter()
+        val adapter = TopicAdapter {
+            toActivity<TopicActivity>(mapOf("topicId" to it.id))
+        }
         vb.topicRv.adapter = adapter
         vm.topicData.observe(this) { adapter.submitList(it) }
 

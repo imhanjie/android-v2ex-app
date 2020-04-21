@@ -3,6 +3,7 @@ package com.imhanjie.v2ex.repository
 import com.imhanjie.v2ex.api.ApiServer
 import com.imhanjie.v2ex.api.ApiService
 import com.imhanjie.v2ex.parser.ParserImpl
+import com.imhanjie.v2ex.parser.model.Reply
 import com.imhanjie.v2ex.parser.model.TopicItem
 
 object AppRepositoryImpl : AppRepository {
@@ -18,6 +19,11 @@ object AppRepositoryImpl : AppRepository {
     override suspend fun loadNodeTopics(nodeTitle: String, pageIndex: Int): List<TopicItem> {
         val html = api.loadNodeTopics(nodeTitle, pageIndex)
         return ParserImpl.parseNodeTopics(html, nodeTitle, nodeTitle)
+    }
+
+    override suspend fun loadTopic(topicId: Long): List<Reply> {
+        val html = api.loadTopic(topicId)
+        return ParserImpl.parserReplies(html)
     }
 
 }

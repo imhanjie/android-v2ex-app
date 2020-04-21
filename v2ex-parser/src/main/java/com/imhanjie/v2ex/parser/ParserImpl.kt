@@ -1,5 +1,6 @@
 package com.imhanjie.v2ex.parser
 
+import com.imhanjie.v2ex.parser.model.Reply
 import com.imhanjie.v2ex.parser.model.TopicItem
 import org.jsoup.Jsoup
 
@@ -70,6 +71,25 @@ object ParserImpl : Parser {
                 latestReplyTime,
                 replies,
                 isTop = false
+            )
+        }
+    }
+
+    override fun parserReplies(html: String): List<Reply> {
+        val document = Jsoup.parse(html)
+        return document.select("#Main").select("div.cell").filter { eCell ->
+            val attrId = eCell.attr("id")
+            attrId.isNotEmpty() && attrId.startsWith("r_")
+        }.map { eCell ->
+            val id = eCell.attr("id").split("_")[1].toLong()
+            val userAvatar = eCell.select("img.avatar").attr("src")
+            val userName = eCell.select("a.dark").text()
+            val content = eCell.select("div.reply_content").text()
+            val time = eCell.select("span.ago").text()
+            val likes = eCell.selectFirst("span.small.fade")?.text()?.toLong() ?: 0
+            val no = eCell.select("span.no").text().toLong()
+            Reply(
+                id, userAvatar, userName, content, time, likes, no
             )
         }
     }

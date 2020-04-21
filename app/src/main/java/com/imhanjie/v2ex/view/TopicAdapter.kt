@@ -7,7 +7,7 @@ import com.imhanjie.v2ex.databinding.ItemTopicBinding
 import com.imhanjie.v2ex.parser.model.TopicItem
 import com.imhanjie.widget.VBListAdapter
 
-class TopicAdapter : VBListAdapter<TopicItem, ItemTopicBinding>(TopicDiffCallback()) {
+class TopicAdapter(private val block: (TopicItem) -> Unit) : VBListAdapter<TopicItem, ItemTopicBinding>(TopicDiffCallback()) {
 
     override fun bindTo(vb: ItemTopicBinding, position: Int, item: TopicItem) {
         Glide.with(vb.root)
@@ -22,6 +22,7 @@ class TopicAdapter : VBListAdapter<TopicItem, ItemTopicBinding>(TopicDiffCallbac
             vb.time.text = "${item.latestReplyTime}  •  ${item.replies} 条回复"
         }
         vb.nodeName.text = item.nodeName
+        vb.root.setOnClickListener { block.invoke(item) }
     }
 
 }
