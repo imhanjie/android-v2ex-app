@@ -1,40 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.MainActivity">
+    android:layout_height="match_parent">
 
-    <com.imhanjie.widget.PureTopBar
-        android:id="@+id/topBar"
-        android:layout_width="0dp"
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:elevation="1dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:widget_bar_leftVisibility="invisible"
-        app:widget_bar_light_mode="true"
-        app:widget_bar_titleText="V2EX" />
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
 
-    <com.imhanjie.widget.LoadingWrapLayout
-        android:id="@+id/loadingLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:animateLayoutChanges="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topBar">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/topicRv"
+        <com.imhanjie.widget.PureTopBar
+            android:id="@+id/top_bar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:overScrollMode="never" />
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:elevation="0dp"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:widget_bar_leftVisibility="invisible"
+            app:widget_bar_light_mode="true"
+            app:widget_bar_titleText="V2EX" />
 
-    </com.imhanjie.widget.LoadingWrapLayout>
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            app:tabIndicator="@drawable/tab_indicator"
+            app:tabIndicatorColor="@color/widget_color_text_black_3"
+            app:tabIndicatorFullWidth="false"
+            app:tabMode="scrollable"
+            app:tabRippleColor="@color/widget_ripple"
+            app:tabSelectedTextColor="@color/widget_color_text_black_2"
+            app:tabTextAppearance="@style/CommandTabLayoutText"
+            app:tabTextColor="@color/widget_color_text_black_5" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/widget_divider" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

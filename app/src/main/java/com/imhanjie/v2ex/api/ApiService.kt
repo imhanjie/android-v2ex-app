@@ -6,8 +6,10 @@ import retrofit2.http.Query
 
 interface ApiService {
 
-    @GET("/?tab=all")
-    suspend fun loadLatestTopics(): String
+    @GET("/")
+    suspend fun loadLatestTopics(
+        @Query("tab") tab: String
+    ): String
 
     @GET("/recent")
     suspend fun loadRecentTopics(

@@ -5,18 +5,23 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.imhanjie.v2ex.databinding.ItemTopicBinding
 import com.imhanjie.v2ex.parser.model.TopicItem
+import com.imhanjie.widget.VBListAdapter
 
-class TopicAdapter : com.imhanjie.widget.VBListAdapter<TopicItem, ItemTopicBinding>(TopicDiffCallback()) {
+class TopicAdapter : VBListAdapter<TopicItem, ItemTopicBinding>(TopicDiffCallback()) {
 
-    override fun bindTo(view: ItemTopicBinding, position: Int, item: TopicItem) {
-        Glide.with(view.root)
+    override fun bindTo(vb: ItemTopicBinding, position: Int, item: TopicItem) {
+        Glide.with(vb.root)
             .load(item.userAvatar)
             .transform(CircleCrop())
-            .into(view.userAvatar)
-        view.title.text = item.title
-        view.userName.text = item.userName
-        view.time.text = item.latestReplyTime + "  •  " + item.replies + " 条回复"
-        view.nodeName.text = item.nodeName
+            .into(vb.userAvatar)
+        vb.title.text = item.title
+        vb.userName.text = item.userName
+        if (item.isTop) {
+            vb.time.text = "置顶  •  ${item.latestReplyTime}  •  ${item.replies} 条回复"
+        } else {
+            vb.time.text = "${item.latestReplyTime}  •  ${item.replies} 条回复"
+        }
+        vb.nodeName.text = item.nodeName
     }
 
 }

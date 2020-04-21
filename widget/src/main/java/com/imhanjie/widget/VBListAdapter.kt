@@ -21,19 +21,19 @@ abstract class VBListAdapter<T, VB : ViewBinding>(diffCallback: DiffUtil.ItemCal
             ViewGroup::class.java,
             Boolean::class.java
         )
-        val view = method.invoke(null, LayoutInflater.from(parent.context), parent, false) as VB
-        return CommonViewHolder(view)
+        val vb = method.invoke(null, LayoutInflater.from(parent.context), parent, false) as VB
+        return CommonViewHolder(vb)
     }
 
     override fun onBindViewHolder(holder: CommonViewHolder<VB>, position: Int) {
-        bindTo(holder.view, position, getItem(position))
+        bindTo(holder.vb, position, getItem(position))
     }
 
     /**
      * override by subclass
      */
-    abstract fun bindTo(view: VB, position: Int, item: T)
+    abstract fun bindTo(vb: VB, position: Int, item: T)
 
 }
 
-class CommonViewHolder<VB : ViewBinding>(val view: VB) : RecyclerView.ViewHolder(view.root)
+class CommonViewHolder<VB : ViewBinding>(val vb: VB) : RecyclerView.ViewHolder(vb.root)

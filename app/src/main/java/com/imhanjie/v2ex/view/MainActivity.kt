@@ -1,44 +1,34 @@
 package com.imhanjie.v2ex.view
 
 import android.os.Bundle
-import android.util.Log
-import androidx.lifecycle.observe
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.imhanjie.support.ext.dp
-import com.imhanjie.support.ext.getResColor
+import android.view.View
+import androidx.fragment.app.Fragment
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.google.android.material.tabs.TabLayoutMediator
 import com.imhanjie.v2ex.BaseActivity
-import com.imhanjie.v2ex.R
 import com.imhanjie.v2ex.databinding.ActivityMainBinding
 import com.imhanjie.v2ex.vm.MyViewModel
-import com.imhanjie.widget.LineDividerItemDecoration
 
 class MainActivity : BaseActivity<ActivityMainBinding, MyViewModel>() {
 
+    private lateinit var fragmentAdapter: FragmentStateAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        fragmentAdapter = object : FragmentStateAdapter(this) {
+            override fun getItemCount(): Int {
+                return vm.tabs.size
+            }
 
-        vm.loadingState.observe(this) { loading ->
-            if (loading) view.loadingLayout.show() else view.loadingLayout.hide()
-        }
-
-        view.topicRv.layoutManager = LinearLayoutManager(this)
-        view.topicRv.addItemDecoration(
-            LineDividerItemDecoration(
-                this,
-                color = getResColor(R.color.topic_list_divider),
-                height = 4f.dp().toInt()
-            )
-        )
-        val adapter = TopicAdapter()
-        view.topicRv.adapter = adapter
-
-        vm.topicData.observe(this) { adapter.submitList(it) }
-
-        vm.topicData.observe(this) { topics ->
-            for (topic in topics) {
-                Log.e("bingo", topic.toString())
+            override fun createFragment(position: Int): Fragment {
+                return TabFragment.newInstance(vm.tabs[position])
             }
         }
+        vb.viewPager.getChildAt(0).overScrollMode = View.OVER_SCROLL_NEVER
+        vb.viewPager.adapter = fragmentAdapter
+        TabLayoutMediator(vb.tabLayout, vb.viewPager) { tab, position ->
+            tab.text = vm.tabs[position].name
+        }.attach()
     }
 
 }

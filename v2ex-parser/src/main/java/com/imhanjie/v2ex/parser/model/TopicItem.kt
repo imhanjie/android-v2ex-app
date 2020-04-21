@@ -8,5 +8,6 @@ data class TopicItem(
     val userName: String,
     val userAvatar: String,
     val latestReplyTime: String,
-    val replies: Long
+    val replies: Long,
+    val isTop: Boolean
 )

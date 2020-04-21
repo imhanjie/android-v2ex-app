@@ -9,4 +9,5 @@
     <color name="widget_color_text_black_2">#333333</color>
     <color name="widget_color_text_black_3">#666666</color>
     <color name="widget_color_text_black_4">#999999</color>
+    <color name="widget_color_text_black_5">#cccccc</color>
 </resources>

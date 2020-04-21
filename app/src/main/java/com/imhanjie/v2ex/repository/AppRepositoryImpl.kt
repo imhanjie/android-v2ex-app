@@ -9,9 +9,9 @@ object AppRepositoryImpl : AppRepository {
 
     private val api: ApiService = ApiServer.create()
 
-    override suspend fun loadLatestTopics(pageIndex: Int): List<TopicItem> {
+    override suspend fun loadLatestTopics(tab: String, pageIndex: Int): List<TopicItem> {
         val html =
-            if (pageIndex == 1) api.loadLatestTopics() else api.loadRecentTopics(pageIndex - 1)
+            if (pageIndex == 1) api.loadLatestTopics(tab) else api.loadRecentTopics(pageIndex - 1)
         return ParserImpl.parseLatestTopics(html)
     }
 
