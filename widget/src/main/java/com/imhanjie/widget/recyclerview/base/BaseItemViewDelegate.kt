@@ -33,6 +33,13 @@ abstract class BaseItemViewDelegate<T, VB : ViewBinding> : ItemViewDelegate<T, V
         holder.itemView.setOnLongClickListener {
             onItemLongClickListener?.invoke(holder, item, holder.adapterPosition) ?: false
         }
+        bindTo(holder, holder.adapterPosition, item)
     }
+
+    /**
+     * override by subclass
+     */
+    abstract fun bindTo(holder: VBViewHolder<VB>, position: Int, item: T)
+
 
 }

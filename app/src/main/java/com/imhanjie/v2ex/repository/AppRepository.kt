@@ -9,6 +9,6 @@ interface AppRepository {
 
     suspend fun loadNodeTopics(nodeTitle: String, pageIndex: Int): List<TopicItem>
 
-    suspend fun loadTopic(topicId: Long): List<Reply>
+    suspend fun loadTopic(topicId: Long, pageIndex: Int): List<Reply>
 
 }

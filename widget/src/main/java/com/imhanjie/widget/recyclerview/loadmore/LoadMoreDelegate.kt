@@ -12,8 +12,8 @@ class LoadMoreDelegate(
         private const val VISIBLE_THRESHOLD = 1
     }
 
-    private val items: LoadMoreItems = LoadMoreItems()
-    private val adapter: LoadMoreMultiTypeAdapter
+    val items: LoadMoreItems = LoadMoreItems()
+    val adapter: LoadMoreMultiTypeAdapter
 
     private var isLoading = false
     private var hasMore = true

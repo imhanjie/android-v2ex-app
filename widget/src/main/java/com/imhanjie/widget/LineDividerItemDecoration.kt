@@ -33,7 +33,7 @@ open class LineDividerItemDecoration @JvmOverloads constructor(
      *
      * @param position 位置
      */
-    protected fun isSkip(position: Int): Boolean {
+    open fun isSkip(position: Int): Boolean {
         return false
     }
 
@@ -64,8 +64,12 @@ open class LineDividerItemDecoration @JvmOverloads constructor(
     }
 
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
-        super.getItemOffsets(outRect, view, parent, state)
-        outRect.set(0, 0, 0, height);
+        val pos = parent.getChildAdapterPosition(view)
+        if (isSkip(pos)) {
+            outRect.set(0, 0, 0, 0);
+        } else {
+            outRect.set(0, 0, 0, height);
+        }
     }
 
 

@@ -4,10 +4,19 @@
     android:layout_height="wrap_content"
     android:clickable="true">
 
-    <View
+    <TextView
         android:id="@+id/view_no_more"
         android:layout_width="match_parent"
-        android:layout_height="8dp" />
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="没有更多了"
+        android:textColor="@color/widget_color_text_black_5"
+        android:textSize="13sp" />
+
+    <!--    <View-->
+    <!--        android:id="@+id/view_no_more"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="8dp" />-->
 
     <FrameLayout
         android:id="@+id/loading_view"

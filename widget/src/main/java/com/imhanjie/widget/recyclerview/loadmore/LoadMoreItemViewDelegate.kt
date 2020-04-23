@@ -4,16 +4,15 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.view.View
 import android.view.ViewGroup
+import com.imhanjie.widget.databinding.WidgetItemLoadMoreBinding
 import com.imhanjie.widget.recyclerview.base.BaseItemViewDelegate
 import com.imhanjie.widget.recyclerview.base.VBViewHolder
-import com.imhanjie.widget.databinding.WidgetItemLoadMoreBinding
 
 class LoadMoreItemViewDelegate : BaseItemViewDelegate<FooterItem, WidgetItemLoadMoreBinding>() {
 
     public var retryBlock: (() -> Unit)? = null
 
-    override fun onBindViewHolder(holder: VBViewHolder<WidgetItemLoadMoreBinding>, item: FooterItem) {
-        super.onBindViewHolder(holder, item)
+    override fun bindTo(holder: VBViewHolder<WidgetItemLoadMoreBinding>, position: Int, item: FooterItem) {
         val vb = holder.vb
         vb.pbLoading.indeterminateDrawable.setColorFilter(Color.parseColor("#d7d9da"), PorterDuff.Mode.SRC_IN);
         when (item.type) {

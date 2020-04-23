@@ -1,15 +1,16 @@
 package com.imhanjie.v2ex.view
 
-import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.imhanjie.v2ex.databinding.ItemReplyBinding
 import com.imhanjie.v2ex.parser.model.Reply
-import com.imhanjie.widget.recyclerview.base.BaseVBListAdapter
+import com.imhanjie.widget.recyclerview.base.BaseItemViewDelegate
+import com.imhanjie.widget.recyclerview.base.VBViewHolder
 
-class ReplyAdapter : BaseVBListAdapter<Reply, ItemReplyBinding>(ReplyDiffCallback()) {
+class ReplyAdapter : BaseItemViewDelegate<Reply, ItemReplyBinding>() {
 
-    override fun bindTo(vb: ItemReplyBinding, position: Int, item: Reply) {
+    override fun bindTo(holder: VBViewHolder<ItemReplyBinding>, position: Int, item: Reply) {
+        val vb = holder.vb
         Glide.with(vb.root)
             .load(item.userAvatar)
             .transform(CircleCrop())
@@ -19,13 +20,5 @@ class ReplyAdapter : BaseVBListAdapter<Reply, ItemReplyBinding>(ReplyDiffCallbac
         vb.content.text = item.content
         vb.no.text = "#${item.no}"
     }
-
-}
-
-class ReplyDiffCallback : DiffUtil.ItemCallback<Reply>() {
-
-    override fun areItemsTheSame(oldItem: Reply, newItem: Reply) = oldItem.id == newItem.id
-
-    override fun areContentsTheSame(oldItem: Reply, newItem: Reply) = oldItem == newItem
 
 }

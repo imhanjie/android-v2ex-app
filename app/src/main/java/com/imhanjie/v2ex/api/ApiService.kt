@@ -24,7 +24,8 @@ interface ApiService {
 
     @GET("/t/{topic_id}")
     suspend fun loadTopic(
-        @Path("topic_id") id: Long
+        @Path("topic_id") id: Long,
+        @Query("p") pageIndex: Int
     ): String
 
 }

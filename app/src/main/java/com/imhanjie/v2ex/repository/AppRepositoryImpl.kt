@@ -21,8 +21,8 @@ object AppRepositoryImpl : AppRepository {
         return ParserImpl.parseNodeTopics(html, nodeTitle, nodeTitle)
     }
 
-    override suspend fun loadTopic(topicId: Long): List<Reply> {
-        val html = api.loadTopic(topicId)
+    override suspend fun loadTopic(topicId: Long, pageIndex: Int): List<Reply> {
+        val html = api.loadTopic(topicId, pageIndex)
         return ParserImpl.parserReplies(html)
     }
 
