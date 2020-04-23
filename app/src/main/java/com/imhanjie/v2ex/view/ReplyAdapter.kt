@@ -5,9 +5,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.imhanjie.v2ex.databinding.ItemReplyBinding
 import com.imhanjie.v2ex.parser.model.Reply
-import com.imhanjie.widget.VBListAdapter
+import com.imhanjie.widget.recyclerview.base.BaseVBListAdapter
 
-class ReplyAdapter : VBListAdapter<Reply, ItemReplyBinding>(ReplyDiffCallback()) {
+class ReplyAdapter : BaseVBListAdapter<Reply, ItemReplyBinding>(ReplyDiffCallback()) {
 
     override fun bindTo(vb: ItemReplyBinding, position: Int, item: Reply) {
         Glide.with(vb.root)

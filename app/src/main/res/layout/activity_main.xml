@@ -26,6 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
+            android:overScrollMode="never"
             app:tabIndicator="@drawable/tab_indicator"
             app:tabIndicatorColor="@color/widget_color_text_black_3"
             app:tabIndicatorFullWidth="false"

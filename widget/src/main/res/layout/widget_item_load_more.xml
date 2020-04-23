@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true">
+
+    <View
+        android:id="@+id/view_no_more"
+        android:layout_width="match_parent"
+        android:layout_height="8dp" />
+
+    <FrameLayout
+        android:id="@+id/loading_view"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:visibility="visible">
+
+        <ProgressBar
+            android:id="@+id/pb_loading"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_margin="16dp" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/view_bad_network_retry"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="网络异常，点击重试"
+        android:textColor="#ff3d4e"
+        android:textSize="12sp"
+        android:visibility="visible" />
+
+</RelativeLayout>

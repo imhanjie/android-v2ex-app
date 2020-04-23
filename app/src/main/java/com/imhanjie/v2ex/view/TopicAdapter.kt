@@ -5,9 +5,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.imhanjie.v2ex.databinding.ItemTopicBinding
 import com.imhanjie.v2ex.parser.model.TopicItem
-import com.imhanjie.widget.VBListAdapter
+import com.imhanjie.widget.recyclerview.base.BaseVBListAdapter
 
-class TopicAdapter(private val block: (TopicItem) -> Unit) : VBListAdapter<TopicItem, ItemTopicBinding>(TopicDiffCallback()) {
+class TopicAdapter(private val block: (TopicItem) -> Unit) : BaseVBListAdapter<TopicItem, ItemTopicBinding>(TopicDiffCallback()) {
 
     override fun bindTo(vb: ItemTopicBinding, position: Int, item: TopicItem) {
         Glide.with(vb.root)
