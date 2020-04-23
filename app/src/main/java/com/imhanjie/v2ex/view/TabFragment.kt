@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.imhanjie.support.ext.dp
 import com.imhanjie.support.ext.getResColor
 import com.imhanjie.support.ext.toActivity
@@ -46,6 +47,7 @@ class TabFragment : BaseFragment<FragmentTabBinding>() {
         vm.swipeLoadingState.observe(this) { vb.swipeRefreshLayout.isRefreshing = it }
 
         vb.topicRv.layoutManager = LinearLayoutManager(context)
+        (vb.topicRv.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         vb.topicRv.addItemDecoration(
             LineDividerItemDecoration(
                 context!!,

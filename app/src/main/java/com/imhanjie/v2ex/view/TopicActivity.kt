@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.imhanjie.support.ext.dp
 import com.imhanjie.support.ext.getResColor
 import com.imhanjie.v2ex.BaseActivity
@@ -33,8 +34,6 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
         }).get(TopicViewModel::class.java)
         vm.error.observe(this) { Toast.makeText(this, it, Toast.LENGTH_SHORT).show() }
 
-        vb.loadingLayout.hide()
-
         vm.loadingState.observe(this) { loading ->
             if (loading) {
                 vb.loadingLayout.show()
@@ -44,6 +43,7 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
         }
 
         vb.replyRv.layoutManager = LinearLayoutManager(this)
+        (vb.replyRv.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         val delegate = LoadMoreDelegate(vb.replyRv) { vm.loadMore() }
         delegate.adapter.register(Reply::class.java, ReplyAdapter())
         vm.replies.observe(this) {
@@ -70,7 +70,7 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
                 backgroundColor = Color.WHITE
             ) {
                 override fun isSkip(position: Int): Boolean {
-                    return position == delegate.items.itemSize - 1
+                    return position >= delegate.items.itemSize - 1
                 }
             }
 
