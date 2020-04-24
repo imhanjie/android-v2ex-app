@@ -6,10 +6,8 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.imhanjie.support.ext.dp
-import com.imhanjie.support.ext.getResColor
 import com.imhanjie.support.ext.toActivity
 import com.imhanjie.v2ex.BaseFragment
-import com.imhanjie.v2ex.R
 import com.imhanjie.v2ex.databinding.FragmentTabBinding
 import com.imhanjie.v2ex.model.TopicTab
 import com.imhanjie.v2ex.vm.BaseViewModel
@@ -51,7 +49,6 @@ class TabFragment : BaseFragment<FragmentTabBinding>() {
         vb.topicRv.addItemDecoration(
             LineDividerItemDecoration(
                 context!!,
-                color = getResColor(R.color.topic_list_divider),
                 height = 4f.dp().toInt()
             )
         )

@@ -1,54 +1,64 @@
 package com.imhanjie.v2ex.view
 
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.observe
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.google.android.material.tabs.TabLayoutMediator
 import com.imhanjie.v2ex.BaseActivity
+import com.imhanjie.v2ex.R
 import com.imhanjie.v2ex.databinding.ActivityMainBinding
-import com.imhanjie.v2ex.vm.MyViewModel
+import com.imhanjie.widget.nav.BottomNavigationBar
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
-    private lateinit var fragmentAdapter: FragmentStateAdapter
+    private val fragments = arrayListOf<Fragment>()
 
-    private lateinit var vm: MyViewModel
+    companion object {
+        private const val TAB_MAIN = 0
+        private const val TAB_NODE = 1
+        private const val TAB_NOTIFICATION = 2
+        private const val TAB_ME = 3
+        private const val DEFAULT_INDEX = TAB_MAIN
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        initNavBar()
+        initViewPager()
+    }
 
-        vm = ViewModelProvider(this).get(MyViewModel::class.java)
-        vm.error.observe(this) { Toast.makeText(this, it, Toast.LENGTH_SHORT).show() }
+    private fun initNavBar() {
+        with(vb.navBar) {
+            addItem(BottomNavigationBar.Item("首页", R.drawable.ic_tab_main))
+            addItem(BottomNavigationBar.Item("节点", R.drawable.ic_tab_node))
+            addItem(BottomNavigationBar.Item("消息", R.drawable.ic_tab_notification))
+            addItem(BottomNavigationBar.Item("我的", R.drawable.ic_tab_me))
+            onTabClickListener = { clickTabIndex, _ ->
+                vb.viewPager.setCurrentItem(clickTabIndex, false)
+            }
+            firstSelected(DEFAULT_INDEX)
+            initialise()
+        }
+    }
 
-        fragmentAdapter = object : FragmentStateAdapter(this) {
+    private fun initViewPager() {
+        with(fragments) {
+            add(TAB_MAIN, MainTabFragment())
+            add(TAB_NODE, NodeTabFragment())
+            add(TAB_NOTIFICATION, NotificationTabFragment())
+            add(TAB_ME, MeTabFragment())
+        }
+        vb.viewPager.isUserInputEnabled = false
+        vb.viewPager.adapter = object : FragmentStateAdapter(this) {
             override fun getItemCount(): Int {
-                return vm.tabs.size
+                return fragments.size
             }
 
             override fun createFragment(position: Int): Fragment {
-                return TabFragment.newInstance(vm.tabs[position])
+                return fragments[position]
             }
         }
-        vb.viewPager.getChildAt(0).overScrollMode = View.OVER_SCROLL_NEVER
-        vb.viewPager.adapter = fragmentAdapter
-        TabLayoutMediator(vb.tabLayout, vb.viewPager) { tab, position ->
-            tab.text = vm.tabs[position].name
-        }.attach()
-
-        vb.topBar.setOnRightClickListener(View.OnClickListener {
-            val targetUiMode = when (configSp.getInt("ui_mode", AppCompatDelegate.MODE_NIGHT_NO)) {
-                AppCompatDelegate.MODE_NIGHT_YES -> AppCompatDelegate.MODE_NIGHT_NO
-                AppCompatDelegate.MODE_NIGHT_NO -> AppCompatDelegate.MODE_NIGHT_YES
-                else -> AppCompatDelegate.MODE_NIGHT_NO
-            }
-            configSp.putInt("ui_mode", targetUiMode)
-            AppCompatDelegate.setDefaultNightMode(targetUiMode)
-        })
+        vb.viewPager.offscreenPageLimit = fragments.size
+        vb.viewPager.setCurrentItem(DEFAULT_INDEX, false)
     }
 
 }

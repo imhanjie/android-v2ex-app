@@ -2,10 +2,10 @@
 <resources>
     <color name="widget_loading">#d7d9da</color>
     <color name="widget_ripple">#dbdee4</color>
-    <color name="widget_divider">#d7d7d8</color>
+    <color name="widget_divider">#E6E6E6</color>
 
-    <color name="widget_window_background">#f2f3f5</color>
-
+    <!--    <color name="widget_window_background">#f2f3f5</color>-->
+    <color name="widget_window_background">#FBFBFB</color>
 
     <color name="widget_color_text_1">#242424</color>
     <color name="widget_color_text_2">#333333</color>

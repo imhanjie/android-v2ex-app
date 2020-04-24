@@ -8,12 +8,15 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import androidx.viewbinding.ViewBinding
+import com.imhanjie.support.PreferencesManager
 import com.imhanjie.v2ex.vm.BaseViewModel
 import java.lang.reflect.ParameterizedType
 
 abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
     protected lateinit var vb: VB
+
+    protected val configSp: PreferencesManager = PreferencesManager.getInstance("app_config")
 
     abstract fun getViewModels(): List<BaseViewModel>
 

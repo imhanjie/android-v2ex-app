@@ -4,5 +4,6 @@
     <color name="colorPrimaryDark">#388E3C</color>
     <color name="colorAccent">#4CAF50</color>
 
-    <color name="topic_list_divider">#FBFBFB</color>
+    <color name="tab_layout_divider">#EAEAEA</color>
+    <color name="topic_node_background">#0A666666</color>
 </resources>

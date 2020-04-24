@@ -1,6 +1,5 @@
 package com.imhanjie.v2ex.view
 
-import android.graphics.Color
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
@@ -9,7 +8,6 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.imhanjie.support.ext.dp
-import com.imhanjie.support.ext.getResColor
 import com.imhanjie.v2ex.BaseActivity
 import com.imhanjie.v2ex.databinding.ActivityTopicBinding
 import com.imhanjie.v2ex.parser.model.Reply
@@ -64,13 +62,10 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
         vb.replyRv.addItemDecoration(
             object : LineDividerItemDecoration(
                 this,
-                color = getResColor(com.imhanjie.widget.R.color.widget_divider),
-                height = 1,
-                marginStart = 59f.dp().toInt(),
-                backgroundColor = Color.WHITE
+                height = 4f.dp().toInt()
             ) {
                 override fun isSkip(position: Int): Boolean {
-                    return position >= delegate.items.itemSize - 1
+                    return false
                 }
             }
 

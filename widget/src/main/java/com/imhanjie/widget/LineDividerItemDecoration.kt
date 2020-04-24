@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 open class LineDividerItemDecoration @JvmOverloads constructor(
     ctx: Context,
-    @ColorInt color: Int = ContextCompat.getColor(ctx, R.color.widget_divider),
+    @ColorInt color: Int = Color.TRANSPARENT,
     private val height: Int = 1,
     private val marginStart: Int = 0,
     private val marginEnd: Int = 0,
