@@ -3,6 +3,7 @@ package com.imhanjie.v2ex.view
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
@@ -38,6 +39,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         TabLayoutMediator(vb.tabLayout, vb.viewPager) { tab, position ->
             tab.text = vm.tabs[position].name
         }.attach()
+
+        vb.topBar.setOnRightClickListener(View.OnClickListener {
+            val targetUiMode = when (configSp.getInt("ui_mode", AppCompatDelegate.MODE_NIGHT_NO)) {
+                AppCompatDelegate.MODE_NIGHT_YES -> AppCompatDelegate.MODE_NIGHT_NO
+                AppCompatDelegate.MODE_NIGHT_NO -> AppCompatDelegate.MODE_NIGHT_YES
+                else -> AppCompatDelegate.MODE_NIGHT_NO
+            }
+            configSp.putInt("ui_mode", targetUiMode)
+            AppCompatDelegate.setDefaultNightMode(targetUiMode)
+        })
     }
 
 }

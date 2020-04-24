@@ -2,7 +2,6 @@ package com.imhanjie.widget
 
 import android.app.Activity
 import android.content.Context
-import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,6 @@ import android.view.View.OnClickListener
 import android.widget.RelativeLayout
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.core.content.ContextCompat
 import androidx.core.content.withStyledAttributes
 import com.imhanjie.widget.databinding.WidgetTopBarBinding
 
@@ -36,22 +34,22 @@ class PureTopBar @JvmOverloads constructor(
                 view.rightTv.text = getString(R.styleable.WidgetPureTopBar_widget_bar_rightText)
                 val rightDrawable = getDrawable(R.styleable.WidgetPureTopBar_widget_bar_rightIcon)
                 view.rightTv.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, rightDrawable, null);
-                view.rightTv.setTextColor(getColor(R.styleable.WidgetPureTopBar_widget_bar_rightTextColor, Color.BLACK))
+                val rightTextColor = getColor(R.styleable.WidgetPureTopBar_widget_bar_rightTextColor, -1)
+                if (rightTextColor >= 0) {
+                    view.rightTv.setTextColor(rightTextColor)
+                }
                 view.rightTv.visibility = getInt(R.styleable.WidgetPureTopBar_widget_bar_rightVisibility, View.VISIBLE)
                 // right secondary
                 view.rightSecondaryTv.text = getString(R.styleable.WidgetPureTopBar_widget_bar_rightSecondaryText)
                 val rightSecondaryDrawable = getDrawable(R.styleable.WidgetPureTopBar_widget_bar_rightSecondaryIcon)
                 view.rightSecondaryTv.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, rightSecondaryDrawable, null)
-                view.rightSecondaryTv.setTextColor(getColor(R.styleable.WidgetPureTopBar_widget_bar_rightSecondaryTextColor, Color.BLACK))
+                val secondaryRightTextColor = getColor(R.styleable.WidgetPureTopBar_widget_bar_rightSecondaryTextColor, -1)
+                if (secondaryRightTextColor >= 0) {
+                    view.rightSecondaryTv.setTextColor(secondaryRightTextColor)
+                }
                 view.rightSecondaryTv.visibility = getInt(R.styleable.WidgetPureTopBar_widget_bar_rightSecondaryVisibility, View.VISIBLE)
                 // left
                 view.leftIv.visibility = getInt(R.styleable.WidgetPureTopBar_widget_bar_leftVisibility, View.VISIBLE)
-                // light mode
-                val isLightMode = getBoolean(R.styleable.WidgetPureTopBar_widget_bar_light_mode, false)
-                if (isLightMode) {
-                    view.titleTv.setTextColor(ContextCompat.getColor(context, R.color.widget_color_text_black_1))
-                    view.leftIv.setColorFilter(ContextCompat.getColor(context, R.color.widget_color_text_black_1));
-                }
             }
         }
     }

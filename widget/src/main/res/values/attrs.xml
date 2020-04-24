@@ -23,6 +23,5 @@
             <enum name="invisible" value="4" />
             <enum name="gone" value="8" />
         </attr>
-        <attr name="widget_bar_light_mode" format="boolean" />
     </declare-styleable>
 </resources>

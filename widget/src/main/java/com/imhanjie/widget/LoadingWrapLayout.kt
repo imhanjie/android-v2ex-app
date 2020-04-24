@@ -22,7 +22,7 @@ class LoadingWrapLayout @JvmOverloads constructor(
         val params: FrameLayout.LayoutParams = LayoutParams(38f.dp().toInt(), 38f.dp().toInt())
         params.gravity = Gravity.CENTER
         pb.indeterminateDrawable.colorFilter = PorterDuffColorFilter(
-            ContextCompat.getColor(context, R.color.widget_loading_progress_bar),
+            ContextCompat.getColor(context, R.color.widget_loading),
             PorterDuff.Mode.SRC_IN
         )
         addView(pb, params)

@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="widget_loading_progress_bar">#d7d9da</color>
+    <color name="widget_loading">#d7d9da</color>
     <color name="widget_ripple">#dbdee4</color>
-    <color name="widget_window_background">#f2f3f5</color>
     <color name="widget_divider">#d7d7d8</color>
 
-    <color name="widget_color_text_black_1">#242424</color>
-    <color name="widget_color_text_black_2">#333333</color>
-    <color name="widget_color_text_black_3">#666666</color>
-    <color name="widget_color_text_black_4">#999999</color>
-    <color name="widget_color_text_black_5">#cccccc</color>
+    <color name="widget_window_background">#f2f3f5</color>
+
+
+    <color name="widget_color_text_1">#242424</color>
+    <color name="widget_color_text_2">#333333</color>
+    <color name="widget_color_text_3">#666666</color>
+    <color name="widget_color_text_4">#999999</color>
+    <color name="widget_color_text_5">#cccccc</color>
+
+    <color name="widget_background">#ffffff</color>
+
 </resources>

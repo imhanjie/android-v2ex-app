@@ -14,27 +14,26 @@
             android:id="@+id/top_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/white"
             android:elevation="0dp"
             app:layout_scrollFlags="scroll|enterAlways"
             app:widget_bar_leftVisibility="invisible"
-            app:widget_bar_light_mode="true"
+            app:widget_bar_rightText="Switch"
             app:widget_bar_titleText="V2EX" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/white"
+            android:background="@color/widget_background"
             android:overScrollMode="never"
             app:tabIndicator="@drawable/tab_indicator"
-            app:tabIndicatorColor="@color/widget_color_text_black_3"
+            app:tabIndicatorColor="@color/widget_color_text_3"
             app:tabIndicatorFullWidth="false"
             app:tabMode="scrollable"
             app:tabRippleColor="@color/widget_ripple"
-            app:tabSelectedTextColor="@color/widget_color_text_black_2"
+            app:tabSelectedTextColor="@color/widget_color_text_1"
             app:tabTextAppearance="@style/CommandTabLayoutText"
-            app:tabTextColor="@color/widget_color_text_black_5" />
+            app:tabTextColor="@color/widget_color_text_4" />
 
         <View
             android:layout_width="match_parent"
