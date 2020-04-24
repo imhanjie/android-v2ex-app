@@ -1,9 +1,10 @@
 package com.imhanjie.widget.recyclerview.loadmore
 
-import android.graphics.Color
 import android.graphics.PorterDuff
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import com.imhanjie.widget.R
 import com.imhanjie.widget.databinding.WidgetItemLoadMoreBinding
 import com.imhanjie.widget.recyclerview.base.BaseItemViewDelegate
 import com.imhanjie.widget.recyclerview.base.VBViewHolder
@@ -14,7 +15,9 @@ class LoadMoreItemViewDelegate : BaseItemViewDelegate<FooterItem, WidgetItemLoad
 
     override fun bindTo(holder: VBViewHolder<WidgetItemLoadMoreBinding>, position: Int, item: FooterItem) {
         val vb = holder.vb
-        vb.pbLoading.indeterminateDrawable.setColorFilter(Color.parseColor("#d7d9da"), PorterDuff.Mode.SRC_IN);
+        vb.pbLoading.apply {
+            indeterminateDrawable.setColorFilter(ContextCompat.getColor(context, R.color.widget_loading), PorterDuff.Mode.SRC_IN)
+        }
         when (item.type) {
             FooterType.HAS_MORE -> {
                 showView(vb.loadingView, holder.itemView as ViewGroup)

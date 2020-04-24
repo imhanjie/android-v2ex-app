@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.viewbinding.ViewBinding
 import com.imhanjie.support.PreferencesManager
+import com.imhanjie.support.ext.getResColor
 import com.imhanjie.support.statusbar.StatusBarUtil
 import java.lang.reflect.ParameterizedType
 
@@ -24,16 +25,14 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
         vb = method.invoke(null, layoutInflater) as VB
         setContentView(vb.root)
 
-        if (configSp.getInt("ui_mode", AppCompatDelegate.MODE_NIGHT_NO) == AppCompatDelegate.MODE_NIGHT_NO) {
-            StatusBarUtil.setLightMode(this)
+        when (configSp.getInt("ui_mode", AppCompatDelegate.MODE_NIGHT_NO)) {
+            AppCompatDelegate.MODE_NIGHT_NO -> {
+                StatusBarUtil.setLightMode(this)
+            }
+            AppCompatDelegate.MODE_NIGHT_YES -> {
+                window.navigationBarColor = getResColor(R.color.widget_background)
+            }
         }
-//
-//        when (configSp.getInt("ui_mode", AppCompatDelegate.MODE_NIGHT_NO)) {
-//            AppCompatDelegate.MODE_NIGHT_YES -> AppCompatDelegate.MODE_NIGHT_NO
-//            AppCompatDelegate.MODE_NIGHT_NO -> AppCompatDelegate.MODE_NIGHT_YES
-//            else -> AppCompatDelegate.MODE_NIGHT_NO
-//        }
-//        StatusBarUtil.setLightMode(this)
     }
 
 }

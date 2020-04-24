@@ -13,11 +13,6 @@
         android:textColor="@color/widget_color_text_5"
         android:textSize="13sp" />
 
-    <!--    <View-->
-    <!--        android:id="@+id/view_no_more"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="8dp" />-->
-
     <FrameLayout
         android:id="@+id/loading_view"
         android:layout_width="match_parent"
