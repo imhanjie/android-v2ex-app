@@ -19,7 +19,7 @@ class TopicViewModel(private val topicId: Long) : BaseViewModel() {
     private fun loadReplies(fromLoadMore: Boolean) {
         request {
             if (!fromLoadMore) loadingState.value = true
-            val newReplies = provideAppRepository().loadTopic(topicId, currentPage)
+            val newReplies = provideAppRepository().loadTopic(topicId, currentPage).replies
             val hasMore = newReplies.size == PAGE_REPLY_COUNT
             replies.value = Triple(newReplies, fromLoadMore, hasMore)
             if (!fromLoadMore) loadingState.value = false

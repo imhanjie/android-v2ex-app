@@ -1,6 +1,6 @@
 package com.imhanjie.v2ex.repository
 
-import com.imhanjie.v2ex.parser.model.Reply
+import com.imhanjie.v2ex.parser.model.Topic
 import com.imhanjie.v2ex.parser.model.TopicItem
 
 interface AppRepository {
@@ -9,6 +9,6 @@ interface AppRepository {
 
     suspend fun loadNodeTopics(nodeTitle: String, pageIndex: Int): List<TopicItem>
 
-    suspend fun loadTopic(topicId: Long, pageIndex: Int): List<Reply>
+    suspend fun loadTopic(topicId: Long, pageIndex: Int): Topic
 
 }

@@ -1,6 +1,6 @@
 package com.imhanjie.v2ex.parser
 
-import com.imhanjie.v2ex.parser.model.Reply
+import com.imhanjie.v2ex.parser.model.Topic
 import com.imhanjie.v2ex.parser.model.TopicItem
 
 interface Parser {
@@ -13,6 +13,6 @@ interface Parser {
         nodeTitle: String
     ): List<TopicItem>
 
-    fun parserReplies(html: String): List<Reply>
+    fun parserTopic(html: String): Topic
 
 }

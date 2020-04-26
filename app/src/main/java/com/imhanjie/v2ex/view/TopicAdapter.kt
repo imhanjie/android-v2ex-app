@@ -21,7 +21,7 @@ class TopicAdapter(private val block: (TopicItem) -> Unit) : BaseVBListAdapter<T
         } else {
             vb.time.text = "${item.latestReplyTime}  •  ${item.replies} 条回复"
         }
-        vb.nodeName.text = item.nodeName
+        vb.nodeTitle.text = item.nodeTitle
         vb.root.setOnClickListener { block.invoke(item) }
     }
 
