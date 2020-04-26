@@ -11,6 +11,7 @@ import com.imhanjie.support.ext.dp
 import com.imhanjie.v2ex.BaseActivity
 import com.imhanjie.v2ex.databinding.ActivityTopicBinding
 import com.imhanjie.v2ex.parser.model.Reply
+import com.imhanjie.v2ex.parser.model.Topic
 import com.imhanjie.v2ex.vm.TopicViewModel
 import com.imhanjie.widget.LineDividerItemDecoration
 import com.imhanjie.widget.recyclerview.loadmore.LoadMoreDelegate
@@ -43,18 +44,20 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
         vb.replyRv.layoutManager = LinearLayoutManager(this)
         (vb.replyRv.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         val delegate = LoadMoreDelegate(vb.replyRv) { vm.loadMore() }
+        delegate.adapter.register(Topic::class.java, TopicDetailsAdapter())
         delegate.adapter.register(Reply::class.java, ReplyAdapter())
-        vm.replies.observe(this) {
-            val (newReplies, fromLoadMore, hasMore) = it
+        vm.topic.observe(this) {
+            val (topic, fromLoadMore, hasMore) = it
             if (!fromLoadMore) {
                 delegate.items.clear()
-                delegate.items.addAll(newReplies)
+                delegate.items.add(topic)
+                delegate.items.addAll(topic.replies)
                 delegate.adapter.notifyDataSetChanged()
             } else {
                 delegate.adapter.notifyItemChanged(delegate.items.itemSize - 1)
                 val originSize = delegate.items.itemSize
-                delegate.items.addAll(newReplies)
-                delegate.adapter.notifyItemRangeInserted(originSize, newReplies.size);
+                delegate.items.addAll(topic.replies)
+                delegate.adapter.notifyItemRangeInserted(originSize, topic.replies.size);
             }
             delegate.notifyLoadSuccess(hasMore)
         }

@@ -1,0 +1,44 @@
+package com.imhanjie.v2ex.view
+
+import android.annotation.SuppressLint
+import androidx.core.text.HtmlCompat
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.imhanjie.support.e
+import com.imhanjie.v2ex.GlideImageGetter
+import com.imhanjie.v2ex.databinding.ItemTopicDetailsBinding
+import com.imhanjie.v2ex.parser.model.Topic
+import com.imhanjie.widget.R
+import com.imhanjie.widget.recyclerview.base.BaseItemViewDelegate
+import com.imhanjie.widget.recyclerview.base.VBViewHolder
+
+class TopicDetailsAdapter : BaseItemViewDelegate<Topic, ItemTopicDetailsBinding>() {
+
+    @SuppressLint("ResourceType")
+    override fun bindTo(holder: VBViewHolder<ItemTopicDetailsBinding>, position: Int, item: Topic) {
+        val vb = holder.vb
+        Glide.with(vb.root)
+            .load(item.userAvatar)
+            .transform(CircleCrop())
+            .into(vb.userAvatar)
+        vb.title.text = item.title
+        vb.userName.text = item.userName
+        vb.time.text = "${item.createTime}  •  ${item.click} 次点击"
+        vb.nodeTitle.text = item.nodeTitle
+        val res = HtmlCompat.fromHtml(
+            item.content,
+            HtmlCompat.FROM_HTML_MODE_LEGACY,
+            GlideImageGetter(vb.content),
+            null
+        )
+        vb.content.text = res
+//        val backgroundColor = "#" + vb.root.context.getString(R.color.widget_background).substring(3)
+//        e("backgroundColor: " + backgroundColor)
+//        val textColor = "#" + vb.root.context.getString(R.color.widget_color_text_2).substring(3)
+//        e("textColor: " + textColor)
+//        val htmlData =
+//            "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" /><style>body{background-color: ${backgroundColor};color: ${textColor}}</style><br/>${item.content}"
+//        vb.content.loadDataWithBaseURL("file:///android_asset/", htmlData, "text/html", "UTF-8", null)
+    }
+
+}
