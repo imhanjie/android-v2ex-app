@@ -84,7 +84,7 @@ object ParserImpl : Parser {
             val id = eCell.attr("id").split("_")[1].toLong()
             val userAvatar = eCell.select("img.avatar").attr("src")
             val userName = eCell.select("a.dark").text()
-            val content = eCell.select("div.reply_content").text()
+            val content = eCell.select("div.reply_content").html()
             val time = eCell.select("span.ago").text()
             val likes = eCell.selectFirst("span.small.fade")?.text()?.toLong() ?: 0
             val no = eCell.select("span.no").text().toLong()
