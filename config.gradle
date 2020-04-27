@@ -18,6 +18,23 @@ ext {
     glide = "4.11.0"
 }
 
+/**
+ * 统一依赖版本
+ */
+def handleDependency(ConfigurationContainer configurations) {
+    configurations.all {
+        resolutionStrategy {
+            eachDependency { DependencyResolveDetails details ->
+                if (details.requested.group == 'androidx.lifecycle') {
+                    if (details.requested.name.startsWith("lifecycle-")) {
+                        details.useVersion lifecycle
+                    }
+                }
+            }
+        }
+    }
+}
+
 
 static def addRepository(RepositoryHandler handler) {
     handler.google()
@@ -26,3 +43,4 @@ static def addRepository(RepositoryHandler handler) {
 }
 
 ext.addRepository = this.&addRepository
+ext.handleDependency = this.&handleDependency

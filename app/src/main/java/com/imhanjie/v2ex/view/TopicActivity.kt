@@ -49,15 +49,19 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
         vm.topic.observe(this) {
             val (topic, fromLoadMore, hasMore) = it
             if (!fromLoadMore) {
-                delegate.items.clear()
-                delegate.items.add(topic)
-                delegate.items.addAll(topic.replies)
-                delegate.adapter.notifyDataSetChanged()
+                delegate.apply {
+                    items.clear()
+                    items.add(topic)
+                    items.addAll(topic.replies)
+                    adapter.notifyDataSetChanged()
+                }
             } else {
-                delegate.adapter.notifyItemChanged(delegate.items.itemSize - 1)
-                val originSize = delegate.items.itemSize
-                delegate.items.addAll(topic.replies)
-                delegate.adapter.notifyItemRangeInserted(originSize, topic.replies.size);
+                delegate.apply {
+                    adapter.notifyItemChanged(items.itemSize - 1)
+                    val originSize = items.itemSize
+                    items.addAll(topic.replies)
+                    adapter.notifyItemRangeInserted(originSize, topic.replies.size);
+                }
             }
             delegate.notifyLoadSuccess(hasMore)
         }

@@ -12,6 +12,7 @@ buildscript {
 
 allprojects {
     addRepository(repositories)
+    handleDependency(configurations)
 }
 
 task clean(type: Delete) {

@@ -61,6 +61,7 @@ static def getBuildDate() {
     return new Date().format('yyMMddHHmmss')
 }
 
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -88,13 +89,10 @@ dependencies {
     implementation "com.imhanjie.library:android-utils:0.1.4"
 
 
-    // Paging
-//    implementation "androidx.paging:paging-runtime:${rootProject.ext.paging}"
-
     // Room
-//    implementation "androidx.room:room-runtime:${rootProject.ext.room}"
-//    kapt "androidx.room:room-compiler:${rootProject.ext.room}"
-//    implementation "androidx.room:room-ktx:${rootProject.ext.room}"
+    implementation "androidx.room:room-runtime:${rootProject.ext.room}"
+    kapt "androidx.room:room-compiler:${rootProject.ext.room}"
+    implementation "androidx.room:room-ktx:${rootProject.ext.room}"
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:${rootProject.ext.retrofit}"
