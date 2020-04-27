@@ -5,6 +5,7 @@ import com.imhanjie.v2ex.parser.model.Topic
 import com.imhanjie.v2ex.parser.model.TopicItem
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
+import kotlin.math.max
 
 object ParserImpl : Parser {
 
@@ -107,6 +108,14 @@ object ParserImpl : Parser {
 
         val content = document.selectFirst("div.topic_content").html()
 
+        val currentPage = document.selectFirst("a.page_current")?.text()?.toInt() ?: 1
+        var totalPage = currentPage
+        with(document.select("a.page_normal")!!) {
+            if (isNotEmpty()) {
+                totalPage = max(last().text().toInt(), currentPage)
+            }
+        }
+
         val replies: List<Reply> = parserReplies(document)
         return Topic(
             id,
@@ -118,7 +127,9 @@ object ParserImpl : Parser {
             createTime,
             click,
             content,
-            replies
+            replies,
+            currentPage,
+            totalPage
         )
     }
 

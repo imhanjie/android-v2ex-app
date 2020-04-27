@@ -47,7 +47,7 @@
         android:layout_marginTop="7dp"
         android:lineSpacingExtra="2dp"
         android:textColor="@color/widget_color_text_2"
-        android:textSize="14sp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/user_name"

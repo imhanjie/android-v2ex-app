@@ -10,5 +10,7 @@ data class Topic(
     val createTime: String,
     val click: Long,
     val content: String,
-    val replies: List<Reply>
+    val replies: List<Reply>,
+    val currentPage: Int,
+    val totalPage: Int
 )

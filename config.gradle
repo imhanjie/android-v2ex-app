@@ -25,10 +25,10 @@ def handleDependency(ConfigurationContainer configurations) {
     configurations.all {
         resolutionStrategy {
             eachDependency { DependencyResolveDetails details ->
-                if (details.requested.group == 'androidx.lifecycle') {
-                    if (details.requested.name.startsWith("lifecycle-")) {
-                        details.useVersion lifecycle
-                    }
+                String group = details.requested.group
+                String module = details.requested.name
+                if (group == 'androidx.lifecycle' && module.startsWith("lifecycle-")) {
+                    details.useVersion rootProject.ext.lifecycle
                 }
             }
         }
