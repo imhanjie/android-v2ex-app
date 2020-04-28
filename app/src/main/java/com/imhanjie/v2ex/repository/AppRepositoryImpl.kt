@@ -11,8 +11,12 @@ object AppRepositoryImpl : AppRepository {
     private val api: ApiService = ApiServer.create()
 
     override suspend fun loadLatestTopics(tab: String, pageIndex: Int): List<TopicItem> {
-        val html =
-            if (pageIndex == 1) api.loadLatestTopics(tab) else api.loadRecentTopics(pageIndex - 1)
+        val html: String
+//        if (tab == TopicTab.ALL.value) {
+        html = if (pageIndex == 1) api.loadLatestTopics(tab) else api.loadRecentTopics(pageIndex - 1)
+//        } else {
+//            html = api.loadNodeTopics(tab, pageIndex)
+//        }
         return ParserImpl.parseLatestTopics(html)
     }
 

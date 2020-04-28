@@ -24,7 +24,7 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
         super.onCreate(savedInstanceState)
         val topicId: Long = intent.getLongExtra("topicId", -1)
         if (topicId < 0) {
-            throw IllegalArgumentException("error topicId")
+            throw IllegalArgumentException("缺少 topicId 参数")
         }
 
         vm = ViewModelProvider(this).get(TopicViewModel::class.java)
@@ -70,7 +70,6 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
                 }
             }
         )
-
     }
 
 }

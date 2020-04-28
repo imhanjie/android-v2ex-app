@@ -35,7 +35,7 @@ class MainTabFragment : BaseFragment<FragmentTabMainBinding>() {
         vb.viewPager.getChildAt(0).overScrollMode = View.OVER_SCROLL_NEVER
         vb.viewPager.adapter = fragmentAdapter
         TabLayoutMediator(vb.tabLayout, vb.viewPager) { tab, position ->
-            tab.text = vm.tabs[position].name
+            tab.text = vm.tabs[position].title
         }.attach()
 
         vb.topBar.setOnRightClickListener(View.OnClickListener {

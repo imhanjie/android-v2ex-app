@@ -14,7 +14,9 @@ import android.view.View
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.text.HtmlCompat
 import cc.shinichi.library.ImagePreview
-import com.imhanjie.support.e
+import com.imhanjie.support.ext.toActivity
+import com.imhanjie.v2ex.view.TopicActivity
+import java.util.regex.Pattern
 
 
 class RichTextView @JvmOverloads constructor(
@@ -28,9 +30,8 @@ class RichTextView @JvmOverloads constructor(
     }
 
     companion object {
-        val IMAGE_SUFFIX = arrayOf(
-            ".png", ".jpg", ".jpeg", ".gif"
-        )
+        val TOPIC_URL_PATTERN: Pattern = Pattern.compile("^((http|https)://)?(www.)?v2ex.com/t/\\d+(#.*)?\$")
+        val IMAGE_URL_PATTERN: Pattern = Pattern.compile("^.*\\.(png|jpg|jpeg|gif)$")
     }
 
     fun setRichContent(content: String?) {
@@ -52,13 +53,17 @@ class RichTextView @JvmOverloads constructor(
             s.removeSpan(span)
             s.setSpan(object : URLSpan(url) {
                 override fun onClick(widget: View) {
-                    e("click: ${getURL()}")
                     val clickUrl = getURL()
-                    for (suffix in IMAGE_SUFFIX) {
-                        if (clickUrl.endsWith(suffix)) {
-                            imagePreview(clickUrl)
-                            return
-                        }
+                    if (IMAGE_URL_PATTERN.matcher(clickUrl).find()) {
+                        imagePreview(clickUrl)
+                        return
+                    }
+                    if (TOPIC_URL_PATTERN.matcher(clickUrl).find()) {
+                        // http://v2ex.com/t/123#reply123
+                        context.toActivity<TopicActivity>(
+                            mapOf("topicId" to clickUrl.split("#")[0].split("/").last().toLong())
+                        )
+                        return
                     }
                     super.onClick(widget)
                 }
