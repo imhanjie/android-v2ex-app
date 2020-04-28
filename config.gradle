@@ -3,7 +3,9 @@ ext {
     minSdkVersion = 21
     targetSdkVersion = 29
 
+    activity = "1.1.0"
     appcompat = "1.1.0"
+    fragment = "1.2.4"
     core_ktx = "1.2.0"
     multidex = "2.0.1"
     kotlin = "1.3.72"
@@ -29,6 +31,12 @@ def handleDependency(ConfigurationContainer configurations) {
                 String module = details.requested.name
                 if (group == 'androidx.lifecycle' && module.startsWith("lifecycle-")) {
                     details.useVersion rootProject.ext.lifecycle
+                }
+                if (group == 'androidx.activity' && module == 'activity') {
+                    details.useVersion rootProject.ext.activity
+                }
+                if (group == 'androidx.fragment' && module == 'fragment') {
+                    details.useVersion rootProject.ext.fragment
                 }
             }
         }

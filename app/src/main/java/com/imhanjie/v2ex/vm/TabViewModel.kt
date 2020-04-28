@@ -1,11 +1,12 @@
 package com.imhanjie.v2ex.vm
 
+import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import com.imhanjie.v2ex.model.TopicTab
 import com.imhanjie.v2ex.parser.model.TopicItem
 import com.imhanjie.v2ex.repository.provideAppRepository
 
-class TabViewModel : BaseViewModel() {
+class TabViewModel(application: Application) : BaseViewModel(application) {
 
     lateinit var tab: TopicTab
     val loadingState = MutableLiveData<Boolean>()

@@ -40,7 +40,7 @@
         tools:ignore="SmallSp"
         tools:text="刚刚" />
 
-    <TextView
+    <com.imhanjie.v2ex.view.widget.RichTextView
         android:id="@+id/content"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

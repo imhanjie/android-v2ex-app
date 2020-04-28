@@ -1,8 +1,9 @@
 package com.imhanjie.v2ex.vm
 
+import android.app.Application
 import com.imhanjie.v2ex.model.TopicTab
 
-class MyViewModel : BaseViewModel() {
+class MyViewModel(application: Application) : BaseViewModel(application) {
 
 
     val tabs = mutableListOf<TopicTab>().apply {

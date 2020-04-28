@@ -18,8 +18,8 @@ class LoadingWrapLayout @JvmOverloads constructor(
 ) : FrameLayout(ctx, attrs, defStyleAttr) {
 
     init {
-        val pb: ProgressBar = ProgressBar(context)
-        val params: FrameLayout.LayoutParams = LayoutParams(38f.dp().toInt(), 38f.dp().toInt())
+        val pb = ProgressBar(context)
+        val params = LayoutParams(38f.dp().toInt(), 38f.dp().toInt())
         params.gravity = Gravity.CENTER
         pb.indeterminateDrawable.colorFilter = PorterDuffColorFilter(
             ContextCompat.getColor(context, R.color.widget_loading),
@@ -28,22 +28,17 @@ class LoadingWrapLayout @JvmOverloads constructor(
         addView(pb, params)
     }
 
-    fun show() {
+    /**
+     * 刷新页面
+     *
+     * @param done 是否已完成，true 隐藏 loading，反之显示 loading
+     */
+    fun update(done: Boolean) {
         for (i in 0 until childCount) {
             if (i == 0) {
-                getChildAt(i).visibility = View.VISIBLE
+                getChildAt(i).visibility = if (done) View.GONE else View.VISIBLE
             } else {
-                getChildAt(i).visibility = View.GONE
-            }
-        }
-    }
-
-    fun hide() {
-        for (i in 0 until childCount) {
-            if (i == 0) {
-                getChildAt(i).visibility = View.GONE
-            } else {
-                getChildAt(i).visibility = View.VISIBLE
+                getChildAt(i).visibility = if (done) View.VISIBLE else View.GONE
             }
         }
     }

@@ -23,8 +23,8 @@ object AppRepositoryImpl : AppRepository {
 
     override suspend fun loadTopic(topicId: Long, pageIndex: Int): Topic {
 //        val html = api.loadTopic(567112, pageIndex) // MY
-//        val html = api.loadTopic(522719, pageIndex) // PIC
-        val html = api.loadTopic(topicId, pageIndex)
+        val html = api.loadTopic(419135, pageIndex) // PIC
+//        val html = api.loadTopic(topicId, pageIndex)
         return ParserImpl.parserTopic(html)
     }
 

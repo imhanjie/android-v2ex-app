@@ -2,7 +2,6 @@ package com.imhanjie.v2ex.view
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,24 +27,19 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
             throw IllegalArgumentException("error topicId")
         }
 
-        vm = ViewModelProvider(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>) = TopicViewModel(topicId) as T
-        }).get(TopicViewModel::class.java)
-        vm.error.observe(this) { Toast.makeText(this, it, Toast.LENGTH_SHORT).show() }
+        vm = ViewModelProvider(this).get(TopicViewModel::class.java)
+        vm.topicId = topicId
 
-        vm.loadingState.observe(this) { loading ->
-            if (loading) {
-                vb.loadingLayout.show()
-            } else {
-                vb.loadingLayout.hide()
-            }
-        }
+        vm.error.observe(this) { Toast.makeText(this, it, Toast.LENGTH_SHORT).show() }
+        vm.loadingState.observe(this) { vb.loadingLayout.update(!it) }
 
         vb.replyRv.layoutManager = LinearLayoutManager(this)
         (vb.replyRv.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         val delegate = LoadMoreDelegate(vb.replyRv) { vm.loadMore() }
-        delegate.adapter.register(Topic::class.java, TopicDetailsAdapter())
-        delegate.adapter.register(Reply::class.java, ReplyAdapter())
+        delegate.adapter.apply {
+            register(Topic::class.java, TopicDetailsAdapter())
+            register(Reply::class.java, ReplyAdapter())
+        }
         vm.topic.observe(this) {
             val (topic, fromLoadMore, hasMore) = it
             if (!fromLoadMore) {
@@ -57,7 +51,7 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
                 }
             } else {
                 delegate.apply {
-                    adapter.notifyItemChanged(items.itemSize - 1)
+                    adapter.notifyItemChanged(items.itemSize - 1)   // fix 最后一项 divider 不刷新的问题
                     val originSize = items.itemSize
                     items.addAll(topic.replies)
                     adapter.notifyItemRangeInserted(originSize, topic.replies.size);
@@ -75,7 +69,6 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
                     return false
                 }
             }
-
         )
 
     }

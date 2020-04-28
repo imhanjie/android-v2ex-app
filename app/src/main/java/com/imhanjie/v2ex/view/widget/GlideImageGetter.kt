@@ -1,4 +1,4 @@
-package com.imhanjie.v2ex
+package com.imhanjie.v2ex.view.widget
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -9,9 +9,10 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.imhanjie.support.ext.dp
+import com.imhanjie.v2ex.App
 
 class GlideImageGetter(private val container: TextView) : Html.ImageGetter {
 
@@ -21,7 +22,7 @@ class GlideImageGetter(private val container: TextView) : Html.ImageGetter {
 
     override fun getDrawable(source: String): Drawable? {
         val urlDrawable = MyDrawable()
-        val target = object : CustomTarget<Bitmap>() {
+        val target = object : SimpleTarget<Bitmap>() {
             override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                 if (maxWidth == 0) {
                     maxWidth = container.measuredWidth
@@ -44,14 +45,11 @@ class GlideImageGetter(private val container: TextView) : Html.ImageGetter {
                 }
                 container.text = container.text
             }
-
-            override fun onLoadCleared(placeholder: Drawable?) {
-            }
         }
-        Glide.with(container)
+        Glide.with(App.INSTANCE)
             .asBitmap()
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
             .load(source)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
             .override(150f.dp().toInt(), 150f.dp().toInt())
             .transform(RoundedCorners(5f.dp().toInt()))
             .into(target)

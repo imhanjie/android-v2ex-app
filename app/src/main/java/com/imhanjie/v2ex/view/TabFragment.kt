@@ -25,9 +25,12 @@ class TabFragment : BaseFragment<FragmentTabBinding>() {
 
         val tab = arguments?.getSerializable("tab") as? TopicTab
             ?: throw IllegalArgumentException("missing tab param")
-
+        /**
+         * 这里为了使 ViewModel 存活时间更久以持有列表数据，并以 tab 的 value 字段作为 key 存储。
+         * 这样可以保证在 Activity 的生命周期内，每个 Tab 的不同实例都能一直对应一个 ViewModel，
+         * 即可忽略 ViewPager 的 Fragment 回收导致的数据重新加载问题。
+         */
         vm = ViewModelProvider(activity!!).get(tab.value, TabViewModel::class.java)
-        vm.topicData
         if (vm.topicData.value == null) {   // 首次初始化
             vm.tab = tab
             vm.loadTopics(false)
@@ -35,13 +38,7 @@ class TabFragment : BaseFragment<FragmentTabBinding>() {
     }
 
     override fun initViews() {
-        vm.loadingState.observe(this) { loading ->
-            if (loading) {
-                vb.loadingLayout.show()
-            } else {
-                vb.loadingLayout.hide()
-            }
-        }
+        vm.loadingState.observe(this) { vb.loadingLayout.update(!it) }
         vm.swipeLoadingState.observe(this) { vb.swipeRefreshLayout.isRefreshing = it }
 
         vb.topicRv.layoutManager = LinearLayoutManager(context)

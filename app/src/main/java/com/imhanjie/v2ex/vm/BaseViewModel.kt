@@ -1,9 +1,9 @@
 package com.imhanjie.v2ex.vm
 
+import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.imhanjie.v2ex.App
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.io.IOException
@@ -11,7 +11,7 @@ import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
-open class BaseViewModel : AndroidViewModel(App.INSTANCE) {
+open class BaseViewModel(application: Application) : AndroidViewModel(application) {
 
     val error: MutableLiveData<String> = MutableLiveData()
 

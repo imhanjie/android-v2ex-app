@@ -106,7 +106,7 @@ object ParserImpl : Parser {
             click = text().split(" · ")[2].split(" ")[0].toLong()
         }
 
-        val content = document.selectFirst("div.topic_content").html()
+        val content = (document.selectFirst("div.markdown_body")?.html() ?: document.selectFirst("div.topic_content")?.html()) ?: ""
 
         val currentPage = document.selectFirst("a.page_current")?.text()?.toInt() ?: 1
         var totalPage = currentPage
@@ -139,12 +139,12 @@ object ParserImpl : Parser {
             attrId.isNotEmpty() && attrId.startsWith("r_")
         }.map { eCell ->
             val replyId = eCell.attr("id").split("_")[1].toLong()
-            val userAvatar = eCell.select("img.avatar").attr("src")
-            val userName = eCell.select("a.dark").text()
-            val content = eCell.select("div.reply_content").html()
-            val time = eCell.select("span.ago").text()
+            val userAvatar = eCell.selectFirst("img.avatar").attr("src")
+            val userName = eCell.selectFirst("a.dark").text()
+            val content = eCell.selectFirst("div.reply_content").html()
+            val time = eCell.selectFirst("span.ago").text()
             val likes = eCell.selectFirst("span.small.fade")?.text()?.toLong() ?: 0
-            val no = eCell.select("span.no").text().toLong()
+            val no = eCell.selectFirst("span.no").text().toLong()
             Reply(
                 replyId, userAvatar, userName, content, time, likes, no
             )

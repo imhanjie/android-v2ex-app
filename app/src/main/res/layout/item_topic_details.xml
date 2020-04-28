@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/widget_ripple"
+    android:background="@color/widget_background"
     android:padding="16dp">
 
     <ImageView
@@ -70,7 +70,7 @@
         app:layout_constraintTop_toBottomOf="@id/userAvatar"
         tools:text="GitHub 中文排行榜项目，帮助你发现高分优秀中文项目、更高效地吸收国人的优秀经验成果~" />
 
-    <TextView
+    <com.imhanjie.v2ex.view.widget.RichTextView
         android:id="@+id/content"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
