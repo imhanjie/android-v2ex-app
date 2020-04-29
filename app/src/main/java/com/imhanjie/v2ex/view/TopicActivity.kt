@@ -2,11 +2,13 @@ package com.imhanjie.v2ex.view
 
 import android.os.Bundle
 import android.widget.Toast
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.imhanjie.support.ext.dp
+import com.imhanjie.v2ex.App
 import com.imhanjie.v2ex.BaseActivity
 import com.imhanjie.v2ex.databinding.ActivityTopicBinding
 import com.imhanjie.v2ex.parser.model.Reply
@@ -27,9 +29,11 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
             throw IllegalArgumentException("缺少 topicId 参数")
         }
 
-        vm = ViewModelProvider(this).get(TopicViewModel::class.java)
-        vm.topicId = topicId
-
+        vm = ViewModelProvider(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return TopicViewModel(topicId, App.INSTANCE) as T
+            }
+        }).get(TopicViewModel::class.java)
         vm.error.observe(this) { Toast.makeText(this, it, Toast.LENGTH_SHORT).show() }
         vm.loadingState.observe(this) { vb.loadingLayout.update(!it) }
 

@@ -5,9 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import com.imhanjie.v2ex.parser.model.Topic
 import com.imhanjie.v2ex.repository.provideAppRepository
 
-class TopicViewModel(application: Application) : BaseViewModel(application) {
+class TopicViewModel(val topicId: Long, application: Application) : BaseViewModel(application) {
 
-    var topicId: Long = -1
+    //    var topicId: Long = -1
     val loadingState = MutableLiveData<Boolean>()
     val topic = MutableLiveData<Triple<Topic, Boolean, Boolean>>()
 

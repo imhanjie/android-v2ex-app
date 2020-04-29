@@ -15,8 +15,8 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.text.HtmlCompat
 import cc.shinichi.library.ImagePreview
 import com.imhanjie.support.ext.toActivity
+import com.imhanjie.v2ex.common.RegexPattern
 import com.imhanjie.v2ex.view.TopicActivity
-import java.util.regex.Pattern
 
 
 class RichTextView @JvmOverloads constructor(
@@ -27,11 +27,6 @@ class RichTextView @JvmOverloads constructor(
 
     init {
         movementMethod = LinkMovementMethod.getInstance()
-    }
-
-    companion object {
-        val TOPIC_URL_PATTERN: Pattern = Pattern.compile("^((http|https)://)?(www.)?v2ex.com/t/\\d+(#.*)?\$")
-        val IMAGE_URL_PATTERN: Pattern = Pattern.compile("^.*\\.(png|jpg|jpeg|gif)$")
     }
 
     fun setRichContent(content: String?) {
@@ -54,12 +49,15 @@ class RichTextView @JvmOverloads constructor(
             s.setSpan(object : URLSpan(url) {
                 override fun onClick(widget: View) {
                     val clickUrl = getURL()
-                    if (IMAGE_URL_PATTERN.matcher(clickUrl).find()) {
+                    if (RegexPattern.IMAGE_URL_PATTERN.matcher(clickUrl).find()) {
                         imagePreview(clickUrl)
                         return
                     }
-                    if (TOPIC_URL_PATTERN.matcher(clickUrl).find()) {
-                        // http://v2ex.com/t/123#reply123
+                    if (RegexPattern.TOPIC_URL_PATTERN.matcher(clickUrl).find()) {
+                        /*
+                         * eg: http://v2ex.com/t/123#reply123
+                         * 由于通过了正则表达式，所以下面 split 不会抛出异常
+                         */
                         context.toActivity<TopicActivity>(
                             mapOf("topicId" to clickUrl.split("#")[0].split("/").last().toLong())
                         )

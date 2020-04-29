@@ -15,4 +15,5 @@
 
     <color name="widget_background">#ffffff</color>
 
+    <color name="widget_edit_background">#0A686868</color>
 </resources>

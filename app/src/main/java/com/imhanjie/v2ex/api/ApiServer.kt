@@ -16,10 +16,12 @@ object ApiServer {
         get() {
             val builder = OkHttpClient.Builder()
             builder
+                .cookieJar(SignInCookieManager)
+                .followRedirects(false)
                 .addInterceptor(HttpLoggingInterceptor().apply {
                     level =
                         if (BuildConfig.DEBUG)
-                            HttpLoggingInterceptor.Level.BASIC
+                            HttpLoggingInterceptor.Level.BODY
                         else
                             HttpLoggingInterceptor.Level.NONE
                 })
@@ -32,7 +34,7 @@ object ApiServer {
             .client(okHttpClient)
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("https://www.v2ex.com/")
+            .baseUrl("https://v2ex.com/")
             .build()
             .create(T::class.java)
     }
