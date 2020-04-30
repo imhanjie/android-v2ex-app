@@ -9,22 +9,21 @@ import okhttp3.ResponseBody
 
 class LoginViewModel(application: Application) : BaseViewModel(application) {
 
-    val signInData = MutableLiveData<SignIn>()
-    val imageData = MutableLiveData<ResponseBody>()
-
+    val imageResponseBody = MutableLiveData<ResponseBody>()
     val loginResult = MutableLiveData<LoginResult>()
+
+    private lateinit var signInData: SignIn
 
     fun loadSignIn() {
         request {
-            val result = provideAppRepository().loadSignIn()
-            signInData.value = result
-            imageData.value = provideAppRepository().loadImage(result.verificationUrl)
+            signInData = provideAppRepository().loadSignIn()
+            imageResponseBody.value = provideAppRepository().loadImage(signInData.verificationUrl)
         }
     }
 
     fun login(userName: String, password: String, verCode: String) {
         request {
-            loginResult.value = provideAppRepository().login(signInData.value!!, userName, password, verCode)
+            loginResult.value = provideAppRepository().login(signInData, userName, password, verCode)
         }
     }
 

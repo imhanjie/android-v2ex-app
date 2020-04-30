@@ -4,6 +4,9 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.google.gson.stream.MalformedJsonException
+import com.imhanjie.v2ex.common.BizException
+import com.imhanjie.v2ex.common.ParseException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.io.IOException
@@ -34,6 +37,9 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
     private fun handleException(e: Throwable): String {
         e.printStackTrace()
         return when (e) {
+            is ParseException -> "数据解析异常"
+            is BizException -> e.message!!
+            is MalformedJsonException -> "JSON 数据格式错误"
             is UnknownHostException, is ConnectException -> "网络异常"
             is SocketTimeoutException -> "网络连接超时"
             is IOException -> "请检查你的网络设置"

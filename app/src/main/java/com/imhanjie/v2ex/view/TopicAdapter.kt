@@ -7,7 +7,7 @@ import com.imhanjie.v2ex.databinding.ItemTopicBinding
 import com.imhanjie.v2ex.parser.model.TopicItem
 import com.imhanjie.widget.recyclerview.base.BaseVBListAdapter
 
-class TopicAdapter(private val block: (TopicItem) -> Unit) : BaseVBListAdapter<TopicItem, ItemTopicBinding>(TopicDiffCallback()) {
+class TopicAdapter : BaseVBListAdapter<TopicItem, ItemTopicBinding>(TopicDiffCallback()) {
 
     override fun bindTo(vb: ItemTopicBinding, position: Int, item: TopicItem) {
         Glide.with(vb.root)
@@ -22,7 +22,6 @@ class TopicAdapter(private val block: (TopicItem) -> Unit) : BaseVBListAdapter<T
             vb.time.text = "${item.latestReplyTime}  •  ${item.replies} 条回复"
         }
         vb.nodeTitle.text = item.nodeTitle
-        vb.root.setOnClickListener { block.invoke(item) }
     }
 
 }

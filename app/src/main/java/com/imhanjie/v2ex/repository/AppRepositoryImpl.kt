@@ -3,9 +3,11 @@ package com.imhanjie.v2ex.repository
 import com.imhanjie.support.PreferencesManager
 import com.imhanjie.v2ex.api.ApiServer
 import com.imhanjie.v2ex.api.ApiService
+import com.imhanjie.v2ex.common.BizException
 import com.imhanjie.v2ex.common.SpConstants
 import com.imhanjie.v2ex.common.TopicTab
 import com.imhanjie.v2ex.model.LoginResult
+import com.imhanjie.v2ex.model.Result
 import com.imhanjie.v2ex.parser.ParserImpl
 import com.imhanjie.v2ex.parser.model.SignIn
 import com.imhanjie.v2ex.parser.model.Topic
@@ -16,26 +18,35 @@ object AppRepositoryImpl : AppRepository {
 
     private val api: ApiService = ApiServer.create()
 
-    override suspend fun loadLatestTopics(tab: String, pageIndex: Int): List<TopicItem> {
-        val html: String
-        if (tab == TopicTab.ALL.value) {
-            html = api.loadRecentTopics(pageIndex - 1)
+    private fun <T> extractResult(result: Result<T>): T {
+        if (result.success) {
+            return result.data ?: throw BizException("data can not be null!")
         } else {
-            html = api.loadLatestTopics(tab)
+            throw BizException(result.message!!)
         }
-        return ParserImpl.parseLatestTopics(html)
+    }
+
+    override suspend fun loadLatestTopics(tab: String, pageIndex: Int): List<TopicItem> {
+        val result: Result<List<TopicItem>>
+        if (tab == TopicTab.ALL.value) {
+            result = api.loadRecentTopics(pageIndex - 1)
+        } else {
+            result = api.loadLatestTopics(tab)
+        }
+        return extractResult(result)
     }
 
     override suspend fun loadNodeTopics(nodeTitle: String, pageIndex: Int): List<TopicItem> {
-        val html = api.loadNodeTopics(nodeTitle, pageIndex)
-        return ParserImpl.parseNodeTopics(html, nodeTitle, nodeTitle)
+        val result = api.loadNodeTopics(nodeTitle, pageIndex)
+        return extractResult(result)
     }
 
     override suspend fun loadTopic(topicId: Long, pageIndex: Int): Topic {
 //        val html = api.loadTopic(567112, pageIndex) // MY
 //        val html = api.loadTopic(419135, pageIndex) // PIC
-        val html = api.loadTopic(topicId, pageIndex)
-        return ParserImpl.parserTopic(html)
+        val result = api.loadTopic(topicId, pageIndex)
+//        return ParserImpl.parserTopic(html)
+        return extractResult(result)
     }
 
     override suspend fun loadSignIn(): SignIn {
@@ -58,7 +69,6 @@ object AppRepositoryImpl : AppRepository {
             )
         )
         // 根据响应头中是否有 "A2" cookie 来判定是否登录成功
-        response.raw().headers()
         val a2Cookie: String? = response.headers().values("set-cookie").firstOrNull { it.startsWith("A2=") }
         if (a2Cookie != null) {
             // 登录成功, 保存 cookie

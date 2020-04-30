@@ -7,7 +7,7 @@ class ExampleUnitTest {
     @Test
     fun testParser() {
         val html = File("./html/v2ex_topic.html").readText()
-        val parser: Parser = ParserImpl
+        val parser: Parserab = ParserImpl
         println(parser.parserTopic(html))
     }
 

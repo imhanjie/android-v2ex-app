@@ -8,23 +8,27 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
 
-private const val REQUEST_TIME_OUT = 15000L
-
 object ApiServer {
+
+    private const val REQUEST_TIME_OUT = 15000L
+    const val BASE_URL = "https://v2ex.com"
 
     val okHttpClient: OkHttpClient
         get() {
             val builder = OkHttpClient.Builder()
+            val logInterceptor = HttpLoggingInterceptor().apply {
+                level =
+                    if (BuildConfig.DEBUG)
+                        HttpLoggingInterceptor.Level.BODY
+                    else
+                        HttpLoggingInterceptor.Level.NONE
+            }
             builder
                 .cookieJar(SignInCookieManager)
                 .followRedirects(false)
-                .addInterceptor(HttpLoggingInterceptor().apply {
-                    level =
-                        if (BuildConfig.DEBUG)
-                            HttpLoggingInterceptor.Level.BODY
-                        else
-                            HttpLoggingInterceptor.Level.NONE
-                })
+                .followSslRedirects(false)
+                .addInterceptor(logInterceptor)
+                .addInterceptor(V2exParserInterceptor())
                 .connectTimeout(REQUEST_TIME_OUT, TimeUnit.MILLISECONDS)
             return builder.build()
         }
@@ -34,7 +38,7 @@ object ApiServer {
             .client(okHttpClient)
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("https://v2ex.com/")
+            .baseUrl("$BASE_URL/")
             .build()
             .create(T::class.java)
     }

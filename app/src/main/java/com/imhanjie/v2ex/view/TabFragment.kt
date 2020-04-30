@@ -49,8 +49,9 @@ class TabFragment : BaseFragment<FragmentTabBinding>() {
                 height = 4f.dp().toInt()
             )
         )
-        val adapter = TopicAdapter {
-            toActivity<TopicActivity>(mapOf("topicId" to it.id))
+        val adapter = TopicAdapter()
+        adapter.onItemClickListener = { _, item, _ ->
+            toActivity<TopicActivity>(mapOf("topicId" to item.id))
         }
         vb.topicRv.adapter = adapter
         vm.topicData.observe(this) { adapter.submitList(it) }

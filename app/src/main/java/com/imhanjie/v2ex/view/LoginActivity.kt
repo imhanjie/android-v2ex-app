@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.imhanjie.support.e
 import com.imhanjie.support.ext.dp
 import com.imhanjie.support.ext.toast
 import com.imhanjie.v2ex.BaseActivity
@@ -23,19 +22,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
         vm = ViewModelProvider(this).get(LoginViewModel::class.java)
         vm.error.observe(this) { Toast.makeText(this, it, Toast.LENGTH_SHORT).show() }
 
-        vm.signInData.observe(this) {
-//            vb.tvKeyUserName.text = "userName: ${it.keyUserName}"
-//            vb.tvKeyPassword.text = "userName: ${it.keyPassword}"
-//            vb.tvKeyOnce.text = "userName: ${it.keyOnce}"
-            e("url: ${it.verificationUrl}")
-//            Glide.with(this)
-//                .load(it.verificationUrl)
-//                .skipMemoryCache(true)
-//                .diskCacheStrategy(DiskCacheStrategy.NONE)
-//                .into(vb.ivVerification)
-        }
-
-        vm.imageData.observe(this) { resp ->
+        vm.imageResponseBody.observe(this) { resp ->
             resp.let {
                 Glide.with(this)
                     .load(BitmapFactory.decodeStream(it.byteStream()))
@@ -53,7 +40,11 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
         }
 
         vb.btnLogin.setOnClickListener {
-            vm.login(vb.etUserName.text.toString().trim(), vb.etPassword.text.toString().trim(), vb.etVer.text.toString().trim())
+            vm.login(
+                vb.etUserName.text.toString().trim(),
+                vb.etPassword.text.toString().trim(),
+                vb.etVer.text.toString().trim()
+            )
         }
 
         vm.loadSignIn()

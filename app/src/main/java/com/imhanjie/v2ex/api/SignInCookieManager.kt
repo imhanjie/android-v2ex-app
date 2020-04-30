@@ -18,7 +18,8 @@ object SignInCookieManager : CookieJar {
         if (!url.endsWith("/signin")) {
             return
         }
-        memorySignInCookies = cookies
+        memorySignInCookies.clear()
+        memorySignInCookies.addAll(cookies)
     }
 
     override fun loadForRequest(httpUrl: HttpUrl): MutableList<Cookie> {
