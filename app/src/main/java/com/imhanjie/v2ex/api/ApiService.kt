@@ -1,10 +1,11 @@
 package com.imhanjie.v2ex.api
 
+import com.imhanjie.v2ex.model.LoginInfo
 import com.imhanjie.v2ex.model.Result
+import com.imhanjie.v2ex.parser.model.SignIn
 import com.imhanjie.v2ex.parser.model.Topic
 import com.imhanjie.v2ex.parser.model.TopicItem
 import okhttp3.ResponseBody
-import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiService {
@@ -32,7 +33,7 @@ interface ApiService {
     ): Result<Topic>
 
     @GET("/signin")
-    suspend fun loadSignIn(): String
+    suspend fun loadSignIn(): Result<SignIn>
 
     @GET
     suspend fun loadImage(
@@ -42,11 +43,11 @@ interface ApiService {
     @POST("/signin")
     @FormUrlEncoded
     @Headers(
-        "Origin: https://v2ex.com",
-        "Referer: https://v2ex.com/signin"
+        "Origin: ${ApiServer.BASE_URL}",
+        "Referer: ${ApiServer.BASE_URL}/signin"
     )
     suspend fun login(
         @FieldMap fields: Map<String, String>
-    ): Response<ResponseBody>
+    ): Result<LoginInfo>
 
 }

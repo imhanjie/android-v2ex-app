@@ -2,22 +2,22 @@ package com.imhanjie.v2ex.vm
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
-import com.imhanjie.v2ex.model.LoginResult
+import com.imhanjie.v2ex.model.LoginInfo
 import com.imhanjie.v2ex.parser.model.SignIn
 import com.imhanjie.v2ex.repository.provideAppRepository
-import okhttp3.ResponseBody
+import java.io.InputStream
 
 class LoginViewModel(application: Application) : BaseViewModel(application) {
 
-    val imageResponseBody = MutableLiveData<ResponseBody>()
-    val loginResult = MutableLiveData<LoginResult>()
+    val imageInputStream = MutableLiveData<InputStream>()
+    val loginResult = MutableLiveData<LoginInfo>()
 
     private lateinit var signInData: SignIn
 
     fun loadSignIn() {
         request {
             signInData = provideAppRepository().loadSignIn()
-            imageResponseBody.value = provideAppRepository().loadImage(signInData.verificationUrl)
+            imageInputStream.value = provideAppRepository().loadImage(signInData.verificationUrl)
         }
     }
 

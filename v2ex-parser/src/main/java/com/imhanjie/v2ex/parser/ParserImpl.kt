@@ -1,24 +1,8 @@
 package com.imhanjie.v2ex.parser
 
-import com.imhanjie.v2ex.parser.model.SignIn
 import org.jsoup.Jsoup
 
 object ParserImpl : Parserab {
-
-    override fun parserSignIn(html: String): SignIn {
-        val document = Jsoup.parse(html)
-        val eTrs = document.selectFirst("#Main").selectFirst("table").select("tr")
-        val keyUserName = eTrs[0].selectFirst("input").attr("name")
-        val keyPassword = eTrs[1].selectFirst("input").attr("name")
-        val keyVerCode = eTrs[2].selectFirst("input").attr("name")
-        val verificationUrl = "https://v2ex.com" + eTrs[2].selectFirst("div").attr("style").split(";")[0].split("'")[1]
-        return SignIn(
-            keyUserName,
-            keyPassword,
-            keyVerCode,
-            verificationUrl
-        )
-    }
 
     /**
      * 尝试解析 html 可能出现的登陆错误

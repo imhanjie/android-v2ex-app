@@ -22,21 +22,17 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
         vm = ViewModelProvider(this).get(LoginViewModel::class.java)
         vm.error.observe(this) { Toast.makeText(this, it, Toast.LENGTH_SHORT).show() }
 
-        vm.imageResponseBody.observe(this) { resp ->
+        vm.imageInputStream.observe(this) { resp ->
             resp.let {
                 Glide.with(this)
-                    .load(BitmapFactory.decodeStream(it.byteStream()))
+                    .load(BitmapFactory.decodeStream(it))
                     .transform(RoundedCorners(3f.dp().toInt()))
                     .into(vb.ivVerification)
             }
         }
 
         vm.loginResult.observe(this) { result ->
-            if (result.success) {
-                toast("登录成功")
-            } else {
-                toast(result.errorMsg)
-            }
+            toast("登录成功 cookie is :${result.cookie}")
         }
 
         vb.btnLogin.setOnClickListener {

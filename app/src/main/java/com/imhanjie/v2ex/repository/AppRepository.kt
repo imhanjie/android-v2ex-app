@@ -1,10 +1,10 @@
 package com.imhanjie.v2ex.repository
 
-import com.imhanjie.v2ex.model.LoginResult
+import com.imhanjie.v2ex.model.LoginInfo
 import com.imhanjie.v2ex.parser.model.SignIn
 import com.imhanjie.v2ex.parser.model.Topic
 import com.imhanjie.v2ex.parser.model.TopicItem
-import okhttp3.ResponseBody
+import java.io.InputStream
 
 interface AppRepository {
 
@@ -16,8 +16,8 @@ interface AppRepository {
 
     suspend fun loadSignIn(): SignIn
 
-    suspend fun loadImage(url: String): ResponseBody
+    suspend fun loadImage(url: String): InputStream
 
-    suspend fun login(signIn: SignIn, userName: String, password: String, verCode: String): LoginResult
+    suspend fun login(signIn: SignIn, userName: String, password: String, verCode: String): LoginInfo
 
 }

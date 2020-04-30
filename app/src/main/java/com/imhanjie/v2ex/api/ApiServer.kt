@@ -28,7 +28,8 @@ object ApiServer {
                 .followRedirects(false)
                 .followSslRedirects(false)
                 .addInterceptor(logInterceptor)
-                .addInterceptor(V2exParserInterceptor())
+                .addInterceptor(LoginInterceptor())
+                .addInterceptor(ParserInterceptor())
                 .connectTimeout(REQUEST_TIME_OUT, TimeUnit.MILLISECONDS)
             return builder.build()
         }
