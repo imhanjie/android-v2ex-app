@@ -9,8 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center"
-        android:text="没有更多了"
-        android:textColor="@color/widget_color_text_5"
+        android:text="@string/widget_no_more"
+        android:textColor="@color/widget_text_5"
         android:textSize="13sp" />
 
     <FrameLayout
@@ -35,7 +35,7 @@
         android:layout_height="50dp"
         android:gravity="center"
         android:padding="16dp"
-        android:text="网络异常，点击重试"
+        android:text="@string/widget_retry_with_bad_network"
         android:textColor="#ff3d4e"
         android:textSize="12sp"
         android:visibility="visible" />

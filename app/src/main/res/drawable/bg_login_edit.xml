@@ -2,7 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
 
-    <solid android:color="@color/widget_edit_background" />
+    <solid android:color="@color/widget_bg_edit" />
 
     <corners android:radius="35dp" />
 

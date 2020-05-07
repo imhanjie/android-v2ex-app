@@ -2,6 +2,7 @@ package com.imhanjie.v2ex.api
 
 import com.imhanjie.v2ex.model.LoginInfo
 import com.imhanjie.v2ex.model.Result
+import com.imhanjie.v2ex.parser.model.MyUserInfo
 import com.imhanjie.v2ex.parser.model.SignIn
 import com.imhanjie.v2ex.parser.model.Topic
 import com.imhanjie.v2ex.parser.model.TopicItem
@@ -49,5 +50,8 @@ interface ApiService {
     suspend fun login(
         @FieldMap fields: Map<String, String>
     ): Result<LoginInfo>
+
+    @GET("/settings")
+    suspend fun loadMyUserInfo(): Result<MyUserInfo>
 
 }

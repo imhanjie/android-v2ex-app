@@ -33,8 +33,8 @@ class BottomNavigationBar @JvmOverloads constructor(
 
     init {
         orientation = HORIZONTAL
-        textColor = ContextCompat.getColor(context, R.color.widget_color_text_4)
-        selectedTextColor = ContextCompat.getColor(context, R.color.widget_color_text_1)
+        textColor = ContextCompat.getColor(context, R.color.widget_text_4)
+        selectedTextColor = ContextCompat.getColor(context, R.color.widget_text_1)
     }
 
     fun addItem(item: Item) {

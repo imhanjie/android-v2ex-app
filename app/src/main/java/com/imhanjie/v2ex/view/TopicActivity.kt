@@ -1,7 +1,6 @@
 package com.imhanjie.v2ex.view
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
@@ -13,8 +12,10 @@ import com.imhanjie.v2ex.BaseActivity
 import com.imhanjie.v2ex.databinding.ActivityTopicBinding
 import com.imhanjie.v2ex.parser.model.Reply
 import com.imhanjie.v2ex.parser.model.Topic
+import com.imhanjie.v2ex.vm.BaseViewModel
 import com.imhanjie.v2ex.vm.TopicViewModel
 import com.imhanjie.widget.LineDividerItemDecoration
+import com.imhanjie.widget.LoadingWrapLayout
 import com.imhanjie.widget.recyclerview.loadmore.LoadMoreDelegate
 
 class TopicActivity : BaseActivity<ActivityTopicBinding>() {
@@ -22,20 +23,30 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
     private lateinit var vm: TopicViewModel
 
     @Suppress("UNCHECKED_CAST")
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun initViewModels(): List<BaseViewModel> {
         val topicId: Long = intent.getLongExtra("topicId", -1)
         if (topicId < 0) {
             throw IllegalArgumentException("缺少 topicId 参数")
         }
-
         vm = ViewModelProvider(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 return TopicViewModel(topicId, App.INSTANCE) as T
             }
         }).get(TopicViewModel::class.java)
-        vm.error.observe(this) { Toast.makeText(this, it, Toast.LENGTH_SHORT).show() }
-        vm.loadingState.observe(this) { vb.loadingLayout.update(!it) }
+        return listOf(vm)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        vm.loadingState.observe(this) { loading ->
+            if (loading) {
+                vb.loadingLayout.update(LoadingWrapLayout.Status.LOADING)
+            } else {
+                vb.loadingLayout.update(LoadingWrapLayout.Status.DONE)
+            }
+        }
 
         vb.replyRv.layoutManager = LinearLayoutManager(this)
         (vb.replyRv.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false

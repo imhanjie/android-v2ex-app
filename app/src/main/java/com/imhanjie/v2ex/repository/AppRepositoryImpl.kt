@@ -6,6 +6,7 @@ import com.imhanjie.v2ex.common.BizException
 import com.imhanjie.v2ex.common.TopicTab
 import com.imhanjie.v2ex.model.LoginInfo
 import com.imhanjie.v2ex.model.Result
+import com.imhanjie.v2ex.parser.model.MyUserInfo
 import com.imhanjie.v2ex.parser.model.SignIn
 import com.imhanjie.v2ex.parser.model.Topic
 import com.imhanjie.v2ex.parser.model.TopicItem
@@ -27,11 +28,11 @@ object AppRepositoryImpl : AppRepository {
     }
 
     override suspend fun loadLatestTopics(tab: String, pageIndex: Int): List<TopicItem> {
-        val result: Result<List<TopicItem>>
-        if (tab == TopicTab.ALL.value) {
-            result = api.loadRecentTopics(pageIndex - 1)
+        val result = if (tab == TopicTab.ALL.value) {
+//            api.loadRecentTopics(pageIndex - 1)
+            api.loadLatestTopics(tab)
         } else {
-            result = api.loadLatestTopics(tab)
+            api.loadLatestTopics(tab)
         }
         return extractResult(result)
     }
@@ -65,6 +66,10 @@ object AppRepositoryImpl : AppRepository {
             )
         )
         return extractResult(result)
+    }
+
+    override suspend fun loadMyUserInfo(): MyUserInfo {
+        return extractResult(api.loadMyUserInfo())
     }
 
 }

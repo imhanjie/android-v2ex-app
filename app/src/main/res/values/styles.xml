@@ -2,7 +2,7 @@
 
     <style name="BasicAppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/widget_background</item>
+        <item name="colorPrimaryDark">@color/widget_bg</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/widget_window_background</item>
     </style>
@@ -10,5 +10,23 @@
     <style name="CommandTabLayoutText" parent="TextAppearance.Design.Tab">
         <item name="textAllCaps">false</item>
     </style>
+
+    <style name="LoginEditText" parent="WidgetSingleLineEditText">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">46dp</item>
+        <item name="android:layout_marginTop">30dp</item>
+        <item name="android:layout_marginEnd">46dp</item>
+        <item name="android:background">@drawable/bg_login_edit</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingTop">14dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:paddingBottom">14dp</item>
+        <item name="android:textColor">@color/widget_text_1</item>
+        <item name="android:textColorHint">@color/widget_text_4</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
 
 </resources>

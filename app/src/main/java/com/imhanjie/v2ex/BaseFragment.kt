@@ -35,9 +35,8 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         vb = method.invoke(null, inflater, container, false) as VB
 
         for (vm in getViewModels()) {
-            vm.error.observe(this) {
-                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
-            }
+            vm.error.observe(viewLifecycleOwner) { Toast.makeText(context, it, Toast.LENGTH_SHORT).show() }
+            vm.toast.observe(viewLifecycleOwner) { Toast.makeText(context, it, Toast.LENGTH_SHORT).show() }
         }
 
         initViews()

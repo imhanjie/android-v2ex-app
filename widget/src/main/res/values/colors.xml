@@ -7,13 +7,13 @@
     <!--    <color name="widget_window_background">#f2f3f5</color>-->
     <color name="widget_window_background">#FBFBFB</color>
 
-    <color name="widget_color_text_1">#242424</color>
-    <color name="widget_color_text_2">#333333</color>
-    <color name="widget_color_text_3">#666666</color>
-    <color name="widget_color_text_4">#999999</color>
-    <color name="widget_color_text_5">#cccccc</color>
+    <color name="widget_text_1">#242424</color>
+    <color name="widget_text_2">#333333</color>
+    <color name="widget_text_3">#666666</color>
+    <color name="widget_text_4">#999999</color>
+    <color name="widget_text_5">#cccccc</color>
 
-    <color name="widget_background">#ffffff</color>
+    <color name="widget_bg">#ffffff</color>
+    <color name="widget_bg_edit">#0A686868</color>
 
-    <color name="widget_edit_background">#0A686868</color>
 </resources>

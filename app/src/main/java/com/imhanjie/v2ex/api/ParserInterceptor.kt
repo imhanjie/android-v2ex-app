@@ -5,6 +5,7 @@ import com.imhanjie.support.e
 import com.imhanjie.v2ex.parser.Parser
 import com.imhanjie.v2ex.parser.impl.*
 import okhttp3.Interceptor
+import okhttp3.Request
 import okhttp3.Response
 
 class ParserInterceptor : Interceptor {
@@ -22,13 +23,13 @@ class ParserInterceptor : Interceptor {
         if (response.code() == 302) {
             url = ApiServer.BASE_URL + response.header("location")
             if (isNeedRedirect(url)) {
-                e("需要 302")
                 response.close()
-                val redirectRequest = request.newBuilder().url(url).build()
+                val redirectRequest = Request.Builder()
+                    .url(url)
+                    .get()
+                    .build()
                 isFailRequest = true
                 response = chain.proceed(redirectRequest)
-            } else {
-                e("不需要 302")
             }
         }
 
@@ -48,6 +49,7 @@ class ParserInterceptor : Interceptor {
                     response.recreateSuccessJsonResponse(obj)
                 }
             } catch (e: Exception) {
+                e.printStackTrace()
                 response.recreateFailJsonResponse("数据解析错误")
             }
         }
@@ -74,6 +76,8 @@ class ParserInterceptor : Interceptor {
                 SignInParser()
             } else if (equals("${ApiServer.BASE_URL}/signin/cooldown")) {
                 CoolDownParser()
+            } else if (equals("${ApiServer.BASE_URL}/settings")) {
+                SettingsParser()
             } else {
                 null
             }

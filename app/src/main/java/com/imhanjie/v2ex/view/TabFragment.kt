@@ -10,15 +10,15 @@ import com.imhanjie.support.ext.toActivity
 import com.imhanjie.v2ex.BaseFragment
 import com.imhanjie.v2ex.common.TopicTab
 import com.imhanjie.v2ex.databinding.FragmentTabBinding
-import com.imhanjie.v2ex.vm.BaseViewModel
 import com.imhanjie.v2ex.vm.TabViewModel
 import com.imhanjie.widget.LineDividerItemDecoration
+import com.imhanjie.widget.LoadingWrapLayout
 
 class TabFragment : BaseFragment<FragmentTabBinding>() {
 
     private lateinit var vm: TabViewModel
 
-    override fun getViewModels(): List<BaseViewModel> = listOf(vm)
+    override fun getViewModels() = listOf(vm)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +38,13 @@ class TabFragment : BaseFragment<FragmentTabBinding>() {
     }
 
     override fun initViews() {
-        vm.loadingState.observe(this) { vb.loadingLayout.update(!it) }
+        vm.loadingState.observe(this) { loading ->
+            if (loading) {
+                vb.loadingLayout.update(LoadingWrapLayout.Status.LOADING)
+            } else {
+                vb.loadingLayout.update(LoadingWrapLayout.Status.DONE)
+            }
+        }
         vm.swipeLoadingState.observe(this) { vb.swipeRefreshLayout.isRefreshing = it }
 
         vb.topicRv.layoutManager = LinearLayoutManager(context)

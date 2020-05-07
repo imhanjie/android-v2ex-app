@@ -8,6 +8,7 @@ import com.imhanjie.support.ext.toActivity
 import com.imhanjie.v2ex.BaseActivity
 import com.imhanjie.v2ex.R
 import com.imhanjie.v2ex.databinding.ActivityMainBinding
+import com.imhanjie.v2ex.vm.BaseViewModel
 import com.imhanjie.widget.nav.BottomNavigationBar
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
@@ -21,6 +22,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         private const val TAB_ME = 3
         private const val DEFAULT_INDEX = TAB_MAIN
     }
+
+    override fun initViewModels(): List<BaseViewModel> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

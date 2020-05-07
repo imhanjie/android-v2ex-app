@@ -1,5 +1,6 @@
 package com.imhanjie.v2ex.view
 
+import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
@@ -8,7 +9,6 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.imhanjie.v2ex.BaseFragment
 import com.imhanjie.v2ex.databinding.FragmentTabMainBinding
-import com.imhanjie.v2ex.vm.BaseViewModel
 import com.imhanjie.v2ex.vm.MyViewModel
 
 class MainTabFragment : BaseFragment<FragmentTabMainBinding>() {
@@ -16,13 +16,14 @@ class MainTabFragment : BaseFragment<FragmentTabMainBinding>() {
     private lateinit var fragmentAdapter: FragmentStateAdapter
     private lateinit var vm: MyViewModel
 
-    override fun getViewModels(): List<BaseViewModel> {
-        // FIXME
-        return emptyList()
+    override fun getViewModels() = listOf(vm)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        vm = ViewModelProvider(this).get(MyViewModel::class.java)
     }
 
     override fun initViews() {
-        vm = ViewModelProvider(this).get(MyViewModel::class.java)
         fragmentAdapter = object : FragmentStateAdapter(this) {
             override fun getItemCount(): Int {
                 return vm.tabs.size

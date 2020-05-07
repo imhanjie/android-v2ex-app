@@ -24,12 +24,12 @@ object ApiServer {
                         HttpLoggingInterceptor.Level.NONE
             }
             builder
-                .cookieJar(SignInCookieManager)
                 .followRedirects(false)
                 .followSslRedirects(false)
                 .addInterceptor(logInterceptor)
                 .addInterceptor(LoginInterceptor())
                 .addInterceptor(ParserInterceptor())
+                .addInterceptor(CookieInterceptor())
                 .connectTimeout(REQUEST_TIME_OUT, TimeUnit.MILLISECONDS)
             return builder.build()
         }

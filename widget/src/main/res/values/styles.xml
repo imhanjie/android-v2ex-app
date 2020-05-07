@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 一个很正常的样式 @android:style/Theme.Dialog-->
+    <style name="Widget.Pure.Custom.Dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- 对话框是否有遮盖 -->
+        <item name="android:windowContentOverlay">@null</item>
+        <!-- 对话框出现时背景是否变暗 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.5</item>
+        <!-- 输入法弹出时自适应 -->
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+    </style>
+
+    <style name="WidgetCenterDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/widget_center_dialog_show</item>
+        <item name="android:windowExitAnimation">@anim/widget_center_dialog_hide</item>
+    </style>
+
+    <style name="WidgetBottomDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/widget_bottom_dialog_show</item>
+        <item name="android:windowExitAnimation">@anim/widget_bottom_dialog_hide</item>
+    </style>
+
+    <style name="WidgetScrollbarStyle">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:overScrollMode">never</item>
+        <item name="android:scrollbarSize">3dp</item>
+        <item name="android:scrollbarThumbVertical">@drawable/widget_shape_scrollbar</item>
+        <item name="android:scrollbars">vertical</item>
+    </style>
+
+    <style name="WidgetSingleLineText">
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="WidgetSingleLineEditText">
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+</resources>
