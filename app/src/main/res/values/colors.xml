@@ -6,4 +6,5 @@
 
     <color name="tab_layout_divider">#EAEAEA</color>
     <color name="topic_node_background">#0A666666</color>
+    <color name="default_avatar">#eeeeee</color>
 </resources>

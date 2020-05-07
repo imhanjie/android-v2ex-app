@@ -2,4 +2,5 @@
 <resources>
     <color name="tab_layout_divider">@android:color/transparent</color>
     <color name="topic_node_background">#0A8F8F8F</color>
+    <color name="default_avatar">#373737</color>
 </resources>

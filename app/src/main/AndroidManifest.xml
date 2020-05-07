@@ -19,7 +19,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.TopicActivity" />
-        <activity android:name=".view.LoginActivity" />
+        <activity
+            android:name=".view.LoginActivity"
+            android:launchMode="singleTask" />
     </application>
 
 </manifest>

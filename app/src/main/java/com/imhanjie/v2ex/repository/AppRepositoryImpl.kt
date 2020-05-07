@@ -1,5 +1,6 @@
 package com.imhanjie.v2ex.repository
 
+import com.imhanjie.v2ex.App
 import com.imhanjie.v2ex.api.ApiServer
 import com.imhanjie.v2ex.api.ApiService
 import com.imhanjie.v2ex.common.BizException
@@ -20,9 +21,12 @@ object AppRepositoryImpl : AppRepository {
      * 错误处理
      */
     private fun <T> extractResult(result: Result<T>): T {
-        if (result.success) {
+        if (result.code == Result.CODE_SUCCESS) {
             return result.data ?: throw BizException("data can not be null!")
         } else {
+            if (result.code == Result.CODE_USER_EXPIRED) {
+                App.launchLoginPage()
+            }
             throw BizException(result.message!!)
         }
     }

@@ -1,7 +1,7 @@
 package com.imhanjie.v2ex.api
 
 import android.annotation.SuppressLint
-import com.imhanjie.support.e
+import com.imhanjie.v2ex.model.Result
 import com.imhanjie.v2ex.parser.Parser
 import com.imhanjie.v2ex.parser.impl.*
 import okhttp3.Interceptor
@@ -15,14 +15,13 @@ class ParserInterceptor : Interceptor {
         var url = request.url().toString()
         val originMethod = request.method()
         var response = chain.proceed(request)
-        e("intercept: $url")
 
         var isFailRequest = false
 
         // 单独处理重定向逻辑
         if (response.code() == 302) {
             url = ApiServer.BASE_URL + response.header("location")
-            if (isNeedRedirect(url)) {
+            if (url == "${ApiServer.BASE_URL}/signin/cooldown") {
                 response.close()
                 val redirectRequest = Request.Builder()
                     .url(url)
@@ -30,6 +29,9 @@ class ParserInterceptor : Interceptor {
                     .build()
                 isFailRequest = true
                 response = chain.proceed(redirectRequest)
+            } else if (url.startsWith("${ApiServer.BASE_URL}/signin?next=")) {
+                // 登录信息失效，直接返回
+                return response.recreateFailJsonResponse("请先登录后再进行查看", Result.CODE_USER_EXPIRED)
             }
         }
 
@@ -81,12 +83,6 @@ class ParserInterceptor : Interceptor {
             } else {
                 null
             }
-        }
-    }
-
-    private fun isNeedRedirect(url: String): Boolean {
-        return with(url) {
-            equals("${ApiServer.BASE_URL}/signin/cooldown")
         }
     }
 

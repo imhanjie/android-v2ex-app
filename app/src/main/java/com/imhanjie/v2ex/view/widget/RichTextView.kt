@@ -5,7 +5,6 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextPaint
-import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ImageSpan
 import android.text.style.URLSpan
@@ -26,7 +25,9 @@ class RichTextView @JvmOverloads constructor(
 ) : AppCompatTextView(ctx, attrs, defStyleAttr) {
 
     init {
-        movementMethod = LinkMovementMethod.getInstance()
+        movementMethod = ClickableMovementMethod.getInstance()
+        isClickable = false
+        isLongClickable = false
     }
 
     fun setRichContent(content: String?) {

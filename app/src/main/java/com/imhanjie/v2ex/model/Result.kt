@@ -1,14 +1,19 @@
 package com.imhanjie.v2ex.model
 
 data class Result<T>(
-    val success: Boolean,
+    val code: Int,
     val data: T? = null,
     val message: String? = null
 ) {
 
     companion object {
-        fun <T> success(data: T): Result<T> = Result(true, data)
-        fun <T> fail(message: String): Result<T> = Result(false, null, message)
+
+        const val CODE_SUCCESS = 1
+        const val CODE_FAIL = 0
+        const val CODE_USER_EXPIRED = -100
+
+        fun <T> success(data: T): Result<T> = Result(CODE_SUCCESS, data)
+        fun <T> fail(message: String, code: Int = CODE_FAIL): Result<T> = Result(code, null, message)
     }
 
 }

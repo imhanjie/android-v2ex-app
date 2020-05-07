@@ -3,8 +3,6 @@ package com.imhanjie.v2ex.view
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.imhanjie.support.ext.postDelayed
-import com.imhanjie.support.ext.toActivity
 import com.imhanjie.v2ex.BaseActivity
 import com.imhanjie.v2ex.R
 import com.imhanjie.v2ex.databinding.ActivityMainBinding
@@ -29,9 +27,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         super.onCreate(savedInstanceState)
         initNavBar()
         initViewPager()
-        postDelayed(1500) {
-            toActivity<LoginActivity>()
-        }
     }
 
     private fun initNavBar() {

@@ -7,6 +7,7 @@ import android.widget.ImageView
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.target.CustomViewTarget
 import com.bumptech.glide.request.transition.Transition
@@ -36,6 +37,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
             resp.let {
                 Glide.with(this)
                     .load(BitmapFactory.decodeStream(it))
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .transform(RoundedCorners(3f.dp().toInt()))
                     .into(object : CustomViewTarget<ImageView, Drawable>(vb.ivVerification) {
                         override fun onLoadFailed(errorDrawable: Drawable?) {

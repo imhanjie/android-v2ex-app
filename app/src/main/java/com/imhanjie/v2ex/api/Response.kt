@@ -14,10 +14,10 @@ fun Response.recreateSuccessJsonResponse(data: Any): Response {
     return this.newBuilder().code(200).body(responseBody).build()
 }
 
-fun Response.recreateFailJsonResponse(message: String): Response {
+fun Response.recreateFailJsonResponse(message: String, code: Int = Result.CODE_FAIL): Response {
     val responseBody = ResponseBody.create(
         MediaType.parse("application/json;charset=UTF-8"),
-        parseToJson(Result.fail<String>(message))
+        parseToJson(Result.fail<String>(message, code))
     )
     return this.newBuilder().code(200).body(responseBody).build()
 }
