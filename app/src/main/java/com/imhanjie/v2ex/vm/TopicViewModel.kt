@@ -33,6 +33,19 @@ class TopicViewModel(private val topicId: Long, application: Application) : Base
             throw RuntimeException("首次加载不允许逆转评论!")
         }
         e("append: $append, doReverse: $doReverse")
+
+        if (!append && doReverse && totalPage == 1) {
+            // 若只有一页数据，直接翻转评论
+            val currentTopic = topicData.value!!.topic
+            topicData.value = TopicLiveData(
+                currentTopic.copy(replies = currentTopic.replies.reversed()),
+                append = false,
+                hasMore = false,
+                isOrder = false
+            )
+            return
+        }
+
         val targetIsOrder = if (doReverse) !isOrder else isOrder
         if (!append) {
             currentPage = if (targetIsOrder) 1 else totalPage

@@ -79,25 +79,6 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
                     adapter.notifyItemRangeInserted(originSize, topic.replies.size);
                 }
             }
-
-//            if (!fromLoadMore) {
-//                delegate.apply {
-//                    items.clear()
-//                    items.add(topic)
-//                    if (topic.replies.isNotEmpty()) {
-//                        items.add("")
-//                        items.addAll(topic.replies)
-//                    }
-//                    adapter.notifyDataSetChanged()
-//                }
-//            } else {
-//                delegate.apply {
-//                    adapter.notifyItemChanged(items.itemSize - 1)   // fix 最后一项 divider 不刷新的问题
-//                    val originSize = items.itemSize
-//                    items.addAll(topic.replies)
-//                    adapter.notifyItemRangeInserted(originSize, topic.replies.size);
-//                }
-//            }
             delegate.notifyLoadSuccess(hasMore)
         }
 

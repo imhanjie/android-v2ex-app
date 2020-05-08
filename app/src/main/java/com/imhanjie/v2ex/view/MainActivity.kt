@@ -44,6 +44,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun initViewPager() {
+        // p.s 这里后续不能根据 position 拿到 Fragment 来进行操作，仅用作实例化，因为 Activity 重建后可能会复用以前的 Fragment。
         with(fragments) {
             add(TAB_MAIN, MainTabFragment())
             add(TAB_NODE, NodeTabFragment())
