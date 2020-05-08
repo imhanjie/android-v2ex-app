@@ -1,10 +1,11 @@
 package com.imhanjie.v2ex.view
 
-import com.imhanjie.v2ex.BaseFragment
+import com.imhanjie.support.e
+import com.imhanjie.v2ex.BaseLazyFragment
 import com.imhanjie.v2ex.databinding.FragmentTabNotificationBinding
 import com.imhanjie.v2ex.vm.BaseViewModel
 
-class NotificationTabFragment : BaseFragment<FragmentTabNotificationBinding>() {
+class NotificationTabFragment : BaseLazyFragment<FragmentTabNotificationBinding>() {
 
     override fun getViewModels(): List<BaseViewModel> {
         return emptyList()
@@ -12,6 +13,15 @@ class NotificationTabFragment : BaseFragment<FragmentTabNotificationBinding>() {
 
     override fun initViews() {
 
+    }
+
+    override fun onLazyLoad() {
+        e("onLazyLoad: NotificationTabFragment()")
+    }
+
+    override fun onResumeAfterLazyLoad() {
+        super.onResumeAfterLazyLoad()
+        e("onResumeAfterLazyLoad: NotificationTabFragment()")
     }
 
 }

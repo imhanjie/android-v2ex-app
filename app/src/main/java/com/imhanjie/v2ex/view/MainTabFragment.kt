@@ -7,11 +7,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
-import com.imhanjie.v2ex.BaseFragment
+import com.imhanjie.support.e
+import com.imhanjie.v2ex.BaseLazyFragment
 import com.imhanjie.v2ex.databinding.FragmentTabMainBinding
 import com.imhanjie.v2ex.vm.MyViewModel
 
-class MainTabFragment : BaseFragment<FragmentTabMainBinding>() {
+class MainTabFragment : BaseLazyFragment<FragmentTabMainBinding>() {
 
     private lateinit var fragmentAdapter: FragmentStateAdapter
     private lateinit var vm: MyViewModel
@@ -49,4 +50,14 @@ class MainTabFragment : BaseFragment<FragmentTabMainBinding>() {
             AppCompatDelegate.setDefaultNightMode(targetUiMode)
         })
     }
+
+    override fun onLazyLoad() {
+        e("onLazyLoad: MainTabFragment()")
+    }
+
+    override fun onResumeAfterLazyLoad() {
+        super.onResumeAfterLazyLoad()
+        e("onResumeAfterLazyLoad: MainTabFragment()")
+    }
+
 }
