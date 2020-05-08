@@ -11,6 +11,7 @@ abstract class BaseItemViewDelegate<T, VB : ViewBinding> : ItemViewDelegate<T, V
 
     public var onItemClickListener: ((holder: VBViewHolder<VB>, item: T, position: Int) -> Unit)? = null
     public var onItemLongClickListener: ((holder: VBViewHolder<VB>, item: T, position: Int) -> Boolean)? = null
+    protected lateinit var ctx: Context
 
     @Suppress("UNCHECKED_CAST")
     override fun onCreateViewHolder(context: Context, parent: ViewGroup): VBViewHolder<VB> {
@@ -23,6 +24,7 @@ abstract class BaseItemViewDelegate<T, VB : ViewBinding> : ItemViewDelegate<T, V
             Boolean::class.java
         )
         val vb = method.invoke(null, LayoutInflater.from(parent.context), parent, false) as VB
+        ctx = vb.root.context
         return VBViewHolder(vb)
     }
 

@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">V2EX</string>
+    <string name="tab_main">首页</string>
+    <string name="tab_node">节点</string>
+    <string name="tab_notification">消息</string>
+    <string name="tab_me">我的</string>
     <string name="hint_login_user_name">用户名或电子邮箱</string>
     <string name="hint_login_password">密码</string>
     <string name="hint_login_ver_code">图形验证码</string>
@@ -8,4 +12,8 @@
     <string name="all_reply">全部回复</string>
     <string name="reply_order">按时间顺序</string>
     <string name="reply_reverse_order">按时间逆序</string>
+    <string name="reply_floor">#%1$d</string>
+    <string name="topic_item_desc">%1$s&#160;&#160;•&#160;&#160;%2$d 条回复</string>
+    <string name="topic_item_desc_with_top">置顶&#160;&#160;•&#160;&#160;%1$s&#160;&#160;•&#160;&#160;%2$d&#160;条回复</string>
+    <string name="topic_details_desc">%1$s&#160;&#160;•&#160;&#160;%2$d 次点击</string>
 </resources>

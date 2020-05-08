@@ -31,10 +31,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private fun initNavBar() {
         with(vb.navBar) {
-            addItem(BottomNavigationBar.Item("首页", R.drawable.ic_tab_main))
-            addItem(BottomNavigationBar.Item("节点", R.drawable.ic_tab_node))
-            addItem(BottomNavigationBar.Item("消息", R.drawable.ic_tab_notification))
-            addItem(BottomNavigationBar.Item("我的", R.drawable.ic_tab_me))
+            addItem(BottomNavigationBar.Item(getString(R.string.tab_main), R.drawable.ic_tab_main))
+            addItem(BottomNavigationBar.Item(getString(R.string.tab_node), R.drawable.ic_tab_node))
+            addItem(BottomNavigationBar.Item(getString(R.string.tab_notification), R.drawable.ic_tab_notification))
+            addItem(BottomNavigationBar.Item(getString(R.string.tab_me), R.drawable.ic_tab_me))
             onTabClickListener = { clickTabIndex, _ ->
                 vb.viewPager.setCurrentItem(clickTabIndex, false)
             }

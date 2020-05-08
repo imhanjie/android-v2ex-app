@@ -2,7 +2,6 @@ package com.imhanjie.v2ex.vm
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
-import com.imhanjie.support.e
 import com.imhanjie.v2ex.parser.model.Topic
 import com.imhanjie.v2ex.repository.provideAppRepository
 
@@ -28,11 +27,18 @@ class TopicViewModel(private val topicId: Long, application: Application) : Base
         loadReplies(append = false, doReverse = false)
     }
 
+    /**
+     * 获取回复
+     *
+     * @param append 是否继续分页获取，true 继续分页获取，false 重新获取。
+     * @param doReverse 是否反转评论结果。
+     */
     fun loadReplies(append: Boolean, doReverse: Boolean) {
         if (doReverse && totalPage < 0) {
             throw RuntimeException("首次加载不允许逆转评论!")
         }
-        e("append: $append, doReverse: $doReverse")
+
+        val targetIsOrder = if (doReverse) !isOrder else isOrder
 
         if (!append && doReverse && totalPage == 1) {
             // 若只有一页数据，直接翻转评论
@@ -41,12 +47,12 @@ class TopicViewModel(private val topicId: Long, application: Application) : Base
                 currentTopic.copy(replies = currentTopic.replies.reversed()),
                 append = false,
                 hasMore = false,
-                isOrder = false
+                isOrder = targetIsOrder
             )
+            isOrder = targetIsOrder
             return
         }
 
-        val targetIsOrder = if (doReverse) !isOrder else isOrder
         if (!append) {
             currentPage = if (targetIsOrder) 1 else totalPage
         }

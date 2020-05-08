@@ -23,7 +23,7 @@ class TopicDetailsAdapter : BaseItemViewDelegate<Topic, ItemTopicDetailsBinding>
             .into(vb.userAvatar)
         vb.title.text = item.title
         vb.userName.text = item.userName
-        vb.time.text = "${item.createTime}  •  ${item.click} 次点击"
+        vb.time.text = ctx.getString(R.string.topic_details_desc, item.createTime, item.click)
         vb.nodeTitle.text = item.nodeTitle
         vb.content.setRichContent(item.content)
         vb.content.visibility = if (item.content.isEmpty()) View.GONE else View.VISIBLE

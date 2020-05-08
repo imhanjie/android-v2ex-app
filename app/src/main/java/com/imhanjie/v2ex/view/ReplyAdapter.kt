@@ -20,7 +20,7 @@ class ReplyAdapter : BaseItemViewDelegate<Reply, ItemReplyBinding>() {
             .into(vb.userAvatar)
         vb.userName.text = item.userName
         vb.time.text = item.time
-        vb.no.text = "#${item.no}"
+        vb.no.text = ctx.getString(R.string.reply_floor, item.no)
         vb.content.setRichContent(item.content)
     }
 

@@ -1,5 +1,6 @@
 package com.imhanjie.widget.recyclerview.base
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -12,6 +13,7 @@ abstract class BaseVBListAdapter<T, VB : ViewBinding>(diffCallback: DiffUtil.Ite
 
     public var onItemClickListener: ((holder: VBViewHolder<VB>, item: T, position: Int) -> Unit)? = null
     public var onItemLongClickListener: ((holder: VBViewHolder<VB>, item: T, position: Int) -> Boolean)? = null
+    protected lateinit var ctx: Context
 
     @Suppress("UNCHECKED_CAST")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VBViewHolder<VB> {
@@ -24,6 +26,7 @@ abstract class BaseVBListAdapter<T, VB : ViewBinding>(diffCallback: DiffUtil.Ite
             Boolean::class.java
         )
         val vb = method.invoke(null, LayoutInflater.from(parent.context), parent, false) as VB
+        ctx = vb.root.context
         return VBViewHolder(vb)
     }
 

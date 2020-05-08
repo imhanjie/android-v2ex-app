@@ -20,9 +20,9 @@ class TopicAdapter : BaseVBListAdapter<TopicItem, ItemTopicBinding>(TopicDiffCal
         vb.title.text = item.title
         vb.userName.text = item.userName
         if (item.isTop) {
-            vb.time.text = "置顶  •  ${item.latestReplyTime}  •  ${item.replies} 条回复"
+            vb.time.text = ctx.getString(R.string.topic_item_desc_with_top, item.latestReplyTime, item.replies)
         } else {
-            vb.time.text = "${item.latestReplyTime}  •  ${item.replies} 条回复"
+            vb.time.text = ctx.getString(R.string.topic_item_desc, item.latestReplyTime, item.replies)
         }
         vb.nodeTitle.text = item.nodeTitle
     }

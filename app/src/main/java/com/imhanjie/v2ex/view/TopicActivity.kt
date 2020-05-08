@@ -58,11 +58,12 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
             register(Reply::class.java, ReplyAdapter())
             register(ReplyHeaderType::class.java, ReplyHeaderAdapter { vm.loadReplies(append = false, doReverse = true) })
         }
+
         vm.topicData.observe(this) {
             val (topic, append, hasMore, isOrder) = it
-            val isFirst = delegate.items.isEmpty()
-            if (isFirst || !append) {
-                delegate.apply {
+            delegate.apply {
+                val isFirst = items.isEmpty()
+                if (isFirst || !append) {
                     items.clear()
                     items.add(topic)
                     if (topic.replies.isNotEmpty()) {
@@ -70,16 +71,14 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
                         items.addAll(topic.replies)
                     }
                     adapter.notifyDataSetChanged()
-                }
-            } else {
-                delegate.apply {
+                } else {
                     adapter.notifyItemChanged(items.itemSize - 1)   // fix 最后一项 divider 不刷新的问题
                     val originSize = items.itemSize
                     items.addAll(topic.replies)
                     adapter.notifyItemRangeInserted(originSize, topic.replies.size);
                 }
+                notifyLoadSuccess(hasMore)
             }
-            delegate.notifyLoadSuccess(hasMore)
         }
 
         vb.replyRv.addItemDecoration(
