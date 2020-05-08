@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
+import com.imhanjie.support.e
 import com.imhanjie.support.ext.dp
 import com.imhanjie.support.ext.toActivity
 import com.imhanjie.v2ex.BaseFragment
@@ -76,9 +77,15 @@ class TabFragment : BaseFragment<FragmentTabBinding>() {
 
     override fun onResume() {
         super.onResume()
+        e("${vm.tab.title} onResume()")
         if (vm.topicData.value == null) {   // 首次初始化
             vm.loadTopics(false)
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        e("${vm.tab.title} onPause()")
     }
 
 }

@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.google.android.material.tabs.TabLayoutMediator
+import com.imhanjie.support.e
 import com.imhanjie.v2ex.BaseFragment
 import com.imhanjie.v2ex.databinding.FragmentTabMainBinding
 import com.imhanjie.v2ex.vm.MainTabViewModel
@@ -22,23 +24,19 @@ class MainTabFragment : BaseFragment<FragmentTabMainBinding>() {
     }
 
     override fun initViews() {
-        vb.viewPager.adapter = object : FragmentStatePagerAdapter(childFragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
-            override fun getItem(position: Int): Fragment {
-                return TabFragment.newInstance(vm.tabs[position])
-            }
-
-            override fun getCount(): Int {
+        vb.viewPager.adapter = object : FragmentStateAdapter(this) {
+            override fun getItemCount(): Int {
                 return vm.tabs.size
             }
 
-            override fun getPageTitle(position: Int): CharSequence? {
-                return vm.tabs[position].title
+            override fun createFragment(position: Int): Fragment {
+                return TabFragment.newInstance(vm.tabs[position])
             }
-
         }
-        vb.tabLayout.setupWithViewPager(vb.viewPager)
         vb.viewPager.offscreenPageLimit = vm.tabs.size
-
+        TabLayoutMediator(vb.tabLayout, vb.viewPager) { tab, position ->
+            tab.text = vm.tabs[position].title
+        }.attach()
 
         vb.topBar.setOnRightClickListener(View.OnClickListener {
             val targetUiMode = when (configSp.getInt("ui_mode", AppCompatDelegate.MODE_NIGHT_NO)) {
@@ -49,6 +47,16 @@ class MainTabFragment : BaseFragment<FragmentTabMainBinding>() {
             configSp.putInt("ui_mode", targetUiMode)
             AppCompatDelegate.setDefaultNightMode(targetUiMode)
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        e("MainTabFragment: onResume()")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        e("MainTabFragment: onPause()")
     }
 
 }

@@ -2,7 +2,7 @@ package com.imhanjie.v2ex.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.imhanjie.v2ex.BaseActivity
 import com.imhanjie.v2ex.R
 import com.imhanjie.v2ex.databinding.ActivityMainBinding
@@ -50,15 +50,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             add(TAB_NOTIFICATION, NotificationTabFragment())
             add(TAB_ME, MeTabFragment())
         }
-        vb.viewPager.adapter = object : FragmentPagerAdapter(supportFragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
-            override fun getItem(position: Int): Fragment {
+        vb.viewPager.adapter = object : FragmentStateAdapter(this) {
+            override fun getItemCount(): Int {
+                return fragments.size
+            }
+
+            override fun createFragment(position: Int): Fragment {
                 return fragments[position]
             }
 
-            override fun getCount(): Int {
-                return fragments.size
-            }
         }
+        vb.viewPager.isUserInputEnabled = false
         vb.viewPager.offscreenPageLimit = fragments.size
         vb.viewPager.setCurrentItem(DEFAULT_INDEX, false)
     }
