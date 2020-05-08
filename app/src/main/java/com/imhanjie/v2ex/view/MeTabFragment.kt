@@ -4,11 +4,11 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import com.imhanjie.support.e
-import com.imhanjie.v2ex.BaseLazyFragment
+import com.imhanjie.v2ex.BaseFragment
 import com.imhanjie.v2ex.databinding.FragmentTabMeBinding
 import com.imhanjie.v2ex.vm.MeTabViewModel
 
-class MeTabFragment : BaseLazyFragment<FragmentTabMeBinding>() {
+class MeTabFragment : BaseFragment<FragmentTabMeBinding>() {
 
     private lateinit var vm: MeTabViewModel
 
@@ -25,13 +25,13 @@ class MeTabFragment : BaseLazyFragment<FragmentTabMeBinding>() {
         }
     }
 
-    override fun onLazyLoad() {
-        e("onLazyLoad: MeTabFragment()")
-    }
-
-    override fun onResumeAfterLazyLoad() {
-        super.onResumeAfterLazyLoad()
-        e("onResumeAfterLazyLoad: MeTabFragment()")
-    }
+//    override fun onLazyLoad() {
+//        e("onLazyLoad: MeTabFragment()")
+//    }
+//
+//    override fun onResumeAfterLazyLoad() {
+//        super.onResumeAfterLazyLoad()
+//        e("onResumeAfterLazyLoad: MeTabFragment()")
+//    }
 
 }

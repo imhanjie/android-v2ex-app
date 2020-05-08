@@ -33,6 +33,9 @@ class ParserInterceptor : Interceptor {
                 // 登录信息失效，直接返回
                 return response.recreateFailJsonResponse("请先登录后再进行查看", Result.CODE_USER_EXPIRED)
             }
+        } else if (response.code() == 403) {
+            // IP 被(临时)禁
+            return response.recreateFailJsonResponse("403 请稍后再试")
         }
 
         val targetParser = getParser(originMethod, url)

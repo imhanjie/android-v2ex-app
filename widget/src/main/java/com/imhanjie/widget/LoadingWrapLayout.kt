@@ -39,6 +39,7 @@ class LoadingWrapLayout @JvmOverloads constructor(
             text = "暂无数据"
             textSize = 13f
         }
+        errorTextView.visibility = View.GONE
         val tvParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
         errorTextView.gravity = Gravity.CENTER
         errorTextView.setOnClickListener { retryCallback?.invoke() }

@@ -12,7 +12,6 @@ class NotificationTabFragment : BaseLazyFragment<FragmentTabNotificationBinding>
     }
 
     override fun initViews() {
-
     }
 
     override fun onLazyLoad() {
