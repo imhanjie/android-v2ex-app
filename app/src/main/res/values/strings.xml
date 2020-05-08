@@ -5,4 +5,7 @@
     <string name="hint_login_ver_code">图形验证码</string>
     <string name="login">登录</string>
     <string name="tips_login_success">登录成功</string>
+    <string name="all_reply">全部回复</string>
+    <string name="reply_order">按时间顺序</string>
+    <string name="reply_reverse_order">按时间逆序</string>
 </resources>

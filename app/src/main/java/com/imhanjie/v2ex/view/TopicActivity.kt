@@ -10,6 +10,7 @@ import com.imhanjie.support.ext.dp
 import com.imhanjie.v2ex.App
 import com.imhanjie.v2ex.BaseActivity
 import com.imhanjie.v2ex.databinding.ActivityTopicBinding
+import com.imhanjie.v2ex.model.ReplyHeaderType
 import com.imhanjie.v2ex.parser.model.Reply
 import com.imhanjie.v2ex.parser.model.Topic
 import com.imhanjie.v2ex.vm.BaseViewModel
@@ -40,28 +41,34 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        vm.loadingState.observe(this) { loading ->
+        vm.loadingWrapState.observe(this) { loading ->
             if (loading) {
                 vb.loadingLayout.update(LoadingWrapLayout.Status.LOADING)
             } else {
                 vb.loadingLayout.update(LoadingWrapLayout.Status.DONE)
             }
         }
+        vm.loadingDialog.observe(this) { loadingDialog.update(!it) }
 
         vb.replyRv.layoutManager = LinearLayoutManager(this)
         (vb.replyRv.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
-        val delegate = LoadMoreDelegate(vb.replyRv) { vm.loadMore() }
+        val delegate = LoadMoreDelegate(vb.replyRv) { vm.loadReplies(append = true, doReverse = false) }
         delegate.adapter.apply {
             register(Topic::class.java, TopicDetailsAdapter())
             register(Reply::class.java, ReplyAdapter())
+            register(ReplyHeaderType::class.java, ReplyHeaderAdapter { vm.loadReplies(append = false, doReverse = true) })
         }
-        vm.topic.observe(this) {
-            val (topic, fromLoadMore, hasMore) = it
-            if (!fromLoadMore) {
+        vm.topicData.observe(this) {
+            val (topic, append, hasMore, isOrder) = it
+            val isFirst = delegate.items.isEmpty()
+            if (isFirst || !append) {
                 delegate.apply {
                     items.clear()
                     items.add(topic)
-                    items.addAll(topic.replies)
+                    if (topic.replies.isNotEmpty()) {
+                        items.add(ReplyHeaderType(isOrder))
+                        items.addAll(topic.replies)
+                    }
                     adapter.notifyDataSetChanged()
                 }
             } else {
@@ -72,6 +79,25 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
                     adapter.notifyItemRangeInserted(originSize, topic.replies.size);
                 }
             }
+
+//            if (!fromLoadMore) {
+//                delegate.apply {
+//                    items.clear()
+//                    items.add(topic)
+//                    if (topic.replies.isNotEmpty()) {
+//                        items.add("")
+//                        items.addAll(topic.replies)
+//                    }
+//                    adapter.notifyDataSetChanged()
+//                }
+//            } else {
+//                delegate.apply {
+//                    adapter.notifyItemChanged(items.itemSize - 1)   // fix 最后一项 divider 不刷新的问题
+//                    val originSize = items.itemSize
+//                    items.addAll(topic.replies)
+//                    adapter.notifyItemRangeInserted(originSize, topic.replies.size);
+//                }
+//            }
             delegate.notifyLoadSuccess(hasMore)
         }
 
