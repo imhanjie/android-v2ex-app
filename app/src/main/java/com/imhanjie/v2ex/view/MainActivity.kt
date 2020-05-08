@@ -50,7 +50,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             add(TAB_NOTIFICATION, NotificationTabFragment())
             add(TAB_ME, MeTabFragment())
         }
-        vb.viewPager.adapter = object : FragmentPagerAdapter(supportFragmentManager) {
+        vb.viewPager.adapter = object : FragmentPagerAdapter(supportFragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             override fun getItem(position: Int): Fragment {
                 return fragments[position]
             }

@@ -5,17 +5,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
-import com.imhanjie.support.e
 import com.imhanjie.support.ext.dp
 import com.imhanjie.support.ext.toActivity
-import com.imhanjie.v2ex.BaseLazyFragment
+import com.imhanjie.v2ex.BaseFragment
 import com.imhanjie.v2ex.common.TopicTab
 import com.imhanjie.v2ex.databinding.FragmentTabBinding
 import com.imhanjie.v2ex.vm.TabViewModel
 import com.imhanjie.widget.LineDividerItemDecoration
 import com.imhanjie.widget.LoadingWrapLayout
 
-class TabFragment : BaseLazyFragment<FragmentTabBinding>() {
+class TabFragment : BaseFragment<FragmentTabBinding>() {
 
     private lateinit var vm: TabViewModel
 
@@ -75,16 +74,11 @@ class TabFragment : BaseLazyFragment<FragmentTabBinding>() {
         }
     }
 
-    override fun onLazyLoad() {
-        e("${vm.tab.title}: onLazyLoad()")
+    override fun onResume() {
+        super.onResume()
         if (vm.topicData.value == null) {   // 首次初始化
             vm.loadTopics(false)
         }
-    }
-
-    override fun onResumeAfterLazyLoad() {
-        super.onResumeAfterLazyLoad()
-        e("${vm.tab.title}: onResumeAfterLazyLoad()")
     }
 
 }

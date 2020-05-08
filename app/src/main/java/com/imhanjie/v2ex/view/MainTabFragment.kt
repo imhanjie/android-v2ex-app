@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.lifecycle.ViewModelProvider
-import com.imhanjie.v2ex.BaseLazyFragment
+import com.imhanjie.v2ex.BaseFragment
 import com.imhanjie.v2ex.databinding.FragmentTabMainBinding
 import com.imhanjie.v2ex.vm.MainTabViewModel
 
-class MainTabFragment : BaseLazyFragment<FragmentTabMainBinding>() {
+class MainTabFragment : BaseFragment<FragmentTabMainBinding>() {
 
     private lateinit var vm: MainTabViewModel
 
@@ -22,7 +22,7 @@ class MainTabFragment : BaseLazyFragment<FragmentTabMainBinding>() {
     }
 
     override fun initViews() {
-        vb.viewPager.adapter = object : FragmentPagerAdapter(childFragmentManager) {
+        vb.viewPager.adapter = object : FragmentStatePagerAdapter(childFragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             override fun getItem(position: Int): Fragment {
                 return TabFragment.newInstance(vm.tabs[position])
             }
@@ -49,13 +49,6 @@ class MainTabFragment : BaseLazyFragment<FragmentTabMainBinding>() {
             configSp.putInt("ui_mode", targetUiMode)
             AppCompatDelegate.setDefaultNightMode(targetUiMode)
         })
-    }
-
-    override fun onLazyLoad() {
-    }
-
-    override fun onResumeAfterLazyLoad() {
-        super.onResumeAfterLazyLoad()
     }
 
 }

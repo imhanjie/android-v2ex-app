@@ -25,13 +25,8 @@ class MeTabFragment : BaseFragment<FragmentTabMeBinding>() {
         }
     }
 
-//    override fun onLazyLoad() {
-//        e("onLazyLoad: MeTabFragment()")
-//    }
-//
-//    override fun onResumeAfterLazyLoad() {
-//        super.onResumeAfterLazyLoad()
-//        e("onResumeAfterLazyLoad: MeTabFragment()")
-//    }
+    override fun onResume() {
+        super.onResume()
+    }
 
 }
