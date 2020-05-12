@@ -13,11 +13,11 @@ class TopicParser : Parser {
         val document = Jsoup.parse(html)
 
         val id = document.selectFirst("div.votes").attr("id").split("_")[1].toLong()
-        val title = document.selectFirst("div.header").selectFirst("h1").text()
+        val title = document.selectFirst("#Main").selectFirst("div.header").selectFirst("h1").text()
 
         var nodeName = ""
         var nodeTitle = ""
-        for (ae in document.selectFirst("div.header").select("a")) {
+        for (ae in document.selectFirst("#Main").selectFirst("div.header").select("a")) {
             val href = ae.attr("href")
             val key = "/go/"
             if (href.isNotEmpty() && href.startsWith(key)) {

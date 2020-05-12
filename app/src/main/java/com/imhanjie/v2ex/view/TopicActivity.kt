@@ -91,7 +91,7 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
                 height = 4f.dp().toInt()
             ) {
                 override fun isSkip(position: Int): Boolean {
-                    return delegate.items[position] is Topic.Subtle
+                    return position == 0 || delegate.items[position] is Topic.Subtle
                 }
             }
         )

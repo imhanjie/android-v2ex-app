@@ -2,7 +2,8 @@
 <resources>
     <color name="colorPrimary">@color/widget_text_1</color>
     <color name="colorPrimaryDark">@color/widget_text_1</color>
-    <color name="colorAccent">@color/widget_text_1</color>
+    <color name="colorAccent">#4CAF50</color>
+    <!--    <color name="colorAccent">#4caf50</color>-->
 
     <color name="tab_layout_divider">#EAEAEA</color>
     <color name="topic_node_background">#0A666666</color>

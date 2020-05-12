@@ -31,15 +31,13 @@ class RichTextView @JvmOverloads constructor(
     }
 
     fun setRichContent(content: String?) {
-        var result: CharSequence? = content
-        content?.let {
-            result = HtmlCompat.fromHtml(
-                it,
-                HtmlCompat.FROM_HTML_MODE_LEGACY,
-                GlideImageGetter(this),
-                null
-            )
-        }
+        var result: CharSequence = content ?: ""
+        result = HtmlCompat.fromHtml(
+            formatHtml(result.toString()),
+            HtmlCompat.FROM_HTML_MODE_LEGACY,
+            GlideImageGetter(this),
+            null
+        )
         val s: Spannable = SpannableString(result)
         val urlSpans = s.getSpans(0, s.length, URLSpan::class.java)
         for (span in urlSpans) {
@@ -101,6 +99,34 @@ class RichTextView @JvmOverloads constructor(
         }
 
         super.setText(s)
+    }
+
+    /**
+     * 格式化处理 html
+     */
+    private fun formatHtml(content: String): String {
+        var result = content
+            .replace("<ul>", "<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;")
+            .replace("</ul>", "</p>")
+            .replace("<li>", "<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;")
+            .replace("</li>", "</p>")
+        result = removeTailTag(result, "div")
+        result = removeTailTag(result, "p")
+        return result
+    }
+
+    /**
+     * 移除尾部元素标签
+     */
+    private fun removeTailTag(content: String, tagName: String): String {
+        var result = content
+        val tagStart = "<$tagName>"
+        val tagEnd = "</$tagName>"
+        if (content.endsWith(tagEnd)) {
+            val index = content.lastIndexOf(tagStart)
+            result = result.substring(0, index) + result.substring(index).replace(tagStart, "").replace(tagEnd, "")
+        }
+        return result
     }
 
     fun imagePreview(url: String) {
