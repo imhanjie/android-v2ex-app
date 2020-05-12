@@ -16,4 +16,5 @@
     <string name="topic_item_desc">%1$s&#160;&#160;•&#160;&#160;%2$d 条回复</string>
     <string name="topic_item_desc_with_top">置顶&#160;&#160;•&#160;&#160;%1$s&#160;&#160;•&#160;&#160;%2$d&#160;条回复</string>
     <string name="topic_details_desc">%1$s&#160;&#160;•&#160;&#160;%2$d 次点击</string>
+    <string name="topic_subtle_title">第 %1$d 条附言&#160;&#160;•&#160;&#160;%2$s</string>
 </resources>

@@ -11,10 +11,11 @@ class ReplyHeaderAdapter(
 ) : BaseItemViewDelegate<ReplyHeaderType, ItemReplyHeaderBinding>() {
 
     override fun bindTo(holder: VBViewHolder<ItemReplyHeaderBinding>, position: Int, item: ReplyHeaderType) {
-        val vb = holder.vb
-        vb.reverse.setText(if (item.isOrder) R.string.reply_order else R.string.reply_reverse_order)
-        vb.reverse.setOnClickListener {
-            reverseBlock?.invoke()
+        with(holder.vb) {
+            reverse.setText(if (item.isOrder) R.string.reply_order else R.string.reply_reverse_order)
+            reverse.setOnClickListener {
+                reverseBlock?.invoke()
+            }
         }
     }
 

@@ -55,8 +55,11 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
         val delegate = LoadMoreDelegate(vb.replyRv) { vm.loadReplies(append = true, doReverse = false) }
         delegate.adapter.apply {
             register(Topic::class.java, TopicDetailsAdapter())
+            register(Topic.Subtle::class.java, SubtleAdapter())
             register(Reply::class.java, ReplyAdapter())
-            register(ReplyHeaderType::class.java, ReplyHeaderAdapter { vm.loadReplies(append = false, doReverse = true) })
+            register(ReplyHeaderType::class.java, ReplyHeaderAdapter {
+                vm.loadReplies(append = false, doReverse = true)
+            })
         }
 
         vm.topicData.observe(this) {
@@ -66,6 +69,7 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
                 if (isFirst || !append) {
                     items.clear()
                     items.add(topic)
+                    items.addAll(topic.subtleList)
                     if (topic.replies.isNotEmpty()) {
                         items.add(ReplyHeaderType(isOrder))
                         items.addAll(topic.replies)
@@ -87,7 +91,7 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
                 height = 4f.dp().toInt()
             ) {
                 override fun isSkip(position: Int): Boolean {
-                    return false
+                    return delegate.items[position] is Topic.Subtle
                 }
             }
         )

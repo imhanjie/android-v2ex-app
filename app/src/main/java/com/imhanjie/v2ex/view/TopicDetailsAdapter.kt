@@ -1,6 +1,5 @@
 package com.imhanjie.v2ex.view
 
-import android.annotation.SuppressLint
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
@@ -13,7 +12,6 @@ import com.imhanjie.widget.recyclerview.base.VBViewHolder
 
 class TopicDetailsAdapter : BaseItemViewDelegate<Topic, ItemTopicDetailsBinding>() {
 
-    @SuppressLint("ResourceType")
     override fun bindTo(holder: VBViewHolder<ItemTopicDetailsBinding>, position: Int, item: Topic) {
         val vb = holder.vb
         Glide.with(vb.root)
@@ -25,8 +23,8 @@ class TopicDetailsAdapter : BaseItemViewDelegate<Topic, ItemTopicDetailsBinding>
         vb.userName.text = item.userName
         vb.time.text = ctx.getString(R.string.topic_details_desc, item.createTime, item.click)
         vb.nodeTitle.text = item.nodeTitle
-        vb.content.setRichContent(item.content)
-        vb.content.visibility = if (item.content.isEmpty()) View.GONE else View.VISIBLE
+        vb.content.setRichContent(item.richContent)
+        vb.content.visibility = if (item.richContent.isEmpty()) View.GONE else View.VISIBLE
     }
 
 }

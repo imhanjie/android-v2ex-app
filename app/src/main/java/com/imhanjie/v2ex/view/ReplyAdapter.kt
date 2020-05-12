@@ -12,16 +12,17 @@ import com.imhanjie.widget.recyclerview.base.VBViewHolder
 class ReplyAdapter : BaseItemViewDelegate<Reply, ItemReplyBinding>() {
 
     override fun bindTo(holder: VBViewHolder<ItemReplyBinding>, position: Int, item: Reply) {
-        val vb = holder.vb
-        Glide.with(vb.root)
-            .load(item.userAvatar)
-            .placeholder(ContextCompat.getDrawable(vb.root.context, R.drawable.default_avatar))
-            .transform(CircleCrop())
-            .into(vb.userAvatar)
-        vb.userName.text = item.userName
-        vb.time.text = item.time
-        vb.no.text = ctx.getString(R.string.reply_floor, item.no)
-        vb.content.setRichContent(item.content)
+        with(holder.vb) {
+            Glide.with(root)
+                .load(item.userAvatar)
+                .placeholder(ContextCompat.getDrawable(root.context, R.drawable.default_avatar))
+                .transform(CircleCrop())
+                .into(userAvatar)
+            userName.text = item.userName
+            time.text = item.time
+            no.text = ctx.getString(R.string.reply_floor, item.no)
+            content.setRichContent(item.content)
+        }
     }
 
 }

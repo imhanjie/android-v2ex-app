@@ -22,7 +22,6 @@
         <activity
             android:name=".view.LoginActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".TestActivity" />
     </application>
 
 </manifest>

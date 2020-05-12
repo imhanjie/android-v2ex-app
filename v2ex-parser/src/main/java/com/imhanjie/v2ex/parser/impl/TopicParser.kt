@@ -38,7 +38,7 @@ class TopicParser : Parser {
             click = text().split(" · ")[2].split(" ")[0].toLong()
         }
 
-        val content = (document.selectFirst("div.markdown_body")?.html() ?: document.selectFirst("div.topic_content")?.html()) ?: ""
+        val richContent = (document.selectFirst("div.markdown_body")?.html() ?: document.selectFirst("div.topic_content")?.html()) ?: ""
 
         val currentPage = document.selectFirst("a.page_current")?.text()?.toInt() ?: 1
         var totalPage = currentPage
@@ -46,6 +46,18 @@ class TopicParser : Parser {
             if (isNotEmpty()) {
                 totalPage = max(last().text().toInt(), currentPage)
             }
+        }
+
+        // 附言
+        var subtleNo = 1
+        val subtleList = document.select("div.subtle").map {
+            val subtleCreateTime = it.selectFirst("span.fade").text().split(" · ")[1]
+            val subtleRichContent = it.selectFirst("div.topic_content").html()
+            Topic.Subtle(
+                subtleNo++,
+                subtleCreateTime,
+                subtleRichContent
+            )
         }
 
         val replies: List<Reply> = parserReplies(document)
@@ -58,7 +70,8 @@ class TopicParser : Parser {
             userAvatar,
             createTime,
             click,
-            content,
+            richContent,
+            subtleList,
             replies,
             currentPage,
             totalPage

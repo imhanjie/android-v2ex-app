@@ -9,8 +9,17 @@ data class Topic(
     val userAvatar: String,
     val createTime: String,
     val click: Long,
-    val content: String,
+    val richContent: String,
+    val subtleList: List<Subtle>,
     val replies: List<Reply>,
     val currentPage: Int,
     val totalPage: Int
-)
+) {
+
+    data class Subtle(
+        val no: Int,
+        val createTime: String,
+        val richContent: String
+    )
+
+}
