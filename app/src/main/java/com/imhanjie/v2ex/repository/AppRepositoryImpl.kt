@@ -50,7 +50,7 @@ object AppRepositoryImpl : AppRepository {
 //        api.loadTopic(567112, pageIndex) // MY
 //        api.loadTopic(419135, pageIndex) // PIC
 //        api.loadTopic(670151, pageIndex) // SUBTLE
-        return extractResult(api.loadTopic(670151, pageIndex))
+        return extractResult(api.loadTopic(topicId, pageIndex))
     }
 
     override suspend fun loadSignIn(): SignIn {
