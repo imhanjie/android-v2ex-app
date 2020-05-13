@@ -1,4 +1,4 @@
-package com.imhanjie.v2ex.view
+package com.imhanjie.v2ex.view.fragment
 
 import com.imhanjie.support.e
 import com.imhanjie.v2ex.BaseFragment

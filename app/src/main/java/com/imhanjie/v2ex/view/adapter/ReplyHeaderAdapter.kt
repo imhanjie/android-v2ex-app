@@ -1,4 +1,4 @@
-package com.imhanjie.v2ex.view
+package com.imhanjie.v2ex.view.adapter
 
 import com.imhanjie.v2ex.R
 import com.imhanjie.v2ex.databinding.ItemReplyHeaderBinding

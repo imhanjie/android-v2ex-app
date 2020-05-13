@@ -9,16 +9,15 @@ import com.imhanjie.v2ex.repository.provideAppRepository
 class TabViewModel(application: Application) : BaseViewModel(application) {
 
     lateinit var tab: TopicTab
-    val loadingState = MutableLiveData<Boolean>()
-    val swipeLoadingState = MutableLiveData<Boolean>()
-    val topicData: MutableLiveData<List<TopicItem>> = MutableLiveData()
+    val swipeStateLiveData = MutableLiveData<Boolean>()
+    val topicLiveData: MutableLiveData<List<TopicItem>> = MutableLiveData()
 
     fun loadTopics(fromSwipe: Boolean) {
         request {
-            if (fromSwipe) swipeLoadingState.value = true else loadingState.value = true
+            if (fromSwipe) swipeStateLiveData.value = true
             val topics = provideAppRepository().loadLatestTopics(tab.value, 1)
-            if (fromSwipe) swipeLoadingState.value = false else loadingState.value = false
-            topicData.value = topics
+            topicLiveData.value = topics
+            if (fromSwipe) swipeStateLiveData.value = false
         }
     }
 

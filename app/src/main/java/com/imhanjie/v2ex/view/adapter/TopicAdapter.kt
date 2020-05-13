@@ -1,4 +1,4 @@
-package com.imhanjie.v2ex.view
+package com.imhanjie.v2ex.view.adapter
 
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil

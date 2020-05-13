@@ -50,6 +50,7 @@ object AppRepositoryImpl : AppRepository {
 //        api.loadTopic(567112, pageIndex) // MY
 //        api.loadTopic(419135, pageIndex) // PIC
 //        api.loadTopic(670151, pageIndex) // SUBTLE
+//        api.loadTopic(671006, pageIndex) // TEST
         return extractResult(api.loadTopic(topicId, pageIndex))
     }
 

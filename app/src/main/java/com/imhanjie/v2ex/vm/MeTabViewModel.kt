@@ -7,15 +7,15 @@ import com.imhanjie.v2ex.repository.provideAppRepository
 
 class MeTabViewModel(application: Application) : BaseViewModel(application) {
 
-    val myUserInfo = MutableLiveData<MyUserInfo>()
+    val userInfoLiveData = MutableLiveData<MyUserInfo>()
 
     init {
         loadMyUserInfo()
     }
 
-    public fun loadMyUserInfo() {
+    private fun loadMyUserInfo() {
         request {
-            myUserInfo.value = provideAppRepository().loadMyUserInfo()
+            userInfoLiveData.value = provideAppRepository().loadMyUserInfo()
         }
     }
 

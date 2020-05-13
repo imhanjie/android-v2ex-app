@@ -33,7 +33,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // 验证码图片流
-        vm.imageInputStream.observe(this) { resp ->
+        vm.imageInputStreamLiveData.observe(this) { resp ->
             resp.let {
                 Glide.with(this)
                     .load(BitmapFactory.decodeStream(it))
@@ -56,18 +56,18 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
             }
         }
         // 验证码 & 登录信息
-        vm.loadSignInState.observe(this) { ing ->
+        vm.loadSignInStateLiveData.observe(this) { ing ->
             vb.loadingLayout.update(if (ing) LoadingWrapLayout.Status.LOADING else LoadingWrapLayout.Status.DONE)
         }
         // 登录中
-        vm.loginState.observe(this) { ing ->
+        vm.loginStateLiveData.observe(this) { ing ->
             loadingDialog.update(!ing)
             if (!ing) {
                 vb.etVer.text = null
             }
         }
         // 登录结果
-        vm.loginResult.observe(this) {
+        vm.loginResultLiveData.observe(this) {
             postDelayed(150) {
                 toast(R.string.tips_login_success)
                 finish()

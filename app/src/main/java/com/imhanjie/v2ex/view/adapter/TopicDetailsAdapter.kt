@@ -1,4 +1,4 @@
-package com.imhanjie.v2ex.view
+package com.imhanjie.v2ex.view.adapter
 
 import android.view.View
 import androidx.core.content.ContextCompat

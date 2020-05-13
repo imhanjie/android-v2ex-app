@@ -1,4 +1,4 @@
-package com.imhanjie.v2ex.view
+package com.imhanjie.v2ex.view.fragment
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
@@ -20,7 +20,7 @@ class MeTabFragment : BaseFragment<FragmentTabMeBinding>() {
     }
 
     override fun initViews() {
-        vm.myUserInfo.observe(this) {
+        vm.userInfoLiveData.observe(this) {
             e(it.toString())
         }
     }

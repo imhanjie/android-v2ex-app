@@ -11,10 +11,10 @@ import java.io.InputStream
 
 class LoginViewModel(application: Application) : BaseViewModel(application) {
 
-    val imageInputStream = MutableLiveData<InputStream>()
-    val loginResult = MutableLiveData<LoginInfo>()
-    val loginState = MutableLiveData<Boolean>()
-    val loadSignInState = MutableLiveData<Boolean>()
+    val imageInputStreamLiveData = MutableLiveData<InputStream>()
+    val loginResultLiveData = MutableLiveData<LoginInfo>()
+    val loginStateLiveData = MutableLiveData<Boolean>()
+    val loadSignInStateLiveData = MutableLiveData<Boolean>()
 
     private var signInData: SignIn? = null
 
@@ -24,12 +24,12 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
     fun loadSignIn() {
         request(
             onRequest = {
-                loadSignInState.value = true
+                loadSignInStateLiveData.value = true
                 signInData = provideAppRepository().loadSignIn()
-                imageInputStream.value = provideAppRepository().loadImage(signInData!!.verificationUrl)
+                imageInputStreamLiveData.value = provideAppRepository().loadImage(signInData!!.verificationUrl)
             },
             onError = {
-                loadSignInState.value = false
+                loadSignInStateLiveData.value = false
             }
         )
     }
@@ -43,16 +43,16 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
         }
         request(
             onRequest = {
-                loginState.value = true
+                loginStateLiveData.value = true
                 val loginInfo = provideAppRepository().login(signInData!!, userName, password, verCode)
                 PreferencesManager.getInstance(SpConstants.FILE_COOKIES).putString(SpConstants.COOKIE_A2, loginInfo.cookie)
-                loginResult.value = loginInfo
+                loginResultLiveData.value = loginInfo
             },
             onError = {
                 loadSignIn()
             },
             onComplete = {
-                loginState.value = false
+                loginStateLiveData.value = false
             }
         )
     }

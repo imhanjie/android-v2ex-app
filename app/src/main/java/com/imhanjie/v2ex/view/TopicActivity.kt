@@ -13,6 +13,10 @@ import com.imhanjie.v2ex.databinding.ActivityTopicBinding
 import com.imhanjie.v2ex.model.ReplyHeaderType
 import com.imhanjie.v2ex.parser.model.Reply
 import com.imhanjie.v2ex.parser.model.Topic
+import com.imhanjie.v2ex.view.adapter.ReplyAdapter
+import com.imhanjie.v2ex.view.adapter.ReplyHeaderAdapter
+import com.imhanjie.v2ex.view.adapter.SubtleAdapter
+import com.imhanjie.v2ex.view.adapter.TopicDetailsAdapter
 import com.imhanjie.v2ex.vm.BaseViewModel
 import com.imhanjie.v2ex.vm.TopicViewModel
 import com.imhanjie.widget.LineDividerItemDecoration
@@ -41,14 +45,7 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        vm.loadingWrapState.observe(this) { loading ->
-            if (loading) {
-                vb.loadingLayout.update(LoadingWrapLayout.Status.LOADING)
-            } else {
-                vb.loadingLayout.update(LoadingWrapLayout.Status.DONE)
-            }
-        }
-        vm.loadingDialog.observe(this) { loadingDialog.update(!it) }
+        vm.loadingLiveData.observe(this) { loadingDialog.update(!it) }
 
         vb.replyRv.layoutManager = LinearLayoutManager(this)
         (vb.replyRv.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
@@ -62,7 +59,8 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
             })
         }
 
-        vm.topicData.observe(this) {
+        vm.topicLiveData.observe(this) {
+            vb.loadingLayout.update(LoadingWrapLayout.Status.DONE)
             val (topic, append, hasMore, isOrder) = it
             delegate.apply {
                 val isFirst = items.isEmpty()

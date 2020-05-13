@@ -33,8 +33,8 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
         setContentView(vb.root)
 
         for (vm in initViewModels()) {
-            vm.error.observe(this) { Toast.makeText(this, it, Toast.LENGTH_SHORT).show() }
-            vm.toast.observe(this) { Toast.makeText(this, it, Toast.LENGTH_SHORT).show() }
+            vm.errorLiveData.observe(this) { Toast.makeText(this, it, Toast.LENGTH_SHORT).show() }
+            vm.toastLiveData.observe(this) { Toast.makeText(this, it, Toast.LENGTH_SHORT).show() }
         }
 
         loadingDialog = PureLoadingDialog(this).apply {

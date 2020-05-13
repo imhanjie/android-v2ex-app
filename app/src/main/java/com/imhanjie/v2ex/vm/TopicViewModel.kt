@@ -14,11 +14,10 @@ class TopicViewModel(private val topicId: Long, application: Application) : Base
         val isOrder: Boolean
     )
 
-    val loadingWrapState = MutableLiveData<Boolean>()
-    val topicData = MutableLiveData<TopicLiveData>()
-    val loadingDialog = MutableLiveData<Boolean>()
-    private var isOrder = true
+    val topicLiveData = MutableLiveData<TopicLiveData>()
+    val loadingLiveData = MutableLiveData<Boolean>()
 
+    private var isOrder = true
     private var currentPage = 1
     private var totalPage = -1
     private var isFirst = true
@@ -42,8 +41,8 @@ class TopicViewModel(private val topicId: Long, application: Application) : Base
 
         if (!append && doReverse && totalPage == 1) {
             // 若只有一页数据，直接翻转评论
-            val currentTopic = topicData.value!!.topic
-            topicData.value = TopicLiveData(
+            val currentTopic = topicLiveData.value!!.topic
+            topicLiveData.value = TopicLiveData(
                 currentTopic.copy(replies = currentTopic.replies.reversed()),
                 append = false,
                 hasMore = false,
@@ -58,10 +57,8 @@ class TopicViewModel(private val topicId: Long, application: Application) : Base
         }
         request {
             // change state
-            if (isFirst) {
-                loadingWrapState.value = true
-            } else if (!append) {
-                loadingDialog.value = true
+            if (!isFirst && !append) {
+                loadingLiveData.value = true
             }
 
             var newTopic = provideAppRepository().loadTopic(topicId, currentPage)
@@ -73,14 +70,13 @@ class TopicViewModel(private val topicId: Long, application: Application) : Base
             if (!targetIsOrder) {
                 newTopic = newTopic.copy(replies = newTopic.replies.reversed())
             }
-            topicData.value = TopicLiveData(newTopic, append, hasMore, targetIsOrder)
+            topicLiveData.value = TopicLiveData(newTopic, append, hasMore, targetIsOrder)
 
             // change state
-            if (isFirst) {
-                loadingWrapState.value = false
-            } else if (!append) {
-                loadingDialog.value = false
+            if (!isFirst && !append) {
+                loadingLiveData.value = false
             }
+
             // change value
             totalPage = newTopic.totalPage
             if (targetIsOrder) {

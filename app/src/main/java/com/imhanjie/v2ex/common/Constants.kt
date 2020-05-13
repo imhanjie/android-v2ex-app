@@ -6,5 +6,4 @@ object SpConstants {
     val FILE_CONFIG = "app_config"
 
     val COOKIE_A2 = "A2"
-
 }

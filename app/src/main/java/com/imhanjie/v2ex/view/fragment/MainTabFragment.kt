@@ -1,10 +1,11 @@
-package com.imhanjie.v2ex.view
+package com.imhanjie.v2ex.view.fragment
 
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.imhanjie.support.e
@@ -24,6 +25,7 @@ class MainTabFragment : BaseFragment<FragmentTabMainBinding>() {
     }
 
     override fun initViews() {
+        (vb.viewPager.getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
         vb.viewPager.adapter = object : FragmentStateAdapter(this) {
             override fun getItemCount(): Int {
                 return vm.tabs.size

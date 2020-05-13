@@ -6,6 +6,10 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.imhanjie.v2ex.BaseActivity
 import com.imhanjie.v2ex.R
 import com.imhanjie.v2ex.databinding.ActivityMainBinding
+import com.imhanjie.v2ex.view.fragment.MainTabFragment
+import com.imhanjie.v2ex.view.fragment.MeTabFragment
+import com.imhanjie.v2ex.view.fragment.NodeTabFragment
+import com.imhanjie.v2ex.view.fragment.NotificationTabFragment
 import com.imhanjie.v2ex.vm.BaseViewModel
 import com.imhanjie.widget.nav.BottomNavigationBar
 

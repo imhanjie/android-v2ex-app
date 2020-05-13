@@ -120,10 +120,11 @@ class RichTextView @JvmOverloads constructor(
      */
     private fun removeTailTag(content: String, tagName: String): String {
         var result = content
-        val tagStart = "<$tagName>"
+        var tagStart = "<$tagName"
         val tagEnd = "</$tagName>"
         if (content.endsWith(tagEnd)) {
             val index = content.lastIndexOf(tagStart)
+            tagStart = content.substring(index, content.indexOf(">", index) + 1)
             result = result.substring(0, index) + result.substring(index).replace(tagStart, "").replace(tagEnd, "")
         }
         return result

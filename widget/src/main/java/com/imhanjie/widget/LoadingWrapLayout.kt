@@ -44,6 +44,8 @@ class LoadingWrapLayout @JvmOverloads constructor(
         errorTextView.gravity = Gravity.CENTER
         errorTextView.setOnClickListener { retryCallback?.invoke() }
         addView(errorTextView, tvParams)
+        // 默认加载中
+        post { update(Status.LOADING) }
     }
 
     /**

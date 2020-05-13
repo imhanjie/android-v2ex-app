@@ -1,4 +1,4 @@
-package com.imhanjie.v2ex.view
+package com.imhanjie.v2ex.view.fragment
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
@@ -11,6 +11,8 @@ import com.imhanjie.support.ext.toActivity
 import com.imhanjie.v2ex.BaseFragment
 import com.imhanjie.v2ex.common.TopicTab
 import com.imhanjie.v2ex.databinding.FragmentTabBinding
+import com.imhanjie.v2ex.view.TopicActivity
+import com.imhanjie.v2ex.view.adapter.TopicAdapter
 import com.imhanjie.v2ex.vm.TabViewModel
 import com.imhanjie.widget.LineDividerItemDecoration
 import com.imhanjie.widget.LoadingWrapLayout
@@ -32,20 +34,13 @@ class TabFragment : BaseFragment<FragmentTabBinding>() {
          * 即可忽略 ViewPager 的 Fragment 回收导致的数据重新加载问题。
          */
         vm = ViewModelProvider(requireActivity()).get(tab.value, TabViewModel::class.java)
-        if (vm.topicData.value == null) {   // 首次初始化
+        if (vm.topicLiveData.value == null) {   // 首次初始化
             vm.tab = tab
         }
     }
 
     override fun initViews() {
-        vm.loadingState.observe(this) { loading ->
-            if (loading) {
-                vb.loadingLayout.update(LoadingWrapLayout.Status.LOADING)
-            } else {
-                vb.loadingLayout.update(LoadingWrapLayout.Status.DONE)
-            }
-        }
-        vm.swipeLoadingState.observe(this) { vb.swipeRefreshLayout.isRefreshing = it }
+        vm.swipeStateLiveData.observe(this) { vb.swipeRefreshLayout.isRefreshing = it }
 
         vb.topicRv.layoutManager = LinearLayoutManager(context)
         (vb.topicRv.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
@@ -60,7 +55,10 @@ class TabFragment : BaseFragment<FragmentTabBinding>() {
             toActivity<TopicActivity>(mapOf("topicId" to item.id))
         }
         vb.topicRv.adapter = adapter
-        vm.topicData.observe(this) { adapter.submitList(it) }
+        vm.topicLiveData.observe(this) {
+            vb.loadingLayout.update(LoadingWrapLayout.Status.DONE)
+            adapter.submitList(it)
+        }
 
         vb.swipeRefreshLayout.setOnRefreshListener { vm.loadTopics(true) }
     }
@@ -78,7 +76,7 @@ class TabFragment : BaseFragment<FragmentTabBinding>() {
     override fun onResume() {
         super.onResume()
         e("${vm.tab.title} onResume()")
-        if (vm.topicData.value == null) {   // 首次初始化
+        if (vm.topicLiveData.value == null) {   // 首次初始化
             vm.loadTopics(false)
         }
     }

@@ -15,8 +15,8 @@ import java.net.UnknownHostException
 
 open class BaseViewModel(application: Application) : AndroidViewModel(application) {
 
-    val error: MutableLiveData<String> = MutableLiveData()
-    val toast: MutableLiveData<String> = MutableLiveData()
+    val errorLiveData: MutableLiveData<String> = MutableLiveData()
+    val toastLiveData: MutableLiveData<String> = MutableLiveData()
 
     fun request(
         onError: CoroutineScope.(e: String) -> Unit = { },
@@ -28,7 +28,7 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
                 onRequest()
             } catch (e: Throwable) {
                 val msg = handleException(e)
-                error.value = msg
+                errorLiveData.value = msg
                 onError(msg)
             } finally {
                 onComplete()
