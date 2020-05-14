@@ -2,13 +2,13 @@ package com.imhanjie.v2ex
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.observe
 import androidx.viewbinding.ViewBinding
 import com.imhanjie.support.PreferencesManager
 import com.imhanjie.support.ext.getResColor
+import com.imhanjie.support.ext.toast
 import com.imhanjie.support.statusbar.StatusBarUtil
 import com.imhanjie.v2ex.vm.BaseViewModel
 import com.imhanjie.widget.dialog.PureLoadingDialog
@@ -32,13 +32,13 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
         vb = method.invoke(null, layoutInflater) as VB
         setContentView(vb.root)
 
-        for (vm in initViewModels()) {
-            vm.errorLiveData.observe(this) { Toast.makeText(this, it, Toast.LENGTH_SHORT).show() }
-            vm.toastLiveData.observe(this) { Toast.makeText(this, it, Toast.LENGTH_SHORT).show() }
-        }
-
         loadingDialog = PureLoadingDialog(this).apply {
             setCancelable(false)
+        }
+        for (vm in initViewModels()) {
+            vm.errorLiveData.observe(this) { toast(it) }
+            vm.toastLiveData.observe(this) { toast(it) }
+            vm.loadingDialogLiveData.observe(this) { loadingDialog.update(!it) }
         }
 
         when (configSp.getInt("ui_mode", AppCompatDelegate.MODE_NIGHT_NO)) {

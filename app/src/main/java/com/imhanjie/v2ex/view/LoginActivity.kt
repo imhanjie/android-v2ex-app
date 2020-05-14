@@ -34,26 +34,24 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
         super.onCreate(savedInstanceState)
         // 验证码图片流
         vm.imageInputStreamLiveData.observe(this) { resp ->
-            resp.let {
-                Glide.with(this)
-                    .load(BitmapFactory.decodeStream(it))
-                    .skipMemoryCache(true)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .transform(RoundedCorners(3f.dp().toInt()))
-                    .into(object : CustomViewTarget<ImageView, Drawable>(vb.ivVerification) {
-                        override fun onLoadFailed(errorDrawable: Drawable?) {
-                            vb.loadingLayout.update(LoadingWrapLayout.Status.FAIL)
-                        }
+            Glide.with(this)
+                .load(BitmapFactory.decodeStream(resp))
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .transform(RoundedCorners(3f.dp().toInt()))
+                .into(object : CustomViewTarget<ImageView, Drawable>(vb.ivVerification) {
+                    override fun onLoadFailed(errorDrawable: Drawable?) {
+                        vb.loadingLayout.update(LoadingWrapLayout.Status.FAIL)
+                    }
 
-                        override fun onResourceCleared(placeholder: Drawable?) {
-                        }
+                    override fun onResourceCleared(placeholder: Drawable?) {
+                    }
 
-                        override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
-                            vb.ivVerification.setImageDrawable(resource)
-                            vb.loadingLayout.update(LoadingWrapLayout.Status.DONE)
-                        }
-                    })
-            }
+                    override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                        vb.ivVerification.setImageDrawable(resource)
+                        vb.loadingLayout.update(LoadingWrapLayout.Status.DONE)
+                    }
+                })
         }
         // 验证码 & 登录信息
         vm.loadSignInStateLiveData.observe(this) { ing ->

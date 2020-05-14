@@ -1,4 +1,4 @@
-package com.imhanjie.v2ex
+package com.imhanjie.v2ex.common
 
 import android.content.Context
 import cc.shinichi.library.glide.progress.ProgressManager

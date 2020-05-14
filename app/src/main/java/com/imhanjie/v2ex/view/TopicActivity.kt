@@ -7,7 +7,6 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.imhanjie.support.ext.dp
-import com.imhanjie.v2ex.App
 import com.imhanjie.v2ex.BaseActivity
 import com.imhanjie.v2ex.databinding.ActivityTopicBinding
 import com.imhanjie.v2ex.model.ReplyHeaderType
@@ -35,7 +34,7 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
         }
         vm = ViewModelProvider(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return TopicViewModel(topicId, App.INSTANCE) as T
+                return TopicViewModel(topicId, application) as T
             }
         }).get(TopicViewModel::class.java)
         return listOf(vm)
@@ -44,7 +43,7 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
     @Suppress("UNCHECKED_CAST")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        vb.loadingLayout.update(LoadingWrapLayout.Status.LOADING)
         vm.loadingLiveData.observe(this) { loadingDialog.update(!it) }
 
         vb.replyRv.layoutManager = LinearLayoutManager(this)

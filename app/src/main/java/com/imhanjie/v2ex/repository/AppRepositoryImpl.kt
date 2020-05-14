@@ -7,10 +7,7 @@ import com.imhanjie.v2ex.common.BizException
 import com.imhanjie.v2ex.common.TopicTab
 import com.imhanjie.v2ex.model.LoginInfo
 import com.imhanjie.v2ex.model.Result
-import com.imhanjie.v2ex.parser.model.MyUserInfo
-import com.imhanjie.v2ex.parser.model.SignIn
-import com.imhanjie.v2ex.parser.model.Topic
-import com.imhanjie.v2ex.parser.model.TopicItem
+import com.imhanjie.v2ex.parser.model.*
 import java.io.InputStream
 
 object AppRepositoryImpl : AppRepository {
@@ -41,8 +38,8 @@ object AppRepositoryImpl : AppRepository {
         return extractResult(result)
     }
 
-    override suspend fun loadNodeTopics(nodeTitle: String, pageIndex: Int): List<TopicItem> {
-        return extractResult(api.loadNodeTopics(nodeTitle, pageIndex))
+    override suspend fun loadNodeTopics(nodeName: String, pageIndex: Int): Node {
+        return extractResult(api.loadNodeTopics(nodeName, pageIndex))
     }
 
     override suspend fun loadTopic(topicId: Long, pageIndex: Int): Topic {
@@ -58,8 +55,8 @@ object AppRepositoryImpl : AppRepository {
         return extractResult(api.loadSignIn())
     }
 
-    override suspend fun loadImage(url: String): InputStream {
-        return api.loadImage(url).byteStream()
+    override suspend fun loadVerImage(once: String): InputStream {
+        return api.loadVerImage(once).byteStream()
     }
 
     override suspend fun login(signIn: SignIn, userName: String, password: String, verCode: String): LoginInfo {
@@ -68,7 +65,7 @@ object AppRepositoryImpl : AppRepository {
                 signIn.keyUserName to userName,
                 signIn.keyPassword to password,
                 signIn.keyVerCode to verCode,
-                "once" to signIn.verificationUrl.split("=")[1],
+                "once" to signIn.verUrlOnce,
                 "next" to "/"
             )
         )
@@ -77,6 +74,18 @@ object AppRepositoryImpl : AppRepository {
 
     override suspend fun loadMyUserInfo(): MyUserInfo {
         return extractResult(api.loadMyUserInfo())
+    }
+
+    override suspend fun loadAllNode(): List<TinyNode> {
+        return extractResult(api.loadAllNode())
+    }
+
+    override suspend fun favoriteNode(nodeId: Long, once: String): Any {
+        return extractResult(api.favoriteNode(nodeId, once))
+    }
+
+    override suspend fun unFavoriteNode(nodeId: Long, once: String): Any {
+        return extractResult(api.unFavoriteNode(nodeId, once))
     }
 
 }

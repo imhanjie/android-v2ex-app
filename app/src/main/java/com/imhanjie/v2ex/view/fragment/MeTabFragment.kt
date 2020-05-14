@@ -25,18 +25,4 @@ class MeTabFragment : BaseFragment<FragmentTabMeBinding>() {
         }
     }
 
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        e("MeTabFragment: onResume()")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        e("MeTabFragment: onPause()")
-    }
-
 }

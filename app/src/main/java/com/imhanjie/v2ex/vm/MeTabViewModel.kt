@@ -16,6 +16,7 @@ class MeTabViewModel(application: Application) : BaseViewModel(application) {
     private fun loadMyUserInfo() {
         request {
             userInfoLiveData.value = provideAppRepository().loadMyUserInfo()
+            provideAppRepository().loadAllNode()
         }
     }
 

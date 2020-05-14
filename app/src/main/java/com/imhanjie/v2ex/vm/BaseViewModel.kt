@@ -17,20 +17,28 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
 
     val errorLiveData: MutableLiveData<String> = MutableLiveData()
     val toastLiveData: MutableLiveData<String> = MutableLiveData()
+    val loadingDialogLiveData: MutableLiveData<Boolean> = MutableLiveData()
 
     fun request(
+        withLoading: Boolean = false,
         onError: CoroutineScope.(e: String) -> Unit = { },
         onComplete: CoroutineScope.() -> Unit = {},
         onRequest: suspend CoroutineScope.() -> Unit
     ) {
         viewModelScope.launch {
             try {
+                if (withLoading) {
+                    loadingDialogLiveData.value = true
+                }
                 onRequest()
             } catch (e: Throwable) {
                 val msg = handleException(e)
                 errorLiveData.value = msg
                 onError(msg)
             } finally {
+                if (withLoading) {
+                    loadingDialogLiveData.value = false
+                }
                 onComplete()
             }
         }

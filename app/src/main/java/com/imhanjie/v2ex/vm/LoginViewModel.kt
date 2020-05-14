@@ -26,7 +26,7 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
             onRequest = {
                 loadSignInStateLiveData.value = true
                 signInData = provideAppRepository().loadSignIn()
-                imageInputStreamLiveData.value = provideAppRepository().loadImage(signInData!!.verificationUrl)
+                imageInputStreamLiveData.value = provideAppRepository().loadVerImage(signInData!!.verUrlOnce)
             },
             onError = {
                 loadSignInStateLiveData.value = false

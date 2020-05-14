@@ -2,10 +2,7 @@ package com.imhanjie.v2ex.api
 
 import com.imhanjie.v2ex.model.LoginInfo
 import com.imhanjie.v2ex.model.Result
-import com.imhanjie.v2ex.parser.model.MyUserInfo
-import com.imhanjie.v2ex.parser.model.SignIn
-import com.imhanjie.v2ex.parser.model.Topic
-import com.imhanjie.v2ex.parser.model.TopicItem
+import com.imhanjie.v2ex.parser.model.*
 import okhttp3.ResponseBody
 import retrofit2.http.*
 
@@ -21,11 +18,11 @@ interface ApiService {
         @Query("p") pageIndex: Int
     ): Result<List<TopicItem>>
 
-    @GET("/go/{node_title}")
+    @GET("/go/{node_name}")
     suspend fun loadNodeTopics(
-        @Path("node_title") nodeTitle: String,
+        @Path("node_name") nodeName: String,
         @Query("p") pageIndex: Int
-    ): Result<List<TopicItem>>
+    ): Result<Node>
 
     @GET("/t/{topic_id}")
     suspend fun loadTopic(
@@ -36,9 +33,12 @@ interface ApiService {
     @GET("/signin")
     suspend fun loadSignIn(): Result<SignIn>
 
-    @GET
-    suspend fun loadImage(
-        @Url url: String
+    @GET("/_captcha")
+    @Headers(
+        "Referer: ${ApiServer.BASE_URL}/signin"
+    )
+    suspend fun loadVerImage(
+        @Query("once") once: String
     ): ResponseBody
 
     @POST("/signin")
@@ -53,5 +53,27 @@ interface ApiService {
 
     @GET("/settings")
     suspend fun loadMyUserInfo(): Result<MyUserInfo>
+
+    @GET("/planes")
+    suspend fun loadAllNode(): Result<List<TinyNode>>
+
+    @GET("/favorite/node/{node_id}")
+    @Headers(
+        "Referer: ${ApiServer.BASE_URL}/go"
+    )
+    suspend fun favoriteNode(
+        @Path("node_id") nodeId: Long,
+        @Query("once") once: String
+    ): Result<Any>
+
+    @GET("/unfavorite/node/{node_id}")
+    @Headers(
+        "Referer: ${ApiServer.BASE_URL}/go"
+    )
+    suspend fun unFavoriteNode(
+        @Path("node_id") nodeId: Long,
+        @Query("once") once: String
+    ): Result<Any>
+
 
 }

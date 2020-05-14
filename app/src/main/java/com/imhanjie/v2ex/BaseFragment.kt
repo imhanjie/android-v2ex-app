@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import androidx.viewbinding.ViewBinding
 import com.imhanjie.support.PreferencesManager
+import com.imhanjie.support.ext.toast
 import com.imhanjie.v2ex.vm.BaseViewModel
+import com.imhanjie.widget.dialog.PureLoadingDialog
 import java.lang.reflect.ParameterizedType
 
 abstract class BaseFragment<VB : ViewBinding> : Fragment() {
@@ -17,6 +18,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     protected lateinit var vb: VB
 
     protected val configSp: PreferencesManager = PreferencesManager.getInstance("app_config")
+    protected lateinit var loadingDialog: PureLoadingDialog
 
     abstract fun getViewModels(): List<BaseViewModel>
 
@@ -34,9 +36,13 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         )
         vb = method.invoke(null, inflater, container, false) as VB
 
+        loadingDialog = PureLoadingDialog(requireContext()).apply {
+            setCancelable(false)
+        }
         for (vm in getViewModels()) {
-            vm.errorLiveData.observe(viewLifecycleOwner) { Toast.makeText(context, it, Toast.LENGTH_SHORT).show() }
-            vm.toastLiveData.observe(viewLifecycleOwner) { Toast.makeText(context, it, Toast.LENGTH_SHORT).show() }
+            vm.errorLiveData.observe(this) { toast(it) }
+            vm.toastLiveData.observe(this) { toast(it) }
+            vm.loadingDialogLiveData.observe(viewLifecycleOwner) { loadingDialog.update(!it) }
         }
 
         initViews()

@@ -12,9 +12,11 @@ import okhttp3.Response
 class CookieInterceptor : Interceptor {
 
     /**
-     * 临时保存用于登录的 cookies
+     * 管理每个页面的 PB3_SESSION，当前页面的 once 与 PB3_SESSION 一一对应，
+     * 所以某个页面上的操作接口中有 once 码，即请求时需要附带尚当前页面的 PB3_SESSION，
+     * 可以通过请求头中的 Refer 地址来判断当前的操作和哪个页面相关。
      */
-    private var memorySignInCookies = mutableListOf<Cookie>()
+    private val pb3SessionMap = hashMapOf<String, String>()
 
     override fun intercept(chain: Interceptor.Chain): Response {
         var request = chain.request()
@@ -24,40 +26,42 @@ class CookieInterceptor : Interceptor {
         return response
     }
 
-
     private fun saveFromResponse(request: Request, response: Response) {
-        if (!request.url().toString().startsWith("${ApiServer.BASE_URL}/signin") || request.method()
-                .toUpperCase() != "GET" || response.code() == 302
-        ) {
-            return
+        val responseUrl = response.request().url().toString()
+        val pb3Session = response.headers().values("set-cookie").firstOrNull { it.startsWith("PB3_SESSION=") } ?: ""
+        if (pb3Session != "") {
+            if (responseUrl.startsWith("${ApiServer.BASE_URL}/go")) {
+                pb3SessionMap["${ApiServer.BASE_URL}/go"] = pb3Session
+            } else {
+                pb3SessionMap[responseUrl] = pb3Session
+            }
         }
-        val cookies = Cookie.parseAll(request.url(), response.headers())
-        memorySignInCookies.clear()
-        memorySignInCookies.addAll(cookies)
     }
 
     private fun loadForRequest(request: Request): Request {
-        val url = request.url().toString()
-        val method = request.method().toUpperCase()
-        val cookies =
-            if (url.startsWith("${ApiServer.BASE_URL}/_captcha?once=") || (url.startsWith("${ApiServer.BASE_URL}/signin") && method == "POST")) {
-                memorySignInCookies
-            } else {
-                // 除了上面两个接口请求时都去尝试取 A2 Cookie
-                val a2Cookie = PreferencesManager.getInstance(SpConstants.FILE_COOKIES)
-                    .getString(SpConstants.COOKIE_A2, "")
-                if (a2Cookie.isNotEmpty()) {
-                    // 已登录
-                    mutableListOf(Cookie.parse(request.url(), a2Cookie)!!)
-                } else {
-                    mutableListOf()
-                }
+        val resultCookies = mutableListOf<Cookie>()
+
+        val refererUrl = request.header("Referer").orEmpty()
+        if (refererUrl.isNotEmpty()) {
+            val requestUrl = request.url().toString()
+            val pageSession: String = pb3SessionMap[refererUrl].orEmpty()
+            if (pageSession.isNotEmpty()) {
+                resultCookies.add(Cookie.parse(request.url(), pageSession)!!)
             }
-        return if (cookies.isEmpty()) {
+        }
+
+        // 接口请求时都去尝试取 A2 Cookie
+        val a2Cookie = PreferencesManager.getInstance(SpConstants.FILE_COOKIES)
+            .getString(SpConstants.COOKIE_A2, "")
+        if (a2Cookie.isNotEmpty()) {
+            resultCookies.add(Cookie.parse(request.url(), a2Cookie)!!)
+        }
+
+        return if (resultCookies.isEmpty()) {
             request
         } else {
             request.newBuilder().apply {
-                header("Cookie", cookieHeader(cookies))
+                header("Cookie", cookieHeader(resultCookies))
             }.build()
         }
     }

@@ -1,14 +1,34 @@
 package com.imhanjie.v2ex.parser.impl
 
 import com.imhanjie.v2ex.parser.Parser
+import com.imhanjie.v2ex.parser.model.Node
 import com.imhanjie.v2ex.parser.model.TopicItem
 import org.jsoup.Jsoup
+import kotlin.math.max
 
 class NodeTopicsParser : Parser {
 
     override fun parser(html: String): Any {
         val document = Jsoup.parse(html)
-        return document.select("#TopicsNode").select("div.cell").map { eCell ->
+
+        val nodeTitle = document.selectFirst("title").text().split(" › ")[1]
+
+        val eNodeInfo = document.selectFirst("div.node_info")
+        val nodeDesc = eNodeInfo.selectFirst("span.f12").text()
+        val topicTotalCount = eNodeInfo.selectFirst("div.fr.f12").selectFirst("strong").text().toLong()
+        val eA = eNodeInfo.selectFirst("div.fr.f12").selectFirst("a")
+        val isFavorite = eA.text() == "取消收藏"
+        val nodeId = eA.attr("href").split("?")[0].split("/").last().toLong()
+        val once = eA.attr("href").split("=").last()
+
+        val nodeAvatar = document.selectFirst("div.node_avatar").selectFirst("img")?.attr("src") ?: ""
+        val nodeName = document.select("input")
+            .first { it.attr("value") == "创建新主题" }
+            .attr("onclick")
+            .split("'")[1]
+            .split("/")[2]
+
+        val topics = document.select("#TopicsNode").select("div.cell").map { eCell ->
             val eTitle = eCell.selectFirst("a.topic-link")
             val title = eTitle.text()
             val id = eTitle.attr("href").split("/")[2].split("#")[0].toLong()
@@ -25,8 +45,8 @@ class NodeTopicsParser : Parser {
             TopicItem(
                 id,
                 title,
-                "",
-                "",
+                nodeName,
+                nodeTitle,
                 userName,
                 userAvatar,
                 latestReplyTime,
@@ -34,6 +54,27 @@ class NodeTopicsParser : Parser {
                 isTop = false
             )
         }
+
+        val currentPage = document.selectFirst("a.page_current")?.text()?.toInt() ?: 1
+        var totalPage = currentPage
+        with(document.select("a.page_normal")!!) {
+            if (isNotEmpty()) {
+                totalPage = max(last().text().toInt(), currentPage)
+            }
+        }
+        return Node(
+            nodeId,
+            nodeTitle,
+            nodeName,
+            nodeAvatar,
+            nodeDesc,
+            topicTotalCount,
+            isFavorite,
+            topics,
+            currentPage,
+            totalPage,
+            once
+        )
     }
 
 }

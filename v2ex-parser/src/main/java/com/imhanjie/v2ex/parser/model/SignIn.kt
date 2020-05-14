@@ -4,5 +4,5 @@ data class SignIn(
     val keyUserName: String,
     val keyPassword: String,
     val keyVerCode: String,
-    val verificationUrl: String
+    val verUrlOnce: String
 )

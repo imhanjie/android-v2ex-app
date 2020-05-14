@@ -20,8 +20,8 @@ class ParserInterceptor : Interceptor {
 
         // 单独处理重定向逻辑
         if (response.code() == 302) {
-            url = ApiServer.BASE_URL + response.header("location")
-            if (url == "${ApiServer.BASE_URL}/signin/cooldown") {
+            url = response.header("location") ?: ""
+            if (url == "/signin/cooldown") {
                 response.close()
                 val redirectRequest = Request.Builder()
                     .url(url)
@@ -29,9 +29,12 @@ class ParserInterceptor : Interceptor {
                     .build()
                 isFailRequest = true
                 response = chain.proceed(redirectRequest)
-            } else if (url.startsWith("${ApiServer.BASE_URL}/signin?next=")) {
+            } else if (url.startsWith("/signin?next=")) {
                 // 登录信息失效，直接返回
                 return response.recreateFailJsonResponse("请先登录后再进行查看", Result.CODE_USER_EXPIRED)
+            } else if (url.startsWith("${ApiServer.BASE_URL}/go")) {
+                // 收藏 / 取消收藏成功
+                return response.recreateSuccessJsonResponse("")
             }
         } else if (response.code() == 403) {
             // IP 被(临时)禁
@@ -83,6 +86,8 @@ class ParserInterceptor : Interceptor {
                 CoolDownParser()
             } else if (equals("${ApiServer.BASE_URL}/settings")) {
                 SettingsParser()
+            } else if (equals("${ApiServer.BASE_URL}/planes")) {
+                NodeParser()
             } else {
                 null
             }

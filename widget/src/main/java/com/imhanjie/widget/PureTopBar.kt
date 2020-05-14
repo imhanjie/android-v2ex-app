@@ -11,6 +11,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.content.withStyledAttributes
 import com.imhanjie.widget.databinding.WidgetTopBarBinding
+import com.imhanjie.widget.todo.setDrawableColor
 
 class PureTopBar @JvmOverloads constructor(
     ctx: Context,
@@ -38,6 +39,7 @@ class PureTopBar @JvmOverloads constructor(
                 if (rightTextColor >= 0) {
                     view.rightTv.setTextColor(rightTextColor)
                 }
+                view.rightTv.setDrawableColor(R.color.widget_text_1)
                 view.rightTv.visibility = getInt(R.styleable.WidgetPureTopBar_widget_bar_rightVisibility, View.VISIBLE)
                 // right secondary
                 view.rightSecondaryTv.text = getString(R.styleable.WidgetPureTopBar_widget_bar_rightSecondaryText)
@@ -93,6 +95,11 @@ class PureTopBar @JvmOverloads constructor(
         } else {
             view.titleStartIv.setVisibility(View.GONE)
         }
+    }
+
+    fun setRightIcon(@DrawableRes iconRes: Int) {
+        view.rightTv.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, iconRes, 0);
+        view.rightTv.setDrawableColor(R.color.widget_text_1)
     }
 
 }

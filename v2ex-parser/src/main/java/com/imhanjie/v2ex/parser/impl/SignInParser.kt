@@ -12,12 +12,16 @@ class SignInParser : Parser {
         val keyUserName = eTrs[0].selectFirst("input").attr("name")
         val keyPassword = eTrs[1].selectFirst("input").attr("name")
         val keyVerCode = eTrs[2].selectFirst("input").attr("name")
-        val verificationUrl = "https://v2ex.com" + eTrs[2].selectFirst("div").attr("style").split(";")[0].split("'")[1]
+        val verUrlOnce = eTrs[2].selectFirst("div")
+            .attr("style")
+            .split(";")[0]
+            .split("'")[1]
+            .split("=")[1]
         return SignIn(
             keyUserName,
             keyPassword,
             keyVerCode,
-            verificationUrl
+            verUrlOnce
         )
     }
 
