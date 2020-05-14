@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.imhanjie.v2ex.BaseFragment
+import com.imhanjie.v2ex.common.Event
+import com.imhanjie.v2ex.common.LiveDataBus
 import com.imhanjie.v2ex.common.TopicTab
 import com.imhanjie.v2ex.databinding.FragmentTabMainBinding
 import com.imhanjie.v2ex.vm.MainTabViewModel
@@ -25,6 +27,10 @@ class MainTabFragment : BaseFragment<FragmentTabMainBinding>() {
     }
 
     override fun initViews() {
+        vb.topBar.setOnClickListener {
+            LiveDataBus.get().post(Event.MAIN_SCROLL_TO_TOP, Any())
+        }
+
         (vb.viewPager.getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
         vb.viewPager.adapter = object : FragmentStateAdapter(this) {
             override fun getItemCount(): Int {

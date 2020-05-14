@@ -2,6 +2,7 @@ package com.imhanjie.widget.recyclerview.loadmore
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SimpleItemAnimator
 
 class LoadMoreDelegate(
     private val recyclerView: RecyclerView,
@@ -21,7 +22,8 @@ class LoadMoreDelegate(
     init {
         adapter = LoadMoreMultiTypeAdapter(items)
         adapter.loadMoreIvd.retryBlock = ::triggerLoadMore
-
+        recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
+        (recyclerView.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations = false
         val scrollListener = EndlessScrollListener(recyclerView.layoutManager as LinearLayoutManager)
         recyclerView.addOnScrollListener(scrollListener)
         recyclerView.adapter = adapter

@@ -40,7 +40,7 @@ class PureTopBar @JvmOverloads constructor(
                     view.rightTv.setTextColor(rightTextColor)
                 }
                 view.rightTv.setDrawableColor(R.color.widget_text_1)
-                view.rightTv.visibility = getInt(R.styleable.WidgetPureTopBar_widget_bar_rightVisibility, View.VISIBLE)
+                view.rightTv.visibility = getInt(R.styleable.WidgetPureTopBar_widget_bar_rightVisibility, View.INVISIBLE)
                 // right secondary
                 view.rightSecondaryTv.text = getString(R.styleable.WidgetPureTopBar_widget_bar_rightSecondaryText)
                 val rightSecondaryDrawable = getDrawable(R.styleable.WidgetPureTopBar_widget_bar_rightSecondaryIcon)
@@ -49,7 +49,7 @@ class PureTopBar @JvmOverloads constructor(
                 if (secondaryRightTextColor >= 0) {
                     view.rightSecondaryTv.setTextColor(secondaryRightTextColor)
                 }
-                view.rightSecondaryTv.visibility = getInt(R.styleable.WidgetPureTopBar_widget_bar_rightSecondaryVisibility, View.VISIBLE)
+                view.rightSecondaryTv.visibility = getInt(R.styleable.WidgetPureTopBar_widget_bar_rightSecondaryVisibility, View.INVISIBLE)
                 // left
                 view.leftIv.visibility = getInt(R.styleable.WidgetPureTopBar_widget_bar_leftVisibility, View.VISIBLE)
             }

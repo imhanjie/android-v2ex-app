@@ -19,6 +19,7 @@
             app:layout_scrollFlags="scroll|enterAlways"
             app:widget_bar_leftVisibility="invisible"
             app:widget_bar_rightText="Switch"
+            app:widget_bar_rightVisibility="visible"
             app:widget_bar_titleText="V2EX" />
 
         <com.google.android.material.tabs.TabLayout

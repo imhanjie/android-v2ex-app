@@ -4,8 +4,6 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.SimpleItemAnimator
 import com.imhanjie.support.ext.dp
 import com.imhanjie.v2ex.BaseActivity
 import com.imhanjie.v2ex.databinding.ActivityTopicBinding
@@ -43,11 +41,11 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
     @Suppress("UNCHECKED_CAST")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         vb.loadingLayout.update(LoadingWrapLayout.Status.LOADING)
+        vb.topBar.setOnClickListener { vb.replyRv.smoothScrollToPosition(0) }
         vm.loadingLiveData.observe(this) { loadingDialog.update(!it) }
 
-        vb.replyRv.layoutManager = LinearLayoutManager(this)
-        (vb.replyRv.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         val delegate = LoadMoreDelegate(vb.replyRv) { vm.loadReplies(append = true, doReverse = false) }
         delegate.adapter.apply {
             register(Topic::class.java, TopicDetailsAdapter())

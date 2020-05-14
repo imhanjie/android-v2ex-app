@@ -5,12 +5,17 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
+import com.drakeet.multitype.MultiTypeAdapter
 import com.imhanjie.support.ext.dp
 import com.imhanjie.support.ext.toActivity
 import com.imhanjie.v2ex.BaseFragment
+import com.imhanjie.v2ex.common.Event
+import com.imhanjie.v2ex.common.LiveDataBus
 import com.imhanjie.v2ex.common.TopicTab
 import com.imhanjie.v2ex.databinding.FragmentTabBinding
+import com.imhanjie.v2ex.parser.model.TopicItem
 import com.imhanjie.v2ex.view.NodeActivity
+import com.imhanjie.v2ex.view.TopicActivity
 import com.imhanjie.v2ex.view.adapter.TopicAdapter
 import com.imhanjie.v2ex.vm.TabViewModel
 import com.imhanjie.widget.LineDividerItemDecoration
@@ -19,6 +24,7 @@ import com.imhanjie.widget.LoadingWrapLayout
 class TabFragment : BaseFragment<FragmentTabBinding>() {
 
     private lateinit var vm: TabViewModel
+    private val items = arrayListOf<Any>()
 
     override fun getViewModels() = listOf(vm)
 
@@ -40,7 +46,6 @@ class TabFragment : BaseFragment<FragmentTabBinding>() {
 
     override fun initViews() {
         vb.loadingLayout.update(LoadingWrapLayout.Status.LOADING)
-        vm.swipeStateLiveData.observe(this) { vb.swipeRefreshLayout.isRefreshing = it }
 
         vb.topicRv.layoutManager = LinearLayoutManager(context)
         (vb.topicRv.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
@@ -50,23 +55,48 @@ class TabFragment : BaseFragment<FragmentTabBinding>() {
                 height = 4f.dp().toInt()
             )
         )
-        val adapter = TopicAdapter()
-        adapter.onItemClickListener = { _, item, _ ->
-//            toActivity<TopicActivity>(mapOf("topicId" to item.id))
-            toActivity<NodeActivity>(
-                mapOf(
-                    "title" to item.nodeTitle,
-                    "name" to item.nodeName
+
+        val adapter = MultiTypeAdapter(items)
+        val topicAdapter = TopicAdapter().apply {
+            onItemClickListener = { _, item, _ ->
+                this@TabFragment.toActivity<TopicActivity>(mapOf("topicId" to item.id))
+                this@TabFragment.toActivity<NodeActivity>(
+                    mapOf(
+                        "title" to item.nodeTitle,
+                        "name" to item.nodeName
+                    )
                 )
-            )
+            }
+        }
+        adapter.apply {
+            register(TopicItem::class.java, topicAdapter)
         }
         vb.topicRv.adapter = adapter
         vm.topicLiveData.observe(this) {
             vb.loadingLayout.update(LoadingWrapLayout.Status.DONE)
-            adapter.submitList(it)
+            vb.swipeRefreshLayout.isRefreshing = false
+
+            items.clear()
+            items.addAll(it)
+            adapter.notifyDataSetChanged()
         }
 
-        vb.swipeRefreshLayout.setOnRefreshListener { vm.loadTopics(true) }
+        vb.swipeRefreshLayout.setOnRefreshListener { vm.loadTopics() }
+
+        LiveDataBus.get()
+            .with(Event.MAIN_SCROLL_TO_TOP, Any::class.java)
+            .observe(this) {
+                if (isResumed) {
+                    vb.topicRv.smoothScrollToPosition(0)
+                }
+            }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (vm.topicLiveData.value == null) {   // 首次初始化
+            vm.loadTopics()
+        }
     }
 
     companion object {
@@ -76,13 +106,6 @@ class TabFragment : BaseFragment<FragmentTabBinding>() {
                 putSerializable("tab", tab)
             }
             return fragment
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if (vm.topicLiveData.value == null) {   // 首次初始化
-            vm.loadTopics(false)
         }
     }
 

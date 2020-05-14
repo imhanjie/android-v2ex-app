@@ -2,26 +2,33 @@ package com.imhanjie.v2ex.vm
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
-import com.imhanjie.support.e
 import com.imhanjie.v2ex.parser.model.Node
 import com.imhanjie.v2ex.repository.provideAppRepository
 
 class NodeViewModel(private val nodeName: String, application: Application) : BaseViewModel(application) {
 
-    private var currentPage = 1
+    data class NodeLiveData(
+        val node: Node,
+        val append: Boolean,
+        val hasMore: Boolean
+    )
 
-    val nodeLiveData = MutableLiveData<Node>()
+    val nodeLiveData = MutableLiveData<NodeLiveData>()
     val isFavoriteLiveData = MutableLiveData<Pair<Boolean, Boolean>>()
 
+    private var currentPage = 1
+
     init {
-        loadNodeTopics()
+        loadNodeTopics(append = false)
     }
 
-    private fun loadNodeTopics() {
+    fun loadNodeTopics(append: Boolean) {
         request {
-            val node = provideAppRepository().loadNodeTopics(nodeName, currentPage)
+            val requestPage = if (!append) 1 else currentPage + 1
+            val node = provideAppRepository().loadNodeTopics(nodeName, requestPage)
             isFavoriteLiveData.value = Pair(node.isFavorite, false)
-            nodeLiveData.value = node
+            nodeLiveData.value = NodeLiveData(node, append, node.currentPage != node.totalPage)
+            currentPage = requestPage
         }
     }
 
@@ -29,8 +36,7 @@ class NodeViewModel(private val nodeName: String, application: Application) : Ba
      * 收藏 / 取消收藏主题
      */
     fun doFavoriteNode() {
-        val node = nodeLiveData.value ?: return
-        e("doFavoriteNode()")
+        val node = nodeLiveData.value?.node ?: return
         request(withLoading = true) {
             if (node.isFavorite) {
                 provideAppRepository().unFavoriteNode(node.id, node.once)

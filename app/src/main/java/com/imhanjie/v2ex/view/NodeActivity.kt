@@ -5,12 +5,19 @@ import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
+import com.imhanjie.support.ext.dp
+import com.imhanjie.support.ext.toActivity
 import com.imhanjie.support.ext.toast
 import com.imhanjie.v2ex.BaseActivity
 import com.imhanjie.v2ex.R
 import com.imhanjie.v2ex.databinding.ActivityNodeBinding
+import com.imhanjie.v2ex.parser.model.TopicItem
+import com.imhanjie.v2ex.view.adapter.TopicAdapter
 import com.imhanjie.v2ex.vm.BaseViewModel
 import com.imhanjie.v2ex.vm.NodeViewModel
+import com.imhanjie.widget.LineDividerItemDecoration
+import com.imhanjie.widget.LoadingWrapLayout
+import com.imhanjie.widget.recyclerview.loadmore.LoadMoreDelegate
 
 class NodeActivity : BaseActivity<ActivityNodeBinding>() {
 
@@ -33,11 +40,13 @@ class NodeActivity : BaseActivity<ActivityNodeBinding>() {
         val title: String = intent.getStringExtra("title")
             ?: throw IllegalArgumentException("缺少 title 参数")
 
+        vb.loadingLayout.update(LoadingWrapLayout.Status.LOADING)
         vb.topBar.setTitleText(title)
         vb.topBar.setOnRightClickListener(View.OnClickListener {
             vm.doFavoriteNode()
         })
-
+        vb.topBar.setOnClickListener { vb.topicRv.smoothScrollToPosition(0) }
+        vb.swipeRefreshLayout.setOnRefreshListener { vm.loadNodeTopics(false) }
         vm.isFavoriteLiveData.observe(this) {
             val (isFavorite, isManual) = it
             if (isManual) {
@@ -45,8 +54,39 @@ class NodeActivity : BaseActivity<ActivityNodeBinding>() {
             }
             vb.topBar.setRightIcon(if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_un_favorite)
         }
-        vm.nodeLiveData.observe(this) {
 
+        vb.topicRv.addItemDecoration(LineDividerItemDecoration(this, height = 4f.dp().toInt()))
+        val delegate = LoadMoreDelegate(vb.topicRv) {
+            vm.loadNodeTopics(append = true)
+        }
+
+        val topicAdapter = TopicAdapter().apply {
+            onItemClickListener = { _, item, _ ->
+                this@NodeActivity.toActivity<TopicActivity>(mapOf("topicId" to item.id))
+            }
+        }
+        delegate.adapter.apply {
+            register(TopicItem::class.java, topicAdapter)
+        }
+        vm.nodeLiveData.observe(this) {
+            vb.loadingLayout.update(LoadingWrapLayout.Status.DONE)
+            vb.swipeRefreshLayout.isRefreshing = false
+
+            val (node, append, hasMore) = it
+            delegate.apply {
+                val isFirst = items.isEmpty()
+                if (isFirst || !append) {
+                    items.clear()
+                    items.addAll(node.topics)
+                    adapter.notifyDataSetChanged()
+                } else {
+                    adapter.notifyItemChanged(items.itemSize - 1)   // fix 最后一项 divider 不刷新的问题
+                    val originSize = items.itemSize
+                    items.addAll(node.topics)
+                    adapter.notifyItemRangeInserted(originSize, node.topics.size)
+                }
+                notifyLoadSuccess(hasMore)
+            }
         }
     }
 
