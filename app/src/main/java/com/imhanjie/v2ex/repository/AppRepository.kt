@@ -26,4 +26,6 @@ interface AppRepository {
 
     suspend fun unFavoriteNode(nodeId: Long, once: String): Any
 
+    suspend fun loadFavoriteNodes(): List<MyNode>
+
 }

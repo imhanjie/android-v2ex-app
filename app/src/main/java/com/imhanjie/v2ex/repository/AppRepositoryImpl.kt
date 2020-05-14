@@ -88,4 +88,8 @@ object AppRepositoryImpl : AppRepository {
         return extractResult(api.unFavoriteNode(nodeId, once))
     }
 
+    override suspend fun loadFavoriteNodes(): List<MyNode> {
+        return extractResult(api.loadFavoriteNodes())
+    }
+
 }

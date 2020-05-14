@@ -88,6 +88,8 @@ class ParserInterceptor : Interceptor {
                 SettingsParser()
             } else if (equals("${ApiServer.BASE_URL}/planes")) {
                 NodeParser()
+            } else if (equals("${ApiServer.BASE_URL}/my/nodes")) {
+                MyNodesParser()
             } else {
                 null
             }

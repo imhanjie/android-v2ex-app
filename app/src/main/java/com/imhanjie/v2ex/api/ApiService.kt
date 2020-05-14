@@ -75,5 +75,7 @@ interface ApiService {
         @Query("once") once: String
     ): Result<Any>
 
+    @GET("/my/nodes")
+    suspend fun loadFavoriteNodes(): Result<List<MyNode>>
 
 }

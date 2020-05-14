@@ -9,14 +9,10 @@ class MeTabViewModel(application: Application) : BaseViewModel(application) {
 
     val userInfoLiveData = MutableLiveData<MyUserInfo>()
 
-    init {
-        loadMyUserInfo()
-    }
-
-    private fun loadMyUserInfo() {
+    fun loadMyUserInfo() {
         request {
             userInfoLiveData.value = provideAppRepository().loadMyUserInfo()
-            provideAppRepository().loadAllNode()
+//            provideAppRepository().loadAllNode()
         }
     }
 

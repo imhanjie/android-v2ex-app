@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <com.imhanjie.widget.PureTopBar
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Node"
-        android:textColor="@color/widget_text_2"
-        tools:ignore="HardcodedText" />
+        android:background="@android:color/white"
+        android:elevation="1dp"
+        app:widget_bar_leftVisibility="invisible"
+        app:widget_bar_rightVisibility="visible"
+        app:widget_bar_titleText="收藏的节点" />
 
-</FrameLayout>
+</LinearLayout>
