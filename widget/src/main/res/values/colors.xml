@@ -5,7 +5,9 @@
     <color name="widget_divider">#E6E6E6</color>
 
     <!--    <color name="widget_window_background">#f2f3f5</color>-->
-    <color name="widget_window_background">#FBFBFB</color>
+    <color name="widget_background_1">#FFFFFF</color>
+    <color name="widget_background_2">#FBFBFB</color>
+    <color name="widget_background_3">#F9F9F9</color>
 
     <color name="widget_text_1">#242424</color>
     <color name="widget_text_2">#333333</color>

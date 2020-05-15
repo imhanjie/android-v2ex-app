@@ -28,4 +28,6 @@ interface AppRepository {
 
     suspend fun loadFavoriteNodes(): List<MyNode>
 
+    suspend fun loadNotifications(pageIndex: Int): Notifications
+
 }

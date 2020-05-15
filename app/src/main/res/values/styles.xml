@@ -4,7 +4,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/widget_bg</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowBackground">@color/widget_window_background</item>
+        <item name="android:windowBackground">@color/widget_background_2</item>
     </style>
 
     <style name="CommandTabLayoutText" parent="TextAppearance.Design.Tab">

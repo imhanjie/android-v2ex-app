@@ -90,6 +90,8 @@ class ParserInterceptor : Interceptor {
                 NodeParser()
             } else if (equals("${ApiServer.BASE_URL}/my/nodes")) {
                 MyNodesParser()
+            } else if (startsWith("${ApiServer.BASE_URL}/notifications?p=")) {
+                NotificationsParser()
             } else {
                 null
             }

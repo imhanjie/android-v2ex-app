@@ -17,14 +17,14 @@ object AppRepositoryImpl : AppRepository {
     /**
      * 错误处理
      */
-    private fun <T> extractResult(result: Result<T>): T {
-        if (result.code == Result.CODE_SUCCESS) {
-            return result.data ?: throw BizException("data can not be null!")
+    private fun <T> Result<T>.extract(): T {
+        if (code == Result.CODE_SUCCESS) {
+            return data ?: throw BizException("data can not be null!")
         } else {
-            if (result.code == Result.CODE_USER_EXPIRED) {
+            if (code == Result.CODE_USER_EXPIRED) {
                 App.launchLoginPage()
             }
-            throw BizException(result.message!!)
+            throw BizException(message!!)
         }
     }
 
@@ -35,11 +35,11 @@ object AppRepositoryImpl : AppRepository {
         } else {
             api.loadLatestTopics(tab)
         }
-        return extractResult(result)
+        return result.extract()
     }
 
     override suspend fun loadNodeTopics(nodeName: String, pageIndex: Int): Node {
-        return extractResult(api.loadNodeTopics(nodeName, pageIndex))
+        return api.loadNodeTopics(nodeName, pageIndex).extract()
     }
 
     override suspend fun loadTopic(topicId: Long, pageIndex: Int): Topic {
@@ -48,11 +48,11 @@ object AppRepositoryImpl : AppRepository {
 //        api.loadTopic(419135, pageIndex) // PIC
 //        api.loadTopic(670151, pageIndex) // SUBTLE
 //        api.loadTopic(671006, pageIndex) // TEST
-        return extractResult(api.loadTopic(topicId, pageIndex))
+        return api.loadTopic(topicId, pageIndex).extract()
     }
 
     override suspend fun loadSignIn(): SignIn {
-        return extractResult(api.loadSignIn())
+        return api.loadSignIn().extract()
     }
 
     override suspend fun loadVerImage(once: String): InputStream {
@@ -69,27 +69,31 @@ object AppRepositoryImpl : AppRepository {
                 "next" to "/"
             )
         )
-        return extractResult(result)
+        return result.extract()
     }
 
     override suspend fun loadMyUserInfo(): MyUserInfo {
-        return extractResult(api.loadMyUserInfo())
+        return api.loadMyUserInfo().extract()
     }
 
     override suspend fun loadAllNode(): List<TinyNode> {
-        return extractResult(api.loadAllNode())
+        return api.loadAllNode().extract()
     }
 
     override suspend fun favoriteNode(nodeId: Long, once: String): Any {
-        return extractResult(api.favoriteNode(nodeId, once))
+        return api.favoriteNode(nodeId, once).extract()
     }
 
     override suspend fun unFavoriteNode(nodeId: Long, once: String): Any {
-        return extractResult(api.unFavoriteNode(nodeId, once))
+        return api.unFavoriteNode(nodeId, once).extract()
     }
 
     override suspend fun loadFavoriteNodes(): List<MyNode> {
-        return extractResult(api.loadFavoriteNodes())
+        return api.loadFavoriteNodes().extract()
+    }
+
+    override suspend fun loadNotifications(pageIndex: Int): Notifications {
+        return api.loadNotifications(pageIndex).extract()
     }
 
 }

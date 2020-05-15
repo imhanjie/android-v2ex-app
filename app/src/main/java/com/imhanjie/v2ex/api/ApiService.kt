@@ -78,4 +78,9 @@ interface ApiService {
     @GET("/my/nodes")
     suspend fun loadFavoriteNodes(): Result<List<MyNode>>
 
+    @GET("/notifications")
+    suspend fun loadNotifications(
+        @Query("p") pageIndex: Int
+    ): Result<Notifications>
+
 }

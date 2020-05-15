@@ -9,7 +9,7 @@ import com.imhanjie.v2ex.databinding.ActivityMainBinding
 import com.imhanjie.v2ex.view.fragment.MainTabFragment
 import com.imhanjie.v2ex.view.fragment.MeTabFragment
 import com.imhanjie.v2ex.view.fragment.NodeTabFragment
-import com.imhanjie.v2ex.view.fragment.NotificationTabFragment
+import com.imhanjie.v2ex.view.fragment.NotificationsTabFragment
 import com.imhanjie.v2ex.vm.BaseViewModel
 import com.imhanjie.widget.nav.BottomNavigationBar
 
@@ -52,7 +52,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         with(fragments) {
             add(TAB_MAIN, MainTabFragment())
             add(TAB_NODE, NodeTabFragment())
-            add(TAB_NOTIFICATION, NotificationTabFragment())
+            add(TAB_NOTIFICATION, NotificationsTabFragment())
             add(TAB_ME, MeTabFragment())
         }
         vb.viewPager.adapter = object : FragmentStateAdapter(this) {

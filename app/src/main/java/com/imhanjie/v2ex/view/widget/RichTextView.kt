@@ -54,11 +54,19 @@ class RichTextView @JvmOverloads constructor(
                     }
                     if (RegexPattern.TOPIC_URL_PATTERN.matcher(clickUrl).find()) {
                         /*
-                         * eg: http://v2ex.com/t/123#reply123
+                         * eg:    http://v2ex.com/t/123#reply123
+                         *     || http://v2ex.com/t/123?p=1
+                         *     || /t/123#reply123
+                         *     || /t/123?p=1
                          * 由于通过了正则表达式，所以下面 split 不会抛出异常
                          */
+                        val topicId = if (clickUrl.contains("#")) {
+                            clickUrl.split("#")[0].split("/").last().toLong()
+                        } else {
+                            clickUrl.split("?")[0].split("/").last().toLong()
+                        }
                         context.toActivity<TopicActivity>(
-                            mapOf("topicId" to clickUrl.split("#")[0].split("/").last().toLong())
+                            mapOf("topicId" to topicId)
                         )
                         return
                     }
@@ -106,8 +114,6 @@ class RichTextView @JvmOverloads constructor(
      */
     private fun formatHtml(content: String): String {
         var result = content
-            .replace("<ul>", "<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;")
-            .replace("</ul>", "</p>")
             .replace("<li>", "<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;")
             .replace("</li>", "</p>")
         result = removeTailTag(result, "div")
