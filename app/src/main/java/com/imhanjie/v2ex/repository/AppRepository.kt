@@ -30,4 +30,6 @@ interface AppRepository {
 
     suspend fun loadNotifications(pageIndex: Int): Notifications
 
+    suspend fun loadNavNodes(): List<NavNode>
+
 }

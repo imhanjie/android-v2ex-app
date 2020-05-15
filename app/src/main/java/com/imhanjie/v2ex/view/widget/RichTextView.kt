@@ -1,10 +1,7 @@
 package com.imhanjie.v2ex.view.widget
 
 import android.content.Context
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.TextPaint
+import android.text.*
 import android.text.style.ClickableSpan
 import android.text.style.ImageSpan
 import android.text.style.URLSpan
@@ -36,7 +33,9 @@ class RichTextView @JvmOverloads constructor(
             formatHtml(result.toString()),
             HtmlCompat.FROM_HTML_MODE_LEGACY,
             GlideImageGetter(this),
-            null
+            Html.TagHandler { opening, tag, output, xmlReader ->
+
+            }
         )
         val s: Spannable = SpannableString(result)
         val urlSpans = s.getSpans(0, s.length, URLSpan::class.java)
@@ -114,8 +113,8 @@ class RichTextView @JvmOverloads constructor(
      */
     private fun formatHtml(content: String): String {
         var result = content
-            .replace("<li>", "<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;")
-            .replace("</li>", "</p>")
+//            .replace("<li>", "<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;")
+//            .replace("</li>", "</p>")
         result = removeTailTag(result, "div")
         result = removeTailTag(result, "p")
         return result

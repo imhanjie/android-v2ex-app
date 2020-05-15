@@ -46,7 +46,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
                 StatusBarUtil.setLightMode(this)
             }
             AppCompatDelegate.MODE_NIGHT_YES -> {
-                window.navigationBarColor = getResColor(R.color.widget_bg)
+                window.navigationBarColor = getResColor(R.color.widget_background_1)
             }
         }
 

@@ -2,7 +2,7 @@
 
     <style name="BasicAppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/widget_bg</item>
+        <item name="colorPrimaryDark">@color/widget_background_1</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/widget_background_2</item>
     </style>

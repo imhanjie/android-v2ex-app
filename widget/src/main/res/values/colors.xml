@@ -15,7 +15,6 @@
     <color name="widget_text_4">#999999</color>
     <color name="widget_text_5">#cccccc</color>
 
-    <color name="widget_bg">#ffffff</color>
     <color name="widget_bg_edit">#0A686868</color>
 
 </resources>

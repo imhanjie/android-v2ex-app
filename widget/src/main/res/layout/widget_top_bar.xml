@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:animateLayoutChanges="true"
-    android:background="@color/widget_bg"
-    tools:background="#000000">
+    android:background="@color/widget_background_1">
 
     <ImageView
         android:id="@+id/leftIv"

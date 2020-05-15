@@ -1,0 +1,848 @@
+[
+  {
+    "type": "分享与探索",
+    "children": [
+      {
+        "title": "问与答",
+        "name": "qna"
+      },
+      {
+        "title": "分享发现",
+        "name": "share"
+      },
+      {
+        "title": "分享创造",
+        "name": "create"
+      },
+      {
+        "title": "奇思妙想",
+        "name": "ideas"
+      },
+      {
+        "title": "分享邀请码",
+        "name": "in"
+      },
+      {
+        "title": "自言自语",
+        "name": "autistic"
+      },
+      {
+        "title": "随想",
+        "name": "random"
+      },
+      {
+        "title": "设计",
+        "name": "design"
+      },
+      {
+        "title": "Blog",
+        "name": "blog"
+      }
+    ]
+  },
+  {
+    "type": "V2EX",
+    "children": [
+      {
+        "title": "V2EX",
+        "name": "v2ex"
+      },
+      {
+        "title": "DNS",
+        "name": "dns"
+      },
+      {
+        "title": "反馈",
+        "name": "feedback"
+      },
+      {
+        "title": "Project Babel",
+        "name": "babel"
+      },
+      {
+        "title": "使用指南",
+        "name": "guide"
+      }
+    ]
+  },
+  {
+    "type": "机器学习",
+    "children": [
+      {
+        "title": "机器学习",
+        "name": "ml"
+      },
+      {
+        "title": "数学",
+        "name": "math"
+      },
+      {
+        "title": "TensorFlow",
+        "name": "tensorflow"
+      },
+      {
+        "title": "自然语言处理",
+        "name": "nlp"
+      },
+      {
+        "title": "CUDA",
+        "name": "cuda"
+      },
+      {
+        "title": "Torch",
+        "name": "torch"
+      },
+      {
+        "title": "Core ML",
+        "name": "coreml"
+      },
+      {
+        "title": "Keras",
+        "name": "keras"
+      }
+    ]
+  },
+  {
+    "type": "前端开发",
+    "children": [
+      {
+        "title": "Chrome",
+        "name": "chrome"
+      },
+      {
+        "title": "Vue.js",
+        "name": "vue"
+      },
+      {
+        "title": "CSS",
+        "name": "css"
+      },
+      {
+        "title": "Firefox",
+        "name": "firefox"
+      },
+      {
+        "title": "React",
+        "name": "react"
+      },
+      {
+        "title": "Angular",
+        "name": "angular"
+      },
+      {
+        "title": "Flutter",
+        "name": "flutter"
+      },
+      {
+        "title": "Edge",
+        "name": "edge"
+      },
+      {
+        "title": "Web Dev",
+        "name": "webdev"
+      },
+      {
+        "title": "Ionic",
+        "name": "ionic"
+      }
+    ]
+  },
+  {
+    "type": "编程语言",
+    "children": [
+      {
+        "title": "Python",
+        "name": "python"
+      },
+      {
+        "title": "PHP",
+        "name": "php"
+      },
+      {
+        "title": "Java",
+        "name": "java"
+      },
+      {
+        "title": "JavaScript",
+        "name": "js"
+      },
+      {
+        "title": "Node.js",
+        "name": "nodejs"
+      },
+      {
+        "title": "Go",
+        "name": "go"
+      },
+      {
+        "title": "HTML",
+        "name": "html"
+      },
+      {
+        "title": "Swift",
+        "name": "swift"
+      },
+      {
+        "title": "Ruby on Rails",
+        "name": "ror"
+      },
+      {
+        "title": ".NET",
+        "name": "dotnet"
+      },
+      {
+        "title": "Ruby",
+        "name": "ruby"
+      },
+      {
+        "title": "C#",
+        "name": "csharp"
+      },
+      {
+        "title": "Rust",
+        "name": "rust"
+      },
+      {
+        "title": "Kotlin",
+        "name": "kotlin"
+      },
+      {
+        "title": "Lua",
+        "name": "lua"
+      },
+      {
+        "title": "TypeScript",
+        "name": "typescript"
+      }
+    ]
+  },
+  {
+    "type": "后端架构",
+    "children": [
+      {
+        "title": "云计算",
+        "name": "cloud"
+      },
+      {
+        "title": "服务器",
+        "name": "server"
+      },
+      {
+        "title": "MySQL",
+        "name": "mysql"
+      },
+      {
+        "title": "NGINX",
+        "name": "nginx"
+      },
+      {
+        "title": "Docker",
+        "name": "docker"
+      },
+      {
+        "title": "数据库",
+        "name": "db"
+      },
+      {
+        "title": "Django",
+        "name": "django"
+      },
+      {
+        "title": "MongoDB",
+        "name": "mongodb"
+      },
+      {
+        "title": "Redis",
+        "name": "redis"
+      },
+      {
+        "title": "DevOps",
+        "name": "devops"
+      },
+      {
+        "title": "Tornado",
+        "name": "tornado"
+      },
+      {
+        "title": "Elasticsearch",
+        "name": "elasticsearch"
+      },
+      {
+        "title": "LeanCloud",
+        "name": "leancloud"
+      },
+      {
+        "title": "Kubernetes",
+        "name": "k8s"
+      },
+      {
+        "title": "Cloudflare",
+        "name": "cloudflare"
+      },
+      {
+        "title": "Timescale",
+        "name": "timescale"
+      }
+    ]
+  },
+  {
+    "type": "Apple",
+    "children": [
+      {
+        "title": "macOS",
+        "name": "macos"
+      },
+      {
+        "title": "Apple",
+        "name": "apple"
+      },
+      {
+        "title": "iPhone",
+        "name": "iphone"
+      },
+      {
+        "title": "MacBook Pro",
+        "name": "mbp"
+      },
+      {
+        "title": "iPad",
+        "name": "ipad"
+      },
+      {
+        "title": "MacBook",
+        "name": "macbook"
+      },
+      {
+        "title": "配件",
+        "name": "accessory"
+      },
+      {
+        "title": "MacBook Air",
+        "name": "mba"
+      },
+      {
+        "title": "iMac",
+        "name": "imac"
+      },
+      {
+        "title": "Mac mini",
+        "name": "macmini"
+      },
+      {
+        "title": "Mac Pro",
+        "name": "macpro"
+      },
+      {
+        "title": "iPod",
+        "name": "ipod"
+      },
+      {
+        "title": "MobileMe",
+        "name": "mobileme"
+      },
+      {
+        "title": "iWork",
+        "name": "iwork"
+      },
+      {
+        "title": "iLife",
+        "name": "ilife"
+      },
+      {
+        "title": "GarageBand",
+        "name": "garageband"
+      }
+    ]
+  },
+  {
+    "type": "iOS",
+    "children": [
+      {
+        "title": "iDev",
+        "name": "idev"
+      },
+      {
+        "title": "iCode",
+        "name": "icode"
+      },
+      {
+        "title": "iMarketing",
+        "name": "imarketing"
+      },
+      {
+        "title": "iAd",
+        "name": "iad"
+      },
+      {
+        "title": "iTransfer",
+        "name": "itransfer"
+      }
+    ]
+  },
+  {
+    "type": "Geek",
+    "children": [
+      {
+        "title": "程序员",
+        "name": "programmer"
+      },
+      {
+        "title": "宽带症候群",
+        "name": "bb"
+      },
+      {
+        "title": "Android",
+        "name": "android"
+      },
+      {
+        "title": "Linux",
+        "name": "linux"
+      },
+      {
+        "title": "外包",
+        "name": "outsourcing"
+      },
+      {
+        "title": "硬件",
+        "name": "hardware"
+      },
+      {
+        "title": "Bitcoin",
+        "name": "bitcoin"
+      },
+      {
+        "title": "站长",
+        "name": "webmaster"
+      },
+      {
+        "title": "编程",
+        "name": "programming"
+      },
+      {
+        "title": "汽车",
+        "name": "car"
+      },
+      {
+        "title": "路由器",
+        "name": "router"
+      },
+      {
+        "title": "Linode",
+        "name": "linode"
+      },
+      {
+        "title": "设计师",
+        "name": "designer"
+      },
+      {
+        "title": "Markdown",
+        "name": "markdown"
+      },
+      {
+        "title": "Kindle",
+        "name": "kindle"
+      },
+      {
+        "title": "Visual Studio Code",
+        "name": "vscode"
+      },
+      {
+        "title": "Minecraft",
+        "name": "minecraft"
+      },
+      {
+        "title": "游戏开发",
+        "name": "gamedev"
+      },
+      {
+        "title": "Atom",
+        "name": "atom"
+      },
+      {
+        "title": "字体排印",
+        "name": "typography"
+      },
+      {
+        "title": "商业模式",
+        "name": "business"
+      },
+      {
+        "title": "SONY",
+        "name": "sony"
+      },
+      {
+        "title": "Photoshop",
+        "name": "photoshop"
+      },
+      {
+        "title": "Amazon",
+        "name": "amazon"
+      },
+      {
+        "title": "LeetCode",
+        "name": "leetcode"
+      },
+      {
+        "title": "LEGO",
+        "name": "lego"
+      },
+      {
+        "title": "GitLab",
+        "name": "gitlab"
+      },
+      {
+        "title": "Serverless",
+        "name": "serverless"
+      },
+      {
+        "title": "电动汽车",
+        "name": "ev"
+      },
+      {
+        "title": "RSS",
+        "name": "rss"
+      },
+      {
+        "title": "奇绩创坛",
+        "name": "miracleplus"
+      }
+    ]
+  },
+  {
+    "type": "游戏",
+    "children": [
+      {
+        "title": "游戏",
+        "name": "games"
+      },
+      {
+        "title": "Steam",
+        "name": "steam"
+      },
+      {
+        "title": "英雄联盟",
+        "name": "lol"
+      },
+      {
+        "title": "PlayStation 4",
+        "name": "ps4"
+      },
+      {
+        "title": "Nintendo Switch",
+        "name": "switch"
+      },
+      {
+        "title": "iGame",
+        "name": "igame"
+      },
+      {
+        "title": "StarCraft 2",
+        "name": "sc2"
+      },
+      {
+        "title": "Battlefield 3",
+        "name": "bf3"
+      },
+      {
+        "title": "World of Warcraft",
+        "name": "wow"
+      },
+      {
+        "title": "王者荣耀",
+        "name": "5v5"
+      },
+      {
+        "title": "EVE",
+        "name": "eve"
+      },
+      {
+        "title": "Gran Turismo",
+        "name": "gt"
+      },
+      {
+        "title": "Battlefield 4",
+        "name": "bf4"
+      },
+      {
+        "title": "Wii U",
+        "name": "wiiu"
+      },
+      {
+        "title": "Battlefield V",
+        "name": "bfv"
+      }
+    ]
+  },
+  {
+    "type": "生活",
+    "children": [
+      {
+        "title": "二手交易",
+        "name": "all4all"
+      },
+      {
+        "title": "酷工作",
+        "name": "jobs"
+      },
+      {
+        "title": "职场话题",
+        "name": "career"
+      },
+      {
+        "title": "求职",
+        "name": "cv"
+      },
+      {
+        "title": "天黑以后",
+        "name": "afterdark"
+      },
+      {
+        "title": "免费赠送",
+        "name": "free"
+      },
+      {
+        "title": "音乐",
+        "name": "music"
+      },
+      {
+        "title": "电影",
+        "name": "movie"
+      },
+      {
+        "title": "物物交换",
+        "name": "exchange"
+      },
+      {
+        "title": "团购",
+        "name": "tuan"
+      },
+      {
+        "title": "投资",
+        "name": "invest"
+      },
+      {
+        "title": "剧集",
+        "name": "tv"
+      },
+      {
+        "title": "信用卡",
+        "name": "creditcard"
+      },
+      {
+        "title": "旅行",
+        "name": "travel"
+      },
+      {
+        "title": "美酒与美食",
+        "name": "taste"
+      },
+      {
+        "title": "阅读",
+        "name": "reading"
+      },
+      {
+        "title": "摄影",
+        "name": "photograph"
+      },
+      {
+        "title": "宠物",
+        "name": "pet"
+      },
+      {
+        "title": "Baby",
+        "name": "baby"
+      },
+      {
+        "title": "绿茵场",
+        "name": "soccer"
+      },
+      {
+        "title": "咖啡",
+        "name": "coffee"
+      },
+      {
+        "title": "非诚勿扰",
+        "name": "love"
+      },
+      {
+        "title": "日记",
+        "name": "diary"
+      },
+      {
+        "title": "骑行",
+        "name": "bike"
+      },
+      {
+        "title": "植物",
+        "name": "plant"
+      },
+      {
+        "title": "蘑菇",
+        "name": "mushroom"
+      },
+      {
+        "title": "行程控",
+        "name": "mileage"
+      }
+    ]
+  },
+  {
+    "type": "Internet",
+    "children": [
+      {
+        "title": "Google",
+        "name": "google"
+      },
+      {
+        "title": "Twitter",
+        "name": "twitter"
+      },
+      {
+        "title": "Coding",
+        "name": "coding"
+      },
+      {
+        "title": "Facebook",
+        "name": "facebook"
+      },
+      {
+        "title": "Wikipedia",
+        "name": "wikipedia"
+      },
+      {
+        "title": "reddit",
+        "name": "reddit"
+      }
+    ]
+  },
+  {
+    "type": "城市",
+    "children": [
+      {
+        "title": "北京",
+        "name": "beijing"
+      },
+      {
+        "title": "上海",
+        "name": "shanghai"
+      },
+      {
+        "title": "深圳",
+        "name": "shenzhen"
+      },
+      {
+        "title": "杭州",
+        "name": "hangzhou"
+      },
+      {
+        "title": "成都",
+        "name": "chengdu"
+      },
+      {
+        "title": "广州",
+        "name": "guangzhou"
+      },
+      {
+        "title": "武汉",
+        "name": "wuhan"
+      },
+      {
+        "title": "南京",
+        "name": "nanjing"
+      },
+      {
+        "title": "西安",
+        "name": "xian"
+      },
+      {
+        "title": "昆明",
+        "name": "kunming"
+      },
+      {
+        "title": "重庆",
+        "name": "chongqing"
+      },
+      {
+        "title": "厦门",
+        "name": "xiamen"
+      },
+      {
+        "title": "天津",
+        "name": "tianjin"
+      },
+      {
+        "title": "青岛",
+        "name": "qingdao"
+      },
+      {
+        "title": "New York",
+        "name": "nyc"
+      },
+      {
+        "title": "San Francisco",
+        "name": "sanfrancisco"
+      },
+      {
+        "title": "Los Angeles",
+        "name": "la"
+      },
+      {
+        "title": "东京",
+        "name": "tokyo"
+      },
+      {
+        "title": "Singapore",
+        "name": "singapore"
+      },
+      {
+        "title": "贵阳",
+        "name": "guiyang"
+      },
+      {
+        "title": "Boston",
+        "name": "boston"
+      }
+    ]
+  },
+  {
+    "type": "品牌",
+    "children": [
+      {
+        "title": "UNIQLO",
+        "name": "uniqlo"
+      },
+      {
+        "title": "宜家",
+        "name": "ikea"
+      },
+      {
+        "title": "Lamy",
+        "name": "lamy"
+      },
+      {
+        "title": "无印良品",
+        "name": "muji"
+      },
+      {
+        "title": "Nike",
+        "name": "nike"
+      },
+      {
+        "title": "Adidas",
+        "name": "adidas"
+      },
+      {
+        "title": "Gap",
+        "name": "gap"
+      },
+      {
+        "title": "Moleskine",
+        "name": "moleskine"
+      },
+      {
+        "title": "G-Star",
+        "name": "gstar"
+      }
+    ]
+  }
+]

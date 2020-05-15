@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/widget_bg"
+        android:background="@color/widget_background_1"
         android:elevation="10dp" />
 
     <androidx.viewpager2.widget.ViewPager2

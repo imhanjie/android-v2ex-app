@@ -14,7 +14,6 @@ import com.imhanjie.v2ex.common.LiveDataBus
 import com.imhanjie.v2ex.common.TopicTab
 import com.imhanjie.v2ex.databinding.FragmentTabBinding
 import com.imhanjie.v2ex.parser.model.TopicItem
-import com.imhanjie.v2ex.view.NodeActivity
 import com.imhanjie.v2ex.view.TopicActivity
 import com.imhanjie.v2ex.view.adapter.TopicAdapter
 import com.imhanjie.v2ex.vm.TabViewModel
@@ -60,12 +59,6 @@ class TabFragment : BaseFragment<FragmentTabBinding>() {
         val topicAdapter = TopicAdapter().apply {
             onItemClickListener = { _, item, _ ->
                 this@TabFragment.toActivity<TopicActivity>(mapOf("topicId" to item.id))
-                this@TabFragment.toActivity<NodeActivity>(
-                    mapOf(
-                        "title" to item.nodeTitle,
-                        "name" to item.nodeName
-                    )
-                )
             }
         }
         adapter.apply {
