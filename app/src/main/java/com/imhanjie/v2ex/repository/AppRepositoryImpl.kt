@@ -1,6 +1,5 @@
 package com.imhanjie.v2ex.repository
 
-import com.imhanjie.support.e
 import com.imhanjie.support.parseJsonList
 import com.imhanjie.v2ex.App
 import com.imhanjie.v2ex.api.ApiServer
@@ -8,7 +7,6 @@ import com.imhanjie.v2ex.api.ApiService
 import com.imhanjie.v2ex.common.BizException
 import com.imhanjie.v2ex.common.TopicTab
 import com.imhanjie.v2ex.model.LoginInfo
-import com.imhanjie.v2ex.model.Result
 import com.imhanjie.v2ex.parser.model.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -102,11 +100,14 @@ object AppRepositoryImpl : AppRepository {
 
     override suspend fun loadNavNodes(): List<NavNode> {
         return withContext(Dispatchers.IO) {
-            e("当前线程: ${Thread.currentThread().name}")
             val assetManager = App.INSTANCE.assets
             val json = assetManager.open("nav_nodes.json").bufferedReader().readText()
             parseJsonList<NavNode>(json)
         }
+    }
+
+    override suspend fun thankReply(replyId: Long, once: String): V2exResult {
+        return api.thankReply(replyId, once).extract()
     }
 
 }

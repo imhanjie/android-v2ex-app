@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.imhanjie.v2ex.view.widget.ScalableConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/widget_ripple"
-    android:clickable="true"
     android:padding="16dp">
 
     <ImageView
@@ -71,4 +70,4 @@
         app:layout_constraintTop_toBottomOf="@id/userAvatar"
         tools:text="GitHub 中文排行榜项目，帮助你发现高分优秀中文项目、更高效地吸收国人的优秀经验成果~" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</com.imhanjie.v2ex.view.widget.ScalableConstraintLayout>

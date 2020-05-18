@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.imhanjie.v2ex.view.widget.ScalableConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -10,9 +11,8 @@
     <TextView
         android:id="@+id/tv_node"
         style="@style/WidgetSingleLineText"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:background="@drawable/bg_node_item"
         android:gravity="center"
         android:paddingStart="3dp"
@@ -22,6 +22,10 @@
         android:textColor="@color/widget_text_2"
         android:textSize="12sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="Android" />
 
-</FrameLayout>
+</com.imhanjie.v2ex.view.widget.ScalableConstraintLayout>

@@ -1,7 +1,7 @@
 package com.imhanjie.v2ex.api
 
 import com.imhanjie.support.parseToJson
-import com.imhanjie.v2ex.model.Result
+import com.imhanjie.v2ex.parser.model.Result
 import okhttp3.MediaType
 import okhttp3.Response
 import okhttp3.ResponseBody

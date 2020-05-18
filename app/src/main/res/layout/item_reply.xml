@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.imhanjie.v2ex.view.widget.ScalableConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,7 +9,7 @@
     android:padding="16dp">
 
     <ImageView
-        android:id="@+id/user_avatar"
+        android:id="@+id/iv_avatar"
         android:layout_width="34dp"
         android:layout_height="34dp"
         android:src="@mipmap/ic_launcher_round"
@@ -18,30 +18,51 @@
         tools:ignore="ContentDescription" />
 
     <TextView
-        android:id="@+id/user_name"
+        android:id="@+id/tv_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:textColor="@color/widget_text_2"
         android:textSize="13sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/user_avatar"
-        app:layout_constraintTop_toTopOf="@id/user_avatar"
+        app:layout_constraintStart_toEndOf="@id/iv_avatar"
+        app:layout_constraintTop_toTopOf="@id/iv_avatar"
         tools:text="Melody" />
 
+    <ImageView
+        android:id="@+id/iv_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="1dp"
+        android:src="@drawable/ic_like"
+        app:layout_constraintStart_toEndOf="@id/tv_user_name"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
-        android:id="@+id/time"
+        android:id="@+id/tv_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:gravity="center"
+        android:textColor="@color/widget_text_4"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@id/iv_like"
+        tools:text="17" />
+
+    <TextView
+        android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/widget_text_4"
         android:textSize="11sp"
-        app:layout_constraintBottom_toBottomOf="@id/user_avatar"
-        app:layout_constraintStart_toStartOf="@id/user_name"
+        app:layout_constraintBottom_toBottomOf="@id/iv_avatar"
+        app:layout_constraintStart_toStartOf="@id/tv_user_name"
         tools:ignore="SmallSp"
         tools:text="刚刚" />
 
     <com.imhanjie.v2ex.view.widget.RichTextView
-        android:id="@+id/content"
+        android:id="@+id/tv_content"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="7dp"
@@ -50,12 +71,12 @@
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/user_name"
-        app:layout_constraintTop_toBottomOf="@id/user_avatar"
+        app:layout_constraintStart_toStartOf="@id/tv_user_name"
+        app:layout_constraintTop_toBottomOf="@id/iv_avatar"
         tools:text="GitHub 中文排行榜项目，帮助你发现高分优秀中文项目、更高效地吸收国人的优秀经验成果~" />
 
     <TextView
-        android:id="@+id/no"
+        android:id="@+id/tv_no"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_topic_node"
@@ -67,8 +88,8 @@
         android:textSize="11sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/user_avatar"
+        app:layout_constraintTop_toTopOf="@id/iv_avatar"
         tools:ignore="SmallSp"
         tools:text="#17" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</com.imhanjie.v2ex.view.widget.ScalableConstraintLayout>

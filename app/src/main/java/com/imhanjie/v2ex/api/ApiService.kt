@@ -1,7 +1,6 @@
 package com.imhanjie.v2ex.api
 
 import com.imhanjie.v2ex.model.LoginInfo
-import com.imhanjie.v2ex.model.Result
 import com.imhanjie.v2ex.parser.model.*
 import okhttp3.ResponseBody
 import retrofit2.http.*
@@ -82,5 +81,11 @@ interface ApiService {
     suspend fun loadNotifications(
         @Query("p") pageIndex: Int
     ): Result<Notifications>
+
+    @POST("/thank/reply/{reply_id}")
+    suspend fun thankReply(
+        @Path("reply_id") replyId: Long,
+        @Query("once") once: String
+    ): Result<V2exResult>
 
 }

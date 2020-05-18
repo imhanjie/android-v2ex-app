@@ -29,7 +29,7 @@ object ApiServer {
                 .addInterceptor(logInterceptor)
                 .addInterceptor(LoginInterceptor())
                 .addInterceptor(ParserInterceptor())
-                .addInterceptor(CookieInterceptor())
+                .addInterceptor(CookieInterceptor)
                 .connectTimeout(REQUEST_TIME_OUT, TimeUnit.MILLISECONDS)
             return builder.build()
         }

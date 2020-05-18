@@ -19,4 +19,5 @@
     <string name="topic_subtle_title">第 %1$d 条附言&#160;&#160;•&#160;&#160;%2$s</string>
     <string name="tips_favorite_success">收藏成功</string>
     <string name="tips_un_favorite_success">已取消收藏</string>
+    <string name="tips_thank_reply_success">感谢成功</string>
 </resources>

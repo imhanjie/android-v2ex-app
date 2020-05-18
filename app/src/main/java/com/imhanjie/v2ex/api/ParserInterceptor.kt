@@ -1,9 +1,10 @@
 package com.imhanjie.v2ex.api
 
 import android.annotation.SuppressLint
-import com.imhanjie.v2ex.model.Result
 import com.imhanjie.v2ex.parser.Parser
 import com.imhanjie.v2ex.parser.impl.*
+import com.imhanjie.v2ex.parser.model.Result
+import com.imhanjie.v2ex.parser.model.V2exResult
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
@@ -24,7 +25,7 @@ class ParserInterceptor : Interceptor {
             if (url == "/signin/cooldown") {
                 response.close()
                 val redirectRequest = Request.Builder()
-                    .url(url)
+                    .url(ApiServer.BASE_URL + url)
                     .get()
                     .build()
                 isFailRequest = true
@@ -51,11 +52,19 @@ class ParserInterceptor : Interceptor {
             val obj: Any
             return try {
                 obj = targetParser.parser(html)
-                if (isFailRequest) {
+                if (obj is V2exResult) {    // v2ex json result 转成项目 result
+                    // 替换 once 缓存
+                    val oldOnce = CookieInterceptor.tryGetOnceFromRequest(request)
+                    oldOnce?.let {
+                        CookieInterceptor.replaceOnce(it, obj.once)
+                    }
+                    response.recreateSuccessJsonResponse(obj)
+                } else if (isFailRequest) {
                     response.recreateFailJsonResponse(obj.toString())
                 } else {
                     response.recreateSuccessJsonResponse(obj)
                 }
+
             } catch (e: Exception) {
                 e.printStackTrace()
                 response.recreateFailJsonResponse("数据解析错误")
@@ -82,7 +91,7 @@ class ParserInterceptor : Interceptor {
                 NodeTopicsParser()
             } else if (equals("${ApiServer.BASE_URL}/signin") && method.toUpperCase() == "GET") {
                 SignInParser()
-            } else if (equals("${ApiServer.BASE_URL}/signin/cooldown")) {
+            } else if (equals("/signin/cooldown")) {
                 CoolDownParser()
             } else if (equals("${ApiServer.BASE_URL}/settings")) {
                 SettingsParser()
@@ -92,6 +101,8 @@ class ParserInterceptor : Interceptor {
                 MyNodesParser()
             } else if (startsWith("${ApiServer.BASE_URL}/notifications?p=")) {
                 NotificationsParser()
+            } else if (startsWith("${ApiServer.BASE_URL}/thank/reply/")) {
+                V2exResultParser()
             } else {
                 null
             }

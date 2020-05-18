@@ -1,5 +1,6 @@
 package com.imhanjie.v2ex.view.adapter
 
+import android.view.View
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
@@ -17,11 +18,14 @@ class ReplyAdapter : BaseItemViewDelegate<Reply, ItemReplyBinding>() {
                 .load(item.userAvatar)
                 .placeholder(ContextCompat.getDrawable(root.context, R.drawable.default_avatar))
                 .transform(CircleCrop())
-                .into(userAvatar)
-            userName.text = item.userName
-            time.text = item.time
-            no.text = ctx.getString(R.string.reply_floor, item.no)
-            content.setRichContent(item.content)
+                .into(ivAvatar)
+            tvUserName.text = item.userName
+            tvTime.text = item.time
+            tvNo.text = ctx.getString(R.string.reply_floor, item.no)
+            tvContent.setRichContent(item.content)
+            tvLike.text = item.likes.toString()
+            tvLike.visibility = if (item.likes == 0L) View.INVISIBLE else View.VISIBLE
+            ivLike.visibility = if (item.likes == 0L) View.INVISIBLE else View.VISIBLE
         }
     }
 

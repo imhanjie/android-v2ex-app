@@ -32,4 +32,6 @@ interface AppRepository {
 
     suspend fun loadNavNodes(): List<NavNode>
 
+    suspend fun thankReply(replyId: Long, once: String): V2exResult
+
 }

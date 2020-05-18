@@ -46,4 +46,5 @@ dependencies {
     api "androidx.recyclerview:recyclerview:1.1.0"
     api 'com.drakeet.multitype:multitype:4.2.0'
     api 'androidx.viewpager2:viewpager2:1.0.0'
+    api 'androidx.constraintlayout:constraintlayout:1.1.3'
 }

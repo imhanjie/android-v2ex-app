@@ -1,6 +1,7 @@
 package com.imhanjie.v2ex.parser.impl
 
 import com.imhanjie.v2ex.parser.Parser
+import com.imhanjie.v2ex.parser.RegexPattern
 import com.imhanjie.v2ex.parser.model.Reply
 import com.imhanjie.v2ex.parser.model.Topic
 import org.jsoup.Jsoup
@@ -60,6 +61,12 @@ class TopicParser : Parser {
             )
         }
 
+        var once = ""
+        val onceMatcher = RegexPattern.PAGE_ONCE_PATTERN.matcher(html)
+        if (onceMatcher.find()) {
+            once = onceMatcher.group().split("=")[1]
+        }
+
         val replies: List<Reply> = parserReplies(document)
         return Topic(
             id,
@@ -74,7 +81,8 @@ class TopicParser : Parser {
             subtleList,
             replies,
             currentPage,
-            totalPage
+            totalPage,
+            once
         )
     }
 

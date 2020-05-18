@@ -5,7 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import com.imhanjie.support.ext.dp
+import com.imhanjie.support.ext.toast
 import com.imhanjie.v2ex.BaseActivity
+import com.imhanjie.v2ex.R
 import com.imhanjie.v2ex.databinding.ActivityTopicBinding
 import com.imhanjie.v2ex.model.ReplyHeaderType
 import com.imhanjie.v2ex.parser.model.Reply
@@ -18,6 +20,7 @@ import com.imhanjie.v2ex.vm.BaseViewModel
 import com.imhanjie.v2ex.vm.TopicViewModel
 import com.imhanjie.widget.LineDividerItemDecoration
 import com.imhanjie.widget.LoadingWrapLayout
+import com.imhanjie.widget.dialog.PureAlertDialog
 import com.imhanjie.widget.recyclerview.loadmore.LoadMoreDelegate
 
 class TopicActivity : BaseActivity<ActivityTopicBinding>() {
@@ -50,11 +53,26 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
         delegate.adapter.apply {
             register(Topic::class.java, TopicDetailsAdapter())
             register(Topic.Subtle::class.java, SubtleAdapter())
-            register(Reply::class.java, ReplyAdapter())
+            register(Reply::class.java, ReplyAdapter().apply {
+                onItemClickListener = { holder, item, position ->
+                    showAlertDialog(item)
+                }
+            })
             register(ReplyHeaderType::class.java, ReplyHeaderAdapter {
                 vm.loadReplies(append = false, doReverse = true)
             })
         }
+
+        vb.replyRv.addItemDecoration(
+            object : LineDividerItemDecoration(
+                this,
+                height = 4f.dp().toInt()
+            ) {
+                override fun isSkip(position: Int): Boolean {
+                    return position == 0 || delegate.items[position] is Topic.Subtle
+                }
+            }
+        )
 
         vm.topicLiveData.observe(this) {
             vb.loadingLayout.update(LoadingWrapLayout.Status.DONE)
@@ -80,16 +98,20 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
             }
         }
 
-        vb.replyRv.addItemDecoration(
-            object : LineDividerItemDecoration(
-                this,
-                height = 4f.dp().toInt()
-            ) {
-                override fun isSkip(position: Int): Boolean {
-                    return position == 0 || delegate.items[position] is Topic.Subtle
-                }
+        vm.thankReplyLiveData.observe(this) {
+            toast(R.string.tips_thank_reply_success)
+        }
+
+    }
+
+    private fun showAlertDialog(item: Reply) {
+        PureAlertDialog(this)
+            .withTitle("感谢")
+            .withContent("确认花费 10 个铜币向 @${item.userName} 的这条回复发送感谢？")
+            .withPositiveClick {
+                vm.thankReply(item.id)
             }
-        )
+            .show()
     }
 
 }

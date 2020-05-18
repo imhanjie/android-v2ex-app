@@ -16,11 +16,13 @@ class TopicViewModel(private val topicId: Long, application: Application) : Base
 
     val topicLiveData = MutableLiveData<TopicLiveData>()
     val loadingLiveData = MutableLiveData<Boolean>()
+    val thankReplyLiveData = MutableLiveData<Long>()
 
     private var isOrder = true
     private var currentPage = 1
     private var totalPage = -1
     private var isFirst = true
+    private var once = ""
 
     init {
         loadReplies(append = false, doReverse = false)
@@ -71,6 +73,7 @@ class TopicViewModel(private val topicId: Long, application: Application) : Base
                 newTopic = newTopic.copy(replies = newTopic.replies.reversed())
             }
             topicLiveData.value = TopicLiveData(newTopic, append, hasMore, targetIsOrder)
+            once = newTopic.once
 
             // change state
             if (!isFirst && !append) {
@@ -86,6 +89,21 @@ class TopicViewModel(private val topicId: Long, application: Application) : Base
             }
             isFirst = false
             isOrder = targetIsOrder
+        }
+    }
+
+    /**
+     * 感谢回复
+     */
+    fun thankReply(replyId: Long) {
+        request(withLoading = true) {
+            val result = provideAppRepository().thankReply(replyId, once)
+            once = result.once
+            if (result.success) {
+                thankReplyLiveData.value = replyId
+            } else {
+                toastLiveData.value = result.message
+            }
         }
     }
 

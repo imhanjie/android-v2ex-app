@@ -13,7 +13,8 @@ data class Topic(
     val subtleList: List<Subtle>,
     val replies: List<Reply>,
     val currentPage: Int,
-    val totalPage: Int
+    val totalPage: Int,
+    val once: String
 ) {
 
     data class Subtle(
