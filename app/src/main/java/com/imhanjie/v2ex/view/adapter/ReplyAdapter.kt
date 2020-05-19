@@ -23,9 +23,9 @@ class ReplyAdapter : BaseItemViewDelegate<Reply, ItemReplyBinding>() {
             tvTime.text = item.time
             tvNo.text = ctx.getString(R.string.reply_floor, item.no)
             tvContent.setRichContent(item.content)
-            tvLike.text = item.likes.toString()
-            tvLike.visibility = if (item.likes == 0L) View.INVISIBLE else View.VISIBLE
-            ivLike.visibility = if (item.likes == 0L) View.INVISIBLE else View.VISIBLE
+            tvLike.text = item.thankCount.toString()
+            tvLike.visibility = if (item.thankCount == 0L) View.INVISIBLE else View.VISIBLE
+            ivLike.visibility = if (item.thankCount == 0L) View.INVISIBLE else View.VISIBLE
         }
     }
 

@@ -20,4 +20,6 @@
     <string name="tips_favorite_success">收藏成功</string>
     <string name="tips_un_favorite_success">已取消收藏</string>
     <string name="tips_thank_reply_success">感谢成功</string>
+    <string name="menu_thank">感谢</string>
+    <string name="menu_reply">回复</string>
 </resources>

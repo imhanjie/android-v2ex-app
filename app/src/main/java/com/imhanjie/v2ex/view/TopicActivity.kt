@@ -21,6 +21,7 @@ import com.imhanjie.v2ex.vm.TopicViewModel
 import com.imhanjie.widget.LineDividerItemDecoration
 import com.imhanjie.widget.LoadingWrapLayout
 import com.imhanjie.widget.dialog.PureAlertDialog
+import com.imhanjie.widget.dialog.PureListMenuDialog
 import com.imhanjie.widget.recyclerview.loadmore.LoadMoreDelegate
 
 class TopicActivity : BaseActivity<ActivityTopicBinding>() {
@@ -66,7 +67,7 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
         vb.replyRv.addItemDecoration(
             object : LineDividerItemDecoration(
                 this,
-                height = 4f.dp().toInt()
+                height = 4.dp.toInt()
             ) {
                 override fun isSkip(position: Int): Boolean {
                     return position == 0 || delegate.items[position] is Topic.Subtle
@@ -100,16 +101,29 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
 
         vm.thankReplyLiveData.observe(this) {
             toast(R.string.tips_thank_reply_success)
+            delegate.adapter.notifyItemChanged(delegate.items.indexOf(it))
         }
-
     }
 
     private fun showAlertDialog(item: Reply) {
+        PureListMenuDialog(this).apply {
+            withCancelable(true)
+            if (!item.thanked) {
+                withMenuItem(PureListMenuDialog.Item(getString(R.string.menu_thank), onClickListener = {
+                    showThankDialog(item)
+                }))
+            }
+            withMenuItem(PureListMenuDialog.Item(getString(R.string.menu_reply)))
+                .show()
+        }
+    }
+
+    private fun showThankDialog(item: Reply) {
         PureAlertDialog(this)
             .withTitle("感谢")
             .withContent("确认花费 10 个铜币向 @${item.userName} 的这条回复发送感谢？")
             .withPositiveClick {
-                vm.thankReply(item.id)
+                vm.thankReply(item)
             }
             .show()
     }

@@ -18,7 +18,7 @@ class TopicDetailsAdapter : BaseItemViewDelegate<Topic, ItemTopicDetailsBinding>
         with(holder.vb) {
             Glide.with(root)
                 .load(item.userAvatar)
-                .placeholder(ContextCompat.getDrawable(root.context, R.drawable.default_avatar))
+                .placeholder(ContextCompat.getDrawable(ctx, R.drawable.default_avatar))
                 .transform(CircleCrop())
                 .into(userAvatar)
             title.text = item.title

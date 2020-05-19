@@ -5,7 +5,7 @@ import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
-import com.imhanjie.support.ext.dp
+import com.imhanjie.support.ext.dpi
 import com.imhanjie.support.ext.toActivity
 import com.imhanjie.support.ext.toast
 import com.imhanjie.v2ex.BaseActivity
@@ -55,7 +55,7 @@ class NodeActivity : BaseActivity<ActivityNodeBinding>() {
             vb.topBar.setRightIcon(if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_un_favorite)
         }
 
-        vb.topicRv.addItemDecoration(LineDividerItemDecoration(this, height = 4f.dp().toInt()))
+        vb.topicRv.addItemDecoration(LineDividerItemDecoration(this, height = 4.dpi))
         val delegate = LoadMoreDelegate(vb.topicRv) {
             vm.loadNodeTopics(append = true)
         }

@@ -2,7 +2,7 @@ package com.imhanjie.v2ex.view.fragment
 
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
-import com.imhanjie.support.ext.dp
+import com.imhanjie.support.ext.dpi
 import com.imhanjie.v2ex.BaseLazyFragemnt
 import com.imhanjie.v2ex.databinding.FragmentTabNotificationsBinding
 import com.imhanjie.v2ex.parser.model.Notifications
@@ -26,7 +26,7 @@ class NotificationsTabFragment : BaseLazyFragemnt<FragmentTabNotificationsBindin
         vb.loadingLayout.update(LoadingWrapLayout.Status.LOADING)
         vb.swipeRefreshLayout.setOnRefreshListener { vm.loadNotifications(false) }
 
-        vb.rv.addItemDecoration(LineDividerItemDecoration(requireContext(), height = 4f.dp().toInt()))
+        vb.rv.addItemDecoration(LineDividerItemDecoration(requireContext(), height = 4.dpi))
         val delegate = LoadMoreDelegate(vb.rv) {
             vm.loadNotifications(append = true)
         }

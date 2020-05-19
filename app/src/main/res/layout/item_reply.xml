@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="1dp"
-        android:src="@drawable/ic_like"
+        android:src="@drawable/ic_thank"
         app:layout_constraintStart_toEndOf="@id/tv_user_name"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -87,21 +87,24 @@ class TopicParser : Parser {
     }
 
     private fun parserReplies(document: Document): List<Reply> {
-        return document.select("#Main").select("div.cell").filter { eCell ->
-            val attrId = eCell.attr("id")
-            attrId.isNotEmpty() && attrId.startsWith("r_")
-        }.map { eCell ->
-            val replyId = eCell.attr("id").split("_")[1].toLong()
-            val userAvatar = eCell.selectFirst("img.avatar").attr("src")
-            val userName = eCell.selectFirst("a.dark").text()
-            val content = eCell.selectFirst("div.reply_content").html()
-            val time = eCell.selectFirst("span.ago").text()
-            val likes = eCell.selectFirst("span.small.fade")?.text()?.toLong() ?: 0
-            val no = eCell.selectFirst("span.no").text().toLong()
-            Reply(
-                replyId, userAvatar, userName, content, time, likes, no
-            )
-        }
+        return document.select("#Main").select("div.cell")
+            .filter { eCell ->
+                val attrId = eCell.attr("id")
+                attrId.isNotEmpty() && attrId.startsWith("r_")
+            }
+            .map { eCell ->
+                val replyId = eCell.attr("id").split("_")[1].toLong()
+                val userAvatar = eCell.selectFirst("img.avatar").attr("src")
+                val userName = eCell.selectFirst("a.dark").text()
+                val content = eCell.selectFirst("div.reply_content").html()
+                val time = eCell.selectFirst("span.ago").text()
+                val thankCount = eCell.selectFirst("span.small.fade")?.text()?.toLong() ?: 0
+                val thanked = (eCell.selectFirst("div.thank_area")?.selectFirst("div.thanked")) != null
+                val no = eCell.selectFirst("span.no").text().toLong()
+                Reply(
+                    replyId, userAvatar, userName, content, time, thankCount, thanked, no
+                )
+            }
     }
 
 }

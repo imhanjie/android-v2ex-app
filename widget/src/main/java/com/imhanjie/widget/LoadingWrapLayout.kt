@@ -10,7 +10,7 @@ import android.widget.FrameLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import com.imhanjie.support.ext.dp
+import com.imhanjie.support.ext.dpi
 
 class LoadingWrapLayout @JvmOverloads constructor(
     ctx: Context,
@@ -26,7 +26,7 @@ class LoadingWrapLayout @JvmOverloads constructor(
 
     init {
         val pb = ProgressBar(context)
-        val pbParams = LayoutParams(38f.dp().toInt(), 38f.dp().toInt())
+        val pbParams = LayoutParams(38.dpi, 38.dpi)
         pbParams.gravity = Gravity.CENTER
         pb.indeterminateDrawable.colorFilter = PorterDuffColorFilter(
             ContextCompat.getColor(context, R.color.widget_loading),

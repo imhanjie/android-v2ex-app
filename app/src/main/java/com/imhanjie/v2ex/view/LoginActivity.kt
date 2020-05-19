@@ -11,7 +11,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.target.CustomViewTarget
 import com.bumptech.glide.request.transition.Transition
-import com.imhanjie.support.ext.dp
+import com.imhanjie.support.ext.dpi
 import com.imhanjie.support.ext.postDelayed
 import com.imhanjie.support.ext.toast
 import com.imhanjie.v2ex.BaseActivity
@@ -38,7 +38,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
                 .load(BitmapFactory.decodeStream(resp))
                 .skipMemoryCache(true)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .transform(RoundedCorners(3f.dp().toInt()))
+                .transform(RoundedCorners(3.dpi))
                 .into(object : CustomViewTarget<ImageView, Drawable>(vb.ivVerification) {
                     override fun onLoadFailed(errorDrawable: Drawable?) {
                         vb.loadingLayout.update(LoadingWrapLayout.Status.FAIL)

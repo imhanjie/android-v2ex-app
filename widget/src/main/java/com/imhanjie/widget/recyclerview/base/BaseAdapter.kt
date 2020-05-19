@@ -3,13 +3,11 @@ package com.imhanjie.widget.recyclerview.base
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import java.lang.reflect.ParameterizedType
 
-abstract class BaseVBListAdapter<T, VB : ViewBinding>(diffCallback: DiffUtil.ItemCallback<T>) :
-    ListAdapter<T, VBViewHolder<VB>>(diffCallback) {
+abstract class BaseAdapter<T, VB : ViewBinding>(val dataSet: List<T>) : RecyclerView.Adapter<VBViewHolder<VB>>() {
 
     public var onItemClickListener: ((holder: VBViewHolder<VB>, item: T, position: Int) -> Unit)? = null
     public var onItemLongClickListener: ((holder: VBViewHolder<VB>, item: T, position: Int) -> Boolean)? = null
@@ -32,13 +30,15 @@ abstract class BaseVBListAdapter<T, VB : ViewBinding>(diffCallback: DiffUtil.Ite
 
     override fun onBindViewHolder(holder: VBViewHolder<VB>, position: Int) {
         holder.itemView.setOnClickListener {
-            onItemClickListener?.invoke(holder, getItem(position), position)
+            onItemClickListener?.invoke(holder, dataSet[position], position)
         }
         holder.itemView.setOnLongClickListener {
-            onItemLongClickListener?.invoke(holder, getItem(position), position) ?: false
+            onItemLongClickListener?.invoke(holder, dataSet[position], position) ?: false
         }
-        bindTo(holder.vb, position, getItem(position))
+        bindTo(holder.vb, position, dataSet[position])
     }
+
+    override fun getItemCount(): Int = dataSet.size
 
     /**
      * override by subclass

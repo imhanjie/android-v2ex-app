@@ -35,7 +35,7 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
     }
 
     /**
-     * 登陆
+     * 登录
      */
     fun login(userName: String, password: String, verCode: String) {
         if (userName.isEmpty() || password.isEmpty() || verCode.isEmpty() || signInData == null) {

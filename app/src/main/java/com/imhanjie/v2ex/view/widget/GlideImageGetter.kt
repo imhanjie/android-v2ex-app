@@ -11,7 +11,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
-import com.imhanjie.support.ext.dp
+import com.imhanjie.support.ext.dpi
 import com.imhanjie.v2ex.App
 
 class GlideImageGetter(private val container: TextView) : Html.ImageGetter {
@@ -50,8 +50,8 @@ class GlideImageGetter(private val container: TextView) : Html.ImageGetter {
             .asBitmap()
             .load(source)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .override(150f.dp().toInt(), 150f.dp().toInt())
-            .transform(RoundedCorners(5f.dp().toInt()))
+            .override(150.dpi, 150.dpi)
+            .transform(RoundedCorners(5.dpi))
             .into(target)
         return urlDrawable
     }

@@ -6,6 +6,7 @@ data class Reply(
     val userName: String,
     val content: String,
     val time: String,
-    val likes: Long,
+    var thankCount: Long,
+    var thanked: Boolean,
     val no: Long
 )

@@ -2,6 +2,7 @@ package com.imhanjie.v2ex.vm
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
+import com.imhanjie.v2ex.parser.model.Reply
 import com.imhanjie.v2ex.parser.model.Topic
 import com.imhanjie.v2ex.repository.provideAppRepository
 
@@ -16,7 +17,7 @@ class TopicViewModel(private val topicId: Long, application: Application) : Base
 
     val topicLiveData = MutableLiveData<TopicLiveData>()
     val loadingLiveData = MutableLiveData<Boolean>()
-    val thankReplyLiveData = MutableLiveData<Long>()
+    val thankReplyLiveData = MutableLiveData<Reply>()
 
     private var isOrder = true
     private var currentPage = 1
@@ -95,12 +96,14 @@ class TopicViewModel(private val topicId: Long, application: Application) : Base
     /**
      * 感谢回复
      */
-    fun thankReply(replyId: Long) {
+    fun thankReply(reply: Reply) {
         request(withLoading = true) {
-            val result = provideAppRepository().thankReply(replyId, once)
+            val result = provideAppRepository().thankReply(reply.id, once)
             once = result.once
             if (result.success) {
-                thankReplyLiveData.value = replyId
+                reply.thanked = true
+                reply.thankCount++
+                thankReplyLiveData.value = reply
             } else {
                 toastLiveData.value = result.message
             }

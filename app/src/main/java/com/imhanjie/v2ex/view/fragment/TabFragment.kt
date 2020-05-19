@@ -6,7 +6,7 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.drakeet.multitype.MultiTypeAdapter
-import com.imhanjie.support.ext.dp
+import com.imhanjie.support.ext.dpi
 import com.imhanjie.support.ext.toActivity
 import com.imhanjie.v2ex.BaseFragment
 import com.imhanjie.v2ex.common.Event
@@ -51,7 +51,7 @@ class TabFragment : BaseFragment<FragmentTabBinding>() {
         vb.topicRv.addItemDecoration(
             LineDividerItemDecoration(
                 requireContext(),
-                height = 4f.dp().toInt()
+                height = 4.dpi
             )
         )
 
