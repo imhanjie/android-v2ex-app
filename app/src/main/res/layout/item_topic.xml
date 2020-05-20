@@ -8,7 +8,7 @@
     android:padding="16dp">
 
     <ImageView
-        android:id="@+id/userAvatar"
+        android:id="@+id/iv_user_avatar"
         android:layout_width="37dp"
         android:layout_height="37dp"
         android:src="@mipmap/ic_launcher_round"
@@ -17,30 +17,30 @@
         tools:ignore="ContentDescription" />
 
     <TextView
-        android:id="@+id/userName"
+        android:id="@+id/tv_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:textColor="@color/widget_text_2"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/userAvatar"
-        app:layout_constraintTop_toTopOf="@id/userAvatar"
+        app:layout_constraintStart_toEndOf="@id/iv_user_avatar"
+        app:layout_constraintTop_toTopOf="@id/iv_user_avatar"
         tools:text="Melody" />
 
     <TextView
-        android:id="@+id/time"
+        android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/widget_text_4"
         android:textSize="11sp"
-        app:layout_constraintBottom_toBottomOf="@id/userAvatar"
-        app:layout_constraintStart_toStartOf="@id/userName"
+        app:layout_constraintBottom_toBottomOf="@id/iv_user_avatar"
+        app:layout_constraintStart_toStartOf="@id/tv_user_name"
         tools:ignore="SmallSp"
         tools:text="刚刚" />
 
     <TextView
-        android:id="@+id/nodeTitle"
+        android:id="@+id/tv_node_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_topic_node"
@@ -52,12 +52,12 @@
         android:textSize="11sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/userAvatar"
+        app:layout_constraintTop_toTopOf="@id/iv_user_avatar"
         tools:ignore="SmallSp"
         tools:text="Apple" />
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/tv_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -67,7 +67,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/userAvatar"
+        app:layout_constraintTop_toBottomOf="@id/iv_user_avatar"
         tools:text="GitHub 中文排行榜项目，帮助你发现高分优秀中文项目、更高效地吸收国人的优秀经验成果~" />
 
 </com.imhanjie.v2ex.view.widget.ScalableConstraintLayout>

@@ -12,8 +12,8 @@ class ReplyHeaderAdapter(
 
     override fun bindTo(holder: VBViewHolder<ItemReplyHeaderBinding>, position: Int, item: ReplyHeaderType) {
         with(holder.vb) {
-            reverse.setText(if (item.isOrder) R.string.reply_order else R.string.reply_reverse_order)
-            reverse.setOnClickListener {
+            tvReverse.setText(if (item.isOrder) R.string.reply_order else R.string.reply_reverse_order)
+            tvReverse.setOnClickListener {
                 reverseBlock?.invoke()
             }
         }

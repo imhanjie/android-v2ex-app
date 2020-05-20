@@ -19,16 +19,16 @@ class TopicAdapter : BaseItemViewDelegate<TopicItem, ItemTopicBinding>() {
                 .load(item.userAvatar)
                 .placeholder(ContextCompat.getDrawable(ctx, R.drawable.default_avatar))
                 .transform(CircleCrop())
-                .into(userAvatar)
-            title.text = item.title
-            userName.text = item.userName
+                .into(ivUserAvatar)
+            tvTitle.text = item.title
+            tvUserName.text = item.userName
             if (item.isTop) {
-                time.text = ctx.getString(R.string.topic_item_desc_with_top, item.latestReplyTime, item.replies)
+                tvTime.text = ctx.getString(R.string.topic_item_desc_with_top, item.latestReplyTime, item.replies)
             } else {
-                time.text = ctx.getString(R.string.topic_item_desc, item.latestReplyTime, item.replies)
+                tvTime.text = ctx.getString(R.string.topic_item_desc, item.latestReplyTime, item.replies)
             }
-            nodeTitle.text = item.nodeTitle
-            nodeTitle.setOnClickListener {
+            tvNodeTitle.text = item.nodeTitle
+            tvNodeTitle.setOnClickListener {
                 ctx.toActivity<NodeActivity>(
                     mapOf(
                         "title" to item.nodeTitle,

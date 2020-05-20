@@ -20,15 +20,15 @@ class TopicDetailsAdapter : BaseItemViewDelegate<Topic, ItemTopicDetailsBinding>
                 .load(item.userAvatar)
                 .placeholder(ContextCompat.getDrawable(ctx, R.drawable.default_avatar))
                 .transform(CircleCrop())
-                .into(userAvatar)
-            title.text = item.title
-            userName.text = item.userName
-            time.text = ctx.getString(R.string.topic_details_desc, item.createTime, item.click)
-            nodeTitle.text = item.nodeTitle
+                .into(ivUserAvatar)
+            tvTitle.text = item.title
+            tvUserName.text = item.userName
+            tvTime.text = ctx.getString(R.string.topic_details_desc, item.createTime, item.click)
+            tvNodeTitle.text = item.nodeTitle
             content.setRichContent(item.richContent)
             content.visibility = if (item.richContent.isEmpty()) View.GONE else View.VISIBLE
 
-            nodeTitle.setOnClickListener {
+            tvNodeTitle.setOnClickListener {
                 ctx.toActivity<NodeActivity>(
                     mapOf(
                         "title" to item.nodeTitle,
