@@ -3,10 +3,10 @@ package com.imhanjie.v2ex.vm
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.gson.stream.MalformedJsonException
 import com.imhanjie.v2ex.common.BizException
+import com.imhanjie.v2ex.common.NonStickyLiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.io.IOException
@@ -16,14 +16,20 @@ import java.net.UnknownHostException
 
 open class BaseViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val errorLiveData = MutableLiveData<String>()
-    fun getErrorLiveData() = errorLiveData as LiveData<String>
+    private val _error = NonStickyLiveData<String>()
 
-    private val toastLiveData: MutableLiveData<String> = MutableLiveData()
-    fun getToastLiveData() = toastLiveData as LiveData<String>
+    val error: LiveData<String>
+        get() = _error
 
-    private val loadingDialogLiveData: MutableLiveData<Boolean> = MutableLiveData()
-    fun getLoadingDialogLiveData() = loadingDialogLiveData as LiveData<Boolean>
+    protected val _toast = NonStickyLiveData<String>()
+
+    val toast: LiveData<String>
+        get() = _toast
+
+    private val _loadingDialogState = NonStickyLiveData<Boolean>()
+
+    val loadingDialogState: LiveData<Boolean>
+        get() = _loadingDialogState
 
     fun request(
         withLoading: Boolean = false,
@@ -34,16 +40,16 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
         viewModelScope.launch {
             try {
                 if (withLoading) {
-                    loadingDialogLiveData.value = true
+                    _loadingDialogState.value = true
                 }
                 onRequest()
             } catch (e: Throwable) {
                 val msg = handleException(e)
-                errorLiveData.value = msg
+                _error.value = msg
                 onError(msg)
             } finally {
                 if (withLoading) {
-                    loadingDialogLiveData.value = false
+                    _loadingDialogState.value = false
                 }
                 onComplete()
             }

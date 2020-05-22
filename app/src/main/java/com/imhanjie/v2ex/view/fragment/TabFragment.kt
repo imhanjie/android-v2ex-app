@@ -1,6 +1,7 @@
 package com.imhanjie.v2ex.view.fragment
 
 import android.os.Bundle
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -38,7 +39,7 @@ class TabFragment : BaseFragment<FragmentTabBinding>() {
          * 即可忽略 ViewPager 的 Fragment 回收导致的数据重新加载问题。
          */
         vm = ViewModelProvider(requireActivity()).get(tab.value, TabViewModel::class.java)
-        if (vm.getTopicLiveData().value == null) {   // 首次初始化
+        if (vm.topic.value == null) {   // 首次初始化
             vm.tab = tab
         }
     }
@@ -58,14 +59,14 @@ class TabFragment : BaseFragment<FragmentTabBinding>() {
         val adapter = MultiTypeAdapter(items)
         val topicAdapter = TopicAdapter().apply {
             onItemClickListener = { _, item, _ ->
-                this@TabFragment.toActivity<TopicActivity>(mapOf("topicId" to item.id))
+                this@TabFragment.toActivity<TopicActivity>(bundleOf("topicId" to item.id))
             }
         }
         adapter.apply {
             register(TopicItem::class.java, topicAdapter)
         }
         vb.topicRv.adapter = adapter
-        vm.getTopicLiveData().observe(this) {
+        vm.topic.observe(this) {
             vb.loadingLayout.update(LoadingWrapLayout.Status.DONE)
             vb.swipeRefreshLayout.isRefreshing = false
 
@@ -87,7 +88,7 @@ class TabFragment : BaseFragment<FragmentTabBinding>() {
 
     override fun onResume() {
         super.onResume()
-        if (vm.getTopicLiveData().value == null) {   // 首次初始化
+        if (vm.topic.value == null) {   // 首次初始化
             vm.loadTopics()
         }
     }

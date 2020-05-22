@@ -48,7 +48,7 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
 
         vb.loadingLayout.update(LoadingWrapLayout.Status.LOADING)
         vb.topBar.setOnClickListener { vb.replyRv.smoothScrollToPosition(0) }
-        vm.getLoadingLiveData().observe(this) { loadingDialog.update(!it) }
+        vm.loading.observe(this) { loadingDialog.update(!it) }
 
         val delegate = LoadMoreDelegate(vb.replyRv) { vm.loadReplies(append = true, doReverse = false) }
         delegate.adapter.apply {
@@ -75,7 +75,7 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
             }
         )
 
-        vm.getTopicLiveData().observe(this) {
+        vm.topic.observe(this) {
             vb.loadingLayout.update(LoadingWrapLayout.Status.DONE)
             val (topic, append, hasMore, isOrder) = it
             delegate.apply {
@@ -98,7 +98,7 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
                 notifyLoadSuccess(hasMore)
             }
         }
-        vm.getThankReplyLiveData().observe(this) {
+        vm.thankReply.observe(this) {
             toast(R.string.tips_thank_reply_success)
             delegate.adapter.notifyItemChanged(delegate.items.indexOf(it))
         }

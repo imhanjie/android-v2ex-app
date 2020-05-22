@@ -3,8 +3,7 @@ package com.imhanjie.v2ex.vm
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.imhanjie.support.PreferencesManager
-import com.imhanjie.v2ex.common.SpConstants
+import com.imhanjie.v2ex.AppSession
 import com.imhanjie.v2ex.model.LoginInfo
 import com.imhanjie.v2ex.parser.model.SignIn
 import com.imhanjie.v2ex.repository.provideAppRepository
@@ -12,17 +11,25 @@ import java.io.InputStream
 
 class LoginViewModel(application: Application) : BaseViewModel(application) {
 
-    private val imageInputStreamLiveData = MutableLiveData<InputStream>()
-    fun getImageInputStreamLiveData() = imageInputStreamLiveData as LiveData<InputStream>
+    private val _imageInputStream = MutableLiveData<InputStream>()
 
-    private val loginResultLiveData = MutableLiveData<LoginInfo>()
-    fun getLoginResultLiveData() = loginResultLiveData as LiveData<LoginInfo>
+    val imageInputStream: LiveData<InputStream>
+        get() = _imageInputStream
 
-    private val loginStateLiveData = MutableLiveData<Boolean>()
-    fun getLoginStateLiveData() = loginStateLiveData as LiveData<Boolean>
+    private val _loginResult = MutableLiveData<LoginInfo>()
 
-    private val loadSignInStateLiveData = MutableLiveData<Boolean>()
-    fun getLoadSignInStateLiveData() = loadSignInStateLiveData as LiveData<Boolean>
+    val loginResult: LiveData<LoginInfo>
+        get() = _loginResult
+
+    private val _loginState = MutableLiveData<Boolean>()
+
+    val loginState: LiveData<Boolean>
+        get() = _loginState
+
+    private val _loadSignInState = MutableLiveData<Boolean>()
+
+    val loadSignInState: LiveData<Boolean>
+        get() = _loadSignInState
 
     private var signInData: SignIn? = null
 
@@ -32,12 +39,12 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
     fun loadSignIn() {
         request(
             onRequest = {
-                loadSignInStateLiveData.value = true
+                _loadSignInState.value = true
                 signInData = provideAppRepository().loadSignIn()
-                imageInputStreamLiveData.value = provideAppRepository().loadVerImage(signInData!!.verUrlOnce)
+                _imageInputStream.value = provideAppRepository().loadVerImage(signInData!!.verUrlOnce)
             },
             onError = {
-                loadSignInStateLiveData.value = false
+                _loadSignInState.value = false
             }
         )
     }
@@ -51,16 +58,16 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
         }
         request(
             onRequest = {
-                loginStateLiveData.value = true
+                _loginState.value = true
                 val loginInfo = provideAppRepository().login(signInData!!, userName, password, verCode)
-                PreferencesManager.getInstance(SpConstants.FILE_COOKIES).putString(SpConstants.COOKIE_A2, loginInfo.cookie)
-                loginResultLiveData.value = loginInfo
+                AppSession.setOrUpdateUserInfo(AppSession.getUserInfo().copy(a2Cookie = loginInfo.cookie))
+                _loginResult.value = loginInfo
             },
             onError = {
                 loadSignIn()
             },
             onComplete = {
-                loginStateLiveData.value = false
+                _loginState.value = false
             }
         )
     }

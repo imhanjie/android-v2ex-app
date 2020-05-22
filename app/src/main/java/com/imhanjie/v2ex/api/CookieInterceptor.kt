@@ -1,9 +1,8 @@
 package com.imhanjie.v2ex.api
 
 import android.annotation.SuppressLint
-import com.imhanjie.support.PreferencesManager
 import com.imhanjie.support.e
-import com.imhanjie.v2ex.common.SpConstants
+import com.imhanjie.v2ex.AppSession
 import com.imhanjie.v2ex.parser.RegexPattern
 import okhttp3.*
 
@@ -42,7 +41,7 @@ object CookieInterceptor : Interceptor {
             val contentType = response.body()!!.contentType()
             val htmlContent = response.body()!!.string()
             // 将 once 和 PB3_SESSION 对应存储起来
-            val matcher = RegexPattern.PAGE_ONCE_PATTERN.matcher(htmlContent)
+            val matcher = RegexPattern.PAGE_ONCE.matcher(htmlContent)
             if (matcher.find()) {
                 val once = matcher.group().split("=")[1]
                 pb3SessionMap[once] = pb3Session
@@ -71,8 +70,7 @@ object CookieInterceptor : Interceptor {
         }
 
         // load A2
-        val a2Cookie = PreferencesManager.getInstance(SpConstants.FILE_COOKIES)
-            .getString(SpConstants.COOKIE_A2, "")
+        val a2Cookie = AppSession.getUserInfo().a2Cookie
         if (a2Cookie.isNotEmpty()) {
             resultCookies.add(Cookie.parse(request.url(), a2Cookie)!!)
         }
@@ -94,14 +92,14 @@ object CookieInterceptor : Interceptor {
      */
     fun tryGetOnceFromRequest(request: Request): String? {
         var onceString = ""
-        var matcher = RegexPattern.PAGE_ONCE_PATTERN.matcher(request.url().toString())
+        var matcher = RegexPattern.PAGE_ONCE.matcher(request.url().toString())
         if (matcher.find()) {
             onceString = matcher.group()
         } else {
             val buffer = okio.Buffer();
             request.body()?.writeTo(buffer)
             val requestParam = buffer.readUtf8()
-            matcher = RegexPattern.PAGE_ONCE_PATTERN.matcher(requestParam)
+            matcher = RegexPattern.PAGE_ONCE.matcher(requestParam)
             if (matcher.find()) {
                 onceString = matcher.group()
             }

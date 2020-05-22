@@ -15,13 +15,9 @@ class App : MultiDexApplication() {
     companion object {
         lateinit var INSTANCE: Application
 
-        fun launchLoginPage() {
-            // TODO 过滤多次调用
-            INSTANCE.toActivity<LoginActivity>(
-                mapOf(
-                    "key" to "value"
-                )
-            ) { intent ->
+        fun logout() {
+            AppSession.clear()
+            INSTANCE.toActivity<LoginActivity> { intent ->
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             }
         }

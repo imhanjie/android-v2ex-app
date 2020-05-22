@@ -2,10 +2,12 @@ package com.imhanjie.v2ex.common
 
 object SpConstants {
 
-    const val FILE_COOKIES = "app_cookies"
-    const val FILE_CONFIG = "app_config"
+    const val FILE_APP_SESSION = "app_session"
 
-    const val COOKIE_A2 = "A2"
+    const val USER_NAME = "user_name"
+    const val USER_AVATAR = "user_avatar"
+    const val A2_COOKIE = "a2_cookie"
+
 }
 
 object Event {

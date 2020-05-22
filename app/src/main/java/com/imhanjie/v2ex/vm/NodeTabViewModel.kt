@@ -8,8 +8,10 @@ import com.imhanjie.v2ex.repository.provideAppRepository
 
 class NodeTabViewModel(application: Application) : BaseViewModel(application) {
 
-    private val nodesLiveData = MutableLiveData<List<Any>>()
-    fun getNodesLiveData() = nodesLiveData as LiveData<List<Any>>
+    private val _nodes = MutableLiveData<List<Any>>()
+
+    val nodes: LiveData<List<Any>>
+        get() = _nodes
 
     fun loadFavoriteNodes() {
         request {
@@ -25,7 +27,7 @@ class NodeTabViewModel(application: Application) : BaseViewModel(application) {
                 result.add(navNode.type)
                 result.addAll(navNode.children)
             }
-            nodesLiveData.value = result
+            _nodes.value = result
         }
     }
 

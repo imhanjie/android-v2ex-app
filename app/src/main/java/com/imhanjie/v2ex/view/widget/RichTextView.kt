@@ -11,6 +11,7 @@ import android.text.style.URLSpan
 import android.util.AttributeSet
 import android.view.View
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.os.bundleOf
 import androidx.core.text.HtmlCompat
 import cc.shinichi.library.ImagePreview
 import com.imhanjie.support.ext.toActivity
@@ -48,11 +49,11 @@ class RichTextView @JvmOverloads constructor(
             s.setSpan(object : URLSpan(url) {
                 override fun onClick(widget: View) {
                     val clickUrl = getURL()
-                    if (RegexPattern.IMAGE_URL_PATTERN.matcher(clickUrl).find()) {
+                    if (RegexPattern.IMAGE_URL.matcher(clickUrl).find()) {
                         imagePreview(clickUrl)
                         return
                     }
-                    if (RegexPattern.TOPIC_URL_PATTERN.matcher(clickUrl).find()) {
+                    if (RegexPattern.TOPIC_URL.matcher(clickUrl).find()) {
                         /*
                          * eg:    http://v2ex.com/t/123#reply123
                          *     || http://v2ex.com/t/123?p=1
@@ -66,7 +67,7 @@ class RichTextView @JvmOverloads constructor(
                             clickUrl.split("?")[0].split("/").last().toLong()
                         }
                         context.toActivity<TopicActivity>(
-                            mapOf("topicId" to topicId)
+                            bundleOf("topicId" to topicId)
                         )
                         return
                     }
@@ -139,6 +140,9 @@ class RichTextView @JvmOverloads constructor(
         return result
     }
 
+    /**
+     * 图片预览
+     */
     fun imagePreview(url: String) {
         ImagePreview
             .getInstance()

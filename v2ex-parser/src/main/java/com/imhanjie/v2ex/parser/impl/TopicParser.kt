@@ -62,7 +62,7 @@ class TopicParser : Parser {
         }
 
         var once = ""
-        val onceMatcher = RegexPattern.PAGE_ONCE_PATTERN.matcher(html)
+        val onceMatcher = RegexPattern.PAGE_ONCE.matcher(html)
         if (onceMatcher.find()) {
             once = onceMatcher.group().split("=")[1]
         }

@@ -14,8 +14,10 @@ class NotificationsViewModel(application: Application) : BaseViewModel(applicati
         val hasMore: Boolean
     )
 
-    private val notificationLiveData = MutableLiveData<NotificationLiveData>()
-    fun getNotificationLiveData() = notificationLiveData as LiveData<NotificationLiveData>
+    private val _notification = MutableLiveData<NotificationLiveData>()
+
+    val notification: LiveData<NotificationLiveData>
+        get() = _notification
 
     private var currentPage = 1
 
@@ -23,7 +25,7 @@ class NotificationsViewModel(application: Application) : BaseViewModel(applicati
         request {
             val requestPage = if (!append) 1 else currentPage + 1
             val notifications = provideAppRepository().loadNotifications(requestPage)
-            notificationLiveData.value = NotificationLiveData(
+            _notification.value = NotificationLiveData(
                 notifications,
                 append,
                 notifications.currentPage != notifications.totalPage

@@ -14,11 +14,15 @@ class NodeViewModel(private val nodeName: String, application: Application) : Ba
         val hasMore: Boolean
     )
 
-    private val nodeLiveData = MutableLiveData<NodeLiveData>()
-    fun getNodeLiveData() = nodeLiveData as LiveData<NodeLiveData>
+    private val _node = MutableLiveData<NodeLiveData>()
 
-    private val isFavoriteLiveData = MutableLiveData<Pair<Boolean, Boolean>>()
-    fun getIsFavoriteLiveData() = isFavoriteLiveData as LiveData<Pair<Boolean, Boolean>>
+    val node: LiveData<NodeLiveData>
+        get() = _node
+
+    private val _isFavorite = MutableLiveData<Pair<Boolean, Boolean>>()
+
+    val isFavorite: LiveData<Pair<Boolean, Boolean>>
+        get() = _isFavorite
 
     private var currentPage = 1
 
@@ -30,8 +34,8 @@ class NodeViewModel(private val nodeName: String, application: Application) : Ba
         request {
             val requestPage = if (!append) 1 else currentPage + 1
             val node = provideAppRepository().loadNodeTopics(nodeName, requestPage)
-            isFavoriteLiveData.value = Pair(node.isFavorite, false)
-            nodeLiveData.value = NodeLiveData(node, append, node.currentPage != node.totalPage)
+            _isFavorite.value = Pair(node.isFavorite, false)
+            _node.value = NodeLiveData(node, append, node.currentPage != node.totalPage)
             currentPage = requestPage
         }
     }
@@ -40,14 +44,14 @@ class NodeViewModel(private val nodeName: String, application: Application) : Ba
      * 收藏 / 取消收藏主题
      */
     fun doFavoriteNode() {
-        val node = nodeLiveData.value?.node ?: return
+        val node = _node.value?.node ?: return
         request(withLoading = true) {
             if (node.isFavorite) {
                 provideAppRepository().unFavoriteNode(node.id, node.once)
             } else {
                 provideAppRepository().favoriteNode(node.id, node.once)
             }
-            isFavoriteLiveData.value = Pair(!node.isFavorite, true)
+            _isFavorite.value = Pair(!node.isFavorite, true)
             node.isFavorite = !node.isFavorite
         }
     }

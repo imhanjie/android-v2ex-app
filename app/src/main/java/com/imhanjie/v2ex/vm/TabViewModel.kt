@@ -11,12 +11,14 @@ class TabViewModel(application: Application) : BaseViewModel(application) {
 
     lateinit var tab: TopicTab
 
-    private val topicLiveData: MutableLiveData<List<TopicItem>> = MutableLiveData()
-    fun getTopicLiveData() = topicLiveData as LiveData<List<TopicItem>>
+    private val _topic: MutableLiveData<List<TopicItem>> = MutableLiveData()
+
+    val topic: LiveData<List<TopicItem>>
+        get() = _topic
 
     fun loadTopics() {
         request {
-            topicLiveData.value = provideAppRepository().loadLatestTopics(tab.value, 1)
+            _topic.value = provideAppRepository().loadLatestTopics(tab.value, 1)
         }
     }
 

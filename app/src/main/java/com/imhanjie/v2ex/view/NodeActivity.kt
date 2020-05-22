@@ -2,6 +2,7 @@ package com.imhanjie.v2ex.view
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
@@ -47,7 +48,7 @@ class NodeActivity : BaseActivity<ActivityNodeBinding>() {
         })
         vb.topBar.setOnClickListener { vb.topicRv.smoothScrollToPosition(0) }
         vb.swipeRefreshLayout.setOnRefreshListener { vm.loadNodeTopics(false) }
-        vm.getIsFavoriteLiveData().observe(this) {
+        vm.isFavorite.observe(this) {
             val (isFavorite, isManual) = it
             if (isManual) {
                 toast(if (isFavorite) R.string.tips_favorite_success else R.string.tips_un_favorite_success)
@@ -62,13 +63,13 @@ class NodeActivity : BaseActivity<ActivityNodeBinding>() {
 
         val topicAdapter = TopicAdapter().apply {
             onItemClickListener = { _, item, _ ->
-                this@NodeActivity.toActivity<TopicActivity>(mapOf("topicId" to item.id))
+                this@NodeActivity.toActivity<TopicActivity>(bundleOf("topicId" to item.id))
             }
         }
         delegate.adapter.apply {
             register(TopicItem::class.java, topicAdapter)
         }
-        vm.getNodeLiveData().observe(this) {
+        vm.node.observe(this) {
             vb.loadingLayout.update(LoadingWrapLayout.Status.DONE)
             vb.swipeRefreshLayout.isRefreshing = false
 

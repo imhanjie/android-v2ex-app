@@ -24,7 +24,7 @@ object AppRepositoryImpl : AppRepository {
             return data ?: throw BizException("data can not be null!")
         } else {
             if (code == Result.CODE_USER_EXPIRED) {
-                App.launchLoginPage()
+                App.logout()
             }
             throw BizException(message!!)
         }

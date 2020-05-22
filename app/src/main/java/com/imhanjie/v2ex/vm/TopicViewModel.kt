@@ -16,14 +16,20 @@ class TopicViewModel(private val topicId: Long, application: Application) : Base
         val isOrder: Boolean
     )
 
-    private val topicLiveData = MutableLiveData<TopicLiveData>()
-    fun getTopicLiveData() = topicLiveData as LiveData<TopicLiveData>
+    private val _topic = MutableLiveData<TopicLiveData>()
 
-    private val loadingLiveData = MutableLiveData<Boolean>()
-    fun getLoadingLiveData() = loadingLiveData as LiveData<Boolean>
+    val topic: LiveData<TopicLiveData>
+        get() = _topic
 
-    private val thankReplyLiveData = MutableLiveData<Reply>()
-    fun getThankReplyLiveData() = thankReplyLiveData as LiveData<Reply>
+    private val _loading = MutableLiveData<Boolean>()
+
+    val loading: LiveData<Boolean>
+        get() = _loading
+
+    private val _thankReply = MutableLiveData<Reply>()
+
+    val thankReply: LiveData<Reply>
+        get() = _thankReply
 
 
     private var isOrder = true
@@ -51,8 +57,8 @@ class TopicViewModel(private val topicId: Long, application: Application) : Base
 
         if (!append && doReverse && totalPage == 1) {
             // 若只有一页数据，直接翻转评论
-            val currentTopic = topicLiveData.value!!.topic
-            topicLiveData.value = TopicLiveData(
+            val currentTopic = _topic.value!!.topic
+            _topic.value = TopicLiveData(
                 currentTopic.copy(replies = currentTopic.replies.reversed()),
                 append = false,
                 hasMore = false,
@@ -68,7 +74,7 @@ class TopicViewModel(private val topicId: Long, application: Application) : Base
         request {
             // change state
             if (!isFirst && !append) {
-                loadingLiveData.value = true
+                _loading.value = true
             }
 
             var newTopic = provideAppRepository().loadTopic(topicId, currentPage)
@@ -80,12 +86,12 @@ class TopicViewModel(private val topicId: Long, application: Application) : Base
             if (!targetIsOrder) {
                 newTopic = newTopic.copy(replies = newTopic.replies.reversed())
             }
-            topicLiveData.value = TopicLiveData(newTopic, append, hasMore, targetIsOrder)
+            _topic.value = TopicLiveData(newTopic, append, hasMore, targetIsOrder)
             once = newTopic.once
 
             // change state
             if (!isFirst && !append) {
-                loadingLiveData.value = false
+                _loading.value = false
             }
 
             // change value
@@ -110,9 +116,9 @@ class TopicViewModel(private val topicId: Long, application: Application) : Base
             if (result.success) {
                 reply.thanked = true
                 reply.thankCount++
-                thankReplyLiveData.value = reply
+                _thankReply.value = reply
             } else {
-                toastLiveData.value = result.message
+                _toast.value = result.message
             }
         }
     }

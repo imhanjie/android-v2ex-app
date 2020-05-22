@@ -40,9 +40,9 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
             setCancelable(false)
         }
         for (vm in getViewModels()) {
-            vm.getErrorLiveData().observe(viewLifecycleOwner) { toast(it) }
-            vm.getToastLiveData().observe(viewLifecycleOwner) { toast(it) }
-            vm.getLoadingDialogLiveData().observe(viewLifecycleOwner) { loadingDialog.update(!it) }
+            vm.error.observe(viewLifecycleOwner) { toast(it) }
+            vm.toast.observe(viewLifecycleOwner) { toast(it) }
+            vm.loadingDialogState.observe(viewLifecycleOwner) { loadingDialog.update(!it) }
         }
 
         initViews()

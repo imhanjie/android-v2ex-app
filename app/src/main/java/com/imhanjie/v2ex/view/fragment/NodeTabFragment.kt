@@ -1,11 +1,13 @@
 package com.imhanjie.v2ex.view.fragment
 
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.GridLayoutManager
 import com.drakeet.multitype.MultiTypeAdapter
 import com.imhanjie.support.ext.toActivity
-import com.imhanjie.v2ex.BaseLazyFragemnt
+import com.imhanjie.v2ex.AppSession
+import com.imhanjie.v2ex.BaseLazyFragment
 import com.imhanjie.v2ex.databinding.FragmentTabNodeBinding
 import com.imhanjie.v2ex.parser.model.TinyNode
 import com.imhanjie.v2ex.view.NodeActivity
@@ -15,7 +17,7 @@ import com.imhanjie.v2ex.vm.BaseViewModel
 import com.imhanjie.v2ex.vm.NodeTabViewModel
 import com.imhanjie.widget.LoadingWrapLayout
 
-class NodeTabFragment : BaseLazyFragemnt<FragmentTabNodeBinding>() {
+class NodeTabFragment : BaseLazyFragment<FragmentTabNodeBinding>() {
 
     private lateinit var vm: NodeTabViewModel
 
@@ -27,6 +29,12 @@ class NodeTabFragment : BaseLazyFragemnt<FragmentTabNodeBinding>() {
     }
 
     override fun initViews() {
+        AppSession.getLoginStateLiveData().observe(this) {
+            if (it && !isFirstResume) {
+                vm.loadFavoriteNodes()
+            }
+        }
+
         vb.loadingLayout.update(LoadingWrapLayout.Status.LOADING)
         vb.swipeRefreshLayout.setOnRefreshListener { vm.loadFavoriteNodes() }
 
@@ -36,7 +44,7 @@ class NodeTabFragment : BaseLazyFragemnt<FragmentTabNodeBinding>() {
             register(TinyNode::class.java, NodeItemAdapter().apply {
                 onItemClickListener = { _, item, _ ->
                     this@NodeTabFragment.toActivity<NodeActivity>(
-                        mapOf(
+                        bundleOf(
                             "title" to item.title,
                             "name" to item.name
                         )
@@ -54,7 +62,7 @@ class NodeTabFragment : BaseLazyFragemnt<FragmentTabNodeBinding>() {
         }
         vb.rv.adapter = adapter
 
-        vm.getNodesLiveData().observe(this) {
+        vm.nodes.observe(this) {
             vb.loadingLayout.update(LoadingWrapLayout.Status.DONE)
             vb.swipeRefreshLayout.isRefreshing = false
             items.clear()

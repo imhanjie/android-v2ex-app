@@ -3,7 +3,8 @@ package com.imhanjie.v2ex.view.fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import com.imhanjie.support.ext.dpi
-import com.imhanjie.v2ex.BaseLazyFragemnt
+import com.imhanjie.v2ex.AppSession
+import com.imhanjie.v2ex.BaseLazyFragment
 import com.imhanjie.v2ex.databinding.FragmentTabNotificationsBinding
 import com.imhanjie.v2ex.parser.model.Notifications
 import com.imhanjie.v2ex.view.adapter.NotificationAdapter
@@ -13,7 +14,7 @@ import com.imhanjie.widget.LineDividerItemDecoration
 import com.imhanjie.widget.LoadingWrapLayout
 import com.imhanjie.widget.recyclerview.loadmore.LoadMoreDelegate
 
-class NotificationsTabFragment : BaseLazyFragemnt<FragmentTabNotificationsBinding>() {
+class NotificationsTabFragment : BaseLazyFragment<FragmentTabNotificationsBinding>() {
 
     private lateinit var vm: NotificationsViewModel
 
@@ -23,6 +24,11 @@ class NotificationsTabFragment : BaseLazyFragemnt<FragmentTabNotificationsBindin
     }
 
     override fun initViews() {
+        AppSession.getLoginStateLiveData().observe(this) {
+            if (it && !isFirstResume) {
+                vm.loadNotifications(append = false)
+            }
+        }
         vb.loadingLayout.update(LoadingWrapLayout.Status.LOADING)
         vb.swipeRefreshLayout.setOnRefreshListener { vm.loadNotifications(false) }
 
@@ -34,7 +40,7 @@ class NotificationsTabFragment : BaseLazyFragemnt<FragmentTabNotificationsBindin
         delegate.adapter.apply {
             register(Notifications.Item::class.java, notificationAdapter)
         }
-        vm.getNotificationLiveData().observe(this) {
+        vm.notification.observe(this) {
             vb.loadingLayout.update(LoadingWrapLayout.Status.DONE)
             vb.swipeRefreshLayout.isRefreshing = false
 
