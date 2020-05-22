@@ -2,6 +2,7 @@ package com.imhanjie.v2ex.vm
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.gson.stream.MalformedJsonException
@@ -15,9 +16,14 @@ import java.net.UnknownHostException
 
 open class BaseViewModel(application: Application) : AndroidViewModel(application) {
 
-    val errorLiveData: MutableLiveData<String> = MutableLiveData()
-    val toastLiveData: MutableLiveData<String> = MutableLiveData()
-    val loadingDialogLiveData: MutableLiveData<Boolean> = MutableLiveData()
+    private val errorLiveData = MutableLiveData<String>()
+    fun getErrorLiveData() = errorLiveData as LiveData<String>
+
+    private val toastLiveData: MutableLiveData<String> = MutableLiveData()
+    fun getToastLiveData() = toastLiveData as LiveData<String>
+
+    private val loadingDialogLiveData: MutableLiveData<Boolean> = MutableLiveData()
+    fun getLoadingDialogLiveData() = loadingDialogLiveData as LiveData<Boolean>
 
     fun request(
         withLoading: Boolean = false,

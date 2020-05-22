@@ -1,6 +1,7 @@
 package com.imhanjie.v2ex.vm
 
 import android.app.Application
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.imhanjie.support.PreferencesManager
 import com.imhanjie.v2ex.common.SpConstants
@@ -11,10 +12,17 @@ import java.io.InputStream
 
 class LoginViewModel(application: Application) : BaseViewModel(application) {
 
-    val imageInputStreamLiveData = MutableLiveData<InputStream>()
-    val loginResultLiveData = MutableLiveData<LoginInfo>()
-    val loginStateLiveData = MutableLiveData<Boolean>()
-    val loadSignInStateLiveData = MutableLiveData<Boolean>()
+    private val imageInputStreamLiveData = MutableLiveData<InputStream>()
+    fun getImageInputStreamLiveData() = imageInputStreamLiveData as LiveData<InputStream>
+
+    private val loginResultLiveData = MutableLiveData<LoginInfo>()
+    fun getLoginResultLiveData() = loginResultLiveData as LiveData<LoginInfo>
+
+    private val loginStateLiveData = MutableLiveData<Boolean>()
+    fun getLoginStateLiveData() = loginStateLiveData as LiveData<Boolean>
+
+    private val loadSignInStateLiveData = MutableLiveData<Boolean>()
+    fun getLoadSignInStateLiveData() = loadSignInStateLiveData as LiveData<Boolean>
 
     private var signInData: SignIn? = null
 

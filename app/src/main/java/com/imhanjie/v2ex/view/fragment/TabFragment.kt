@@ -38,7 +38,7 @@ class TabFragment : BaseFragment<FragmentTabBinding>() {
          * 即可忽略 ViewPager 的 Fragment 回收导致的数据重新加载问题。
          */
         vm = ViewModelProvider(requireActivity()).get(tab.value, TabViewModel::class.java)
-        if (vm.topicLiveData.value == null) {   // 首次初始化
+        if (vm.getTopicLiveData().value == null) {   // 首次初始化
             vm.tab = tab
         }
     }
@@ -65,7 +65,7 @@ class TabFragment : BaseFragment<FragmentTabBinding>() {
             register(TopicItem::class.java, topicAdapter)
         }
         vb.topicRv.adapter = adapter
-        vm.topicLiveData.observe(this) {
+        vm.getTopicLiveData().observe(this) {
             vb.loadingLayout.update(LoadingWrapLayout.Status.DONE)
             vb.swipeRefreshLayout.isRefreshing = false
 
@@ -87,7 +87,7 @@ class TabFragment : BaseFragment<FragmentTabBinding>() {
 
     override fun onResume() {
         super.onResume()
-        if (vm.topicLiveData.value == null) {   // 首次初始化
+        if (vm.getTopicLiveData().value == null) {   // 首次初始化
             vm.loadTopics()
         }
     }

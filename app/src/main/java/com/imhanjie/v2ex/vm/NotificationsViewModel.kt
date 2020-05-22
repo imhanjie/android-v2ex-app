@@ -1,6 +1,7 @@
 package com.imhanjie.v2ex.vm
 
 import android.app.Application
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.imhanjie.v2ex.parser.model.Notifications
 import com.imhanjie.v2ex.repository.provideAppRepository
@@ -13,7 +14,8 @@ class NotificationsViewModel(application: Application) : BaseViewModel(applicati
         val hasMore: Boolean
     )
 
-    val notificationLiveData = MutableLiveData<NotificationLiveData>()
+    private val notificationLiveData = MutableLiveData<NotificationLiveData>()
+    fun getNotificationLiveData() = notificationLiveData as LiveData<NotificationLiveData>
 
     private var currentPage = 1
 

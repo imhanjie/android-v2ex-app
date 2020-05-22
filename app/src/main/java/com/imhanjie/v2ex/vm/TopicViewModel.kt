@@ -1,6 +1,7 @@
 package com.imhanjie.v2ex.vm
 
 import android.app.Application
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.imhanjie.v2ex.parser.model.Reply
 import com.imhanjie.v2ex.parser.model.Topic
@@ -15,9 +16,15 @@ class TopicViewModel(private val topicId: Long, application: Application) : Base
         val isOrder: Boolean
     )
 
-    val topicLiveData = MutableLiveData<TopicLiveData>()
-    val loadingLiveData = MutableLiveData<Boolean>()
-    val thankReplyLiveData = MutableLiveData<Reply>()
+    private val topicLiveData = MutableLiveData<TopicLiveData>()
+    fun getTopicLiveData() = topicLiveData as LiveData<TopicLiveData>
+
+    private val loadingLiveData = MutableLiveData<Boolean>()
+    fun getLoadingLiveData() = loadingLiveData as LiveData<Boolean>
+
+    private val thankReplyLiveData = MutableLiveData<Reply>()
+    fun getThankReplyLiveData() = thankReplyLiveData as LiveData<Reply>
+
 
     private var isOrder = true
     private var currentPage = 1

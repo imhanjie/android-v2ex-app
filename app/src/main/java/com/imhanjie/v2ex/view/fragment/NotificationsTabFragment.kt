@@ -34,7 +34,7 @@ class NotificationsTabFragment : BaseLazyFragemnt<FragmentTabNotificationsBindin
         delegate.adapter.apply {
             register(Notifications.Item::class.java, notificationAdapter)
         }
-        vm.notificationLiveData.observe(this) {
+        vm.getNotificationLiveData().observe(this) {
             vb.loadingLayout.update(LoadingWrapLayout.Status.DONE)
             vb.swipeRefreshLayout.isRefreshing = false
 

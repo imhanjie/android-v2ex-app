@@ -36,9 +36,9 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
             setCancelable(false)
         }
         for (vm in initViewModels()) {
-            vm.errorLiveData.observe(this) { toast(it) }
-            vm.toastLiveData.observe(this) { toast(it) }
-            vm.loadingDialogLiveData.observe(this) { loadingDialog.update(!it) }
+            vm.getErrorLiveData().observe(this) { toast(it) }
+            vm.getToastLiveData().observe(this) { toast(it) }
+            vm.getLoadingDialogLiveData().observe(this) { loadingDialog.update(!it) }
         }
 
         when (configSp.getInt("ui_mode", AppCompatDelegate.MODE_NIGHT_NO)) {

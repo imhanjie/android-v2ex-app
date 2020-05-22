@@ -20,7 +20,7 @@ class MeTabFragment : BaseLazyFragemnt<FragmentTabMeBinding>() {
     }
 
     override fun initViews() {
-        vm.userInfoLiveData.observe(this) {
+        vm.getUserInfoLiveData().observe(this) {
             e(it.toString())
         }
     }

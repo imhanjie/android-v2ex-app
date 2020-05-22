@@ -47,7 +47,7 @@ class NodeActivity : BaseActivity<ActivityNodeBinding>() {
         })
         vb.topBar.setOnClickListener { vb.topicRv.smoothScrollToPosition(0) }
         vb.swipeRefreshLayout.setOnRefreshListener { vm.loadNodeTopics(false) }
-        vm.isFavoriteLiveData.observe(this) {
+        vm.getIsFavoriteLiveData().observe(this) {
             val (isFavorite, isManual) = it
             if (isManual) {
                 toast(if (isFavorite) R.string.tips_favorite_success else R.string.tips_un_favorite_success)
@@ -68,7 +68,7 @@ class NodeActivity : BaseActivity<ActivityNodeBinding>() {
         delegate.adapter.apply {
             register(TopicItem::class.java, topicAdapter)
         }
-        vm.nodeLiveData.observe(this) {
+        vm.getNodeLiveData().observe(this) {
             vb.loadingLayout.update(LoadingWrapLayout.Status.DONE)
             vb.swipeRefreshLayout.isRefreshing = false
 

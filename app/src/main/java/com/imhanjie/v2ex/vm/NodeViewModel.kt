@@ -1,6 +1,7 @@
 package com.imhanjie.v2ex.vm
 
 import android.app.Application
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.imhanjie.v2ex.parser.model.Node
 import com.imhanjie.v2ex.repository.provideAppRepository
@@ -13,8 +14,11 @@ class NodeViewModel(private val nodeName: String, application: Application) : Ba
         val hasMore: Boolean
     )
 
-    val nodeLiveData = MutableLiveData<NodeLiveData>()
-    val isFavoriteLiveData = MutableLiveData<Pair<Boolean, Boolean>>()
+    private val nodeLiveData = MutableLiveData<NodeLiveData>()
+    fun getNodeLiveData() = nodeLiveData as LiveData<NodeLiveData>
+
+    private val isFavoriteLiveData = MutableLiveData<Pair<Boolean, Boolean>>()
+    fun getIsFavoriteLiveData() = isFavoriteLiveData as LiveData<Pair<Boolean, Boolean>>
 
     private var currentPage = 1
 
