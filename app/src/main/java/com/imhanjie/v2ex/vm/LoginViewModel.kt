@@ -4,8 +4,8 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.imhanjie.v2ex.AppSession
-import com.imhanjie.v2ex.model.LoginInfo
-import com.imhanjie.v2ex.parser.model.SignIn
+import com.imhanjie.v2ex.api.model.LoginInfo
+import com.imhanjie.v2ex.api.model.SignIn
 import com.imhanjie.v2ex.repository.provideAppRepository
 import java.io.InputStream
 

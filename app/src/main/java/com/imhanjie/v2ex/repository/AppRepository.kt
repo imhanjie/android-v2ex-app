@@ -1,7 +1,6 @@
 package com.imhanjie.v2ex.repository
 
-import com.imhanjie.v2ex.model.LoginInfo
-import com.imhanjie.v2ex.parser.model.*
+import com.imhanjie.v2ex.api.model.*
 import java.io.InputStream
 
 interface AppRepository {

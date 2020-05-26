@@ -4,10 +4,9 @@ import com.imhanjie.support.parseJsonList
 import com.imhanjie.v2ex.App
 import com.imhanjie.v2ex.api.ApiServer
 import com.imhanjie.v2ex.api.ApiService
+import com.imhanjie.v2ex.api.model.*
 import com.imhanjie.v2ex.common.BizException
 import com.imhanjie.v2ex.common.TopicTab
-import com.imhanjie.v2ex.model.LoginInfo
-import com.imhanjie.v2ex.parser.model.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.InputStream
@@ -19,11 +18,11 @@ object AppRepositoryImpl : AppRepository {
     /**
      * 错误处理
      */
-    private fun <T> Result<T>.extract(): T {
-        if (code == Result.CODE_SUCCESS) {
+    private fun <T> RestfulResult<T>.extract(): T {
+        if (code == RestfulResult.CODE_SUCCESS) {
             return data ?: throw BizException("data can not be null!")
         } else {
-            if (code == Result.CODE_USER_EXPIRED) {
+            if (code == RestfulResult.CODE_USER_EXPIRED) {
                 App.logout()
             }
             throw BizException(message!!)

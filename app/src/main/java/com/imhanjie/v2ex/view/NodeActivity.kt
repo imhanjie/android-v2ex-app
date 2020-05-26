@@ -11,8 +11,8 @@ import com.imhanjie.support.ext.toActivity
 import com.imhanjie.support.ext.toast
 import com.imhanjie.v2ex.BaseActivity
 import com.imhanjie.v2ex.R
+import com.imhanjie.v2ex.api.model.TopicItem
 import com.imhanjie.v2ex.databinding.ActivityNodeBinding
-import com.imhanjie.v2ex.parser.model.TopicItem
 import com.imhanjie.v2ex.view.adapter.TopicAdapter
 import com.imhanjie.v2ex.vm.BaseViewModel
 import com.imhanjie.v2ex.vm.NodeViewModel

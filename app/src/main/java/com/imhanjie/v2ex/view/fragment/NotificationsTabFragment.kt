@@ -5,8 +5,8 @@ import androidx.lifecycle.observe
 import com.imhanjie.support.ext.dpi
 import com.imhanjie.v2ex.AppSession
 import com.imhanjie.v2ex.BaseLazyFragment
+import com.imhanjie.v2ex.api.model.Notifications
 import com.imhanjie.v2ex.databinding.FragmentTabNotificationsBinding
-import com.imhanjie.v2ex.parser.model.Notifications
 import com.imhanjie.v2ex.view.adapter.NotificationAdapter
 import com.imhanjie.v2ex.vm.BaseViewModel
 import com.imhanjie.v2ex.vm.NotificationsViewModel

@@ -1,8 +1,8 @@
 package com.imhanjie.v2ex.view.adapter
 
 import com.imhanjie.v2ex.R
+import com.imhanjie.v2ex.api.model.Topic
 import com.imhanjie.v2ex.databinding.ItemSubtleBinding
-import com.imhanjie.v2ex.parser.model.Topic
 import com.imhanjie.widget.recyclerview.base.BaseItemViewDelegate
 import com.imhanjie.widget.recyclerview.base.VBViewHolder
 

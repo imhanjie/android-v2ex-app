@@ -8,10 +8,10 @@ import com.imhanjie.support.ext.dp
 import com.imhanjie.support.ext.toast
 import com.imhanjie.v2ex.BaseActivity
 import com.imhanjie.v2ex.R
+import com.imhanjie.v2ex.api.model.Reply
+import com.imhanjie.v2ex.api.model.Topic
 import com.imhanjie.v2ex.databinding.ActivityTopicBinding
 import com.imhanjie.v2ex.model.ReplyHeaderType
-import com.imhanjie.v2ex.parser.model.Reply
-import com.imhanjie.v2ex.parser.model.Topic
 import com.imhanjie.v2ex.view.adapter.ReplyAdapter
 import com.imhanjie.v2ex.view.adapter.ReplyHeaderAdapter
 import com.imhanjie.v2ex.view.adapter.SubtleAdapter

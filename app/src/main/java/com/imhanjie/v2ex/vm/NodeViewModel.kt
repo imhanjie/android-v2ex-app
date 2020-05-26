@@ -3,7 +3,7 @@ package com.imhanjie.v2ex.vm
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.imhanjie.v2ex.parser.model.Node
+import com.imhanjie.v2ex.api.model.Node
 import com.imhanjie.v2ex.repository.provideAppRepository
 
 class NodeViewModel(private val nodeName: String, application: Application) : BaseViewModel(application) {

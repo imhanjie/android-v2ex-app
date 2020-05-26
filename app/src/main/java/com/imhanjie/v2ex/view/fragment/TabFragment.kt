@@ -10,11 +10,11 @@ import com.drakeet.multitype.MultiTypeAdapter
 import com.imhanjie.support.ext.dpi
 import com.imhanjie.support.ext.toActivity
 import com.imhanjie.v2ex.BaseFragment
+import com.imhanjie.v2ex.api.model.TopicItem
 import com.imhanjie.v2ex.common.Event
 import com.imhanjie.v2ex.common.LiveDataBus
 import com.imhanjie.v2ex.common.TopicTab
 import com.imhanjie.v2ex.databinding.FragmentTabBinding
-import com.imhanjie.v2ex.parser.model.TopicItem
 import com.imhanjie.v2ex.view.TopicActivity
 import com.imhanjie.v2ex.view.adapter.TopicAdapter
 import com.imhanjie.v2ex.vm.TabViewModel

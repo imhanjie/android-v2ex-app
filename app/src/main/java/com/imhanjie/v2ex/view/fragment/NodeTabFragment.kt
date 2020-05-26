@@ -8,8 +8,8 @@ import com.drakeet.multitype.MultiTypeAdapter
 import com.imhanjie.support.ext.toActivity
 import com.imhanjie.v2ex.AppSession
 import com.imhanjie.v2ex.BaseLazyFragment
+import com.imhanjie.v2ex.api.model.TinyNode
 import com.imhanjie.v2ex.databinding.FragmentTabNodeBinding
-import com.imhanjie.v2ex.parser.model.TinyNode
 import com.imhanjie.v2ex.view.NodeActivity
 import com.imhanjie.v2ex.view.adapter.NodeItemAdapter
 import com.imhanjie.v2ex.view.adapter.NodeTypeAdapter

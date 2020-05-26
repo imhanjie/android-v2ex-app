@@ -3,8 +3,8 @@ package com.imhanjie.v2ex.vm
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.imhanjie.v2ex.parser.model.Reply
-import com.imhanjie.v2ex.parser.model.Topic
+import com.imhanjie.v2ex.api.model.Reply
+import com.imhanjie.v2ex.api.model.Topic
 import com.imhanjie.v2ex.repository.provideAppRepository
 
 class TopicViewModel(private val topicId: Long, application: Application) : BaseViewModel(application) {

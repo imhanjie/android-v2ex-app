@@ -8,6 +8,7 @@ import androidx.multidex.MultiDexApplication
 import com.facebook.stetho.Stetho
 import com.imhanjie.support.AndroidUtils
 import com.imhanjie.support.ext.toActivity
+import com.imhanjie.v2ex.api.V2exApi
 import com.imhanjie.v2ex.view.LoginActivity
 
 class App : MultiDexApplication() {
@@ -31,6 +32,9 @@ class App : MultiDexApplication() {
         )
         INSTANCE = this
         AndroidUtils.install(this, BuildConfig.DEBUG)
+        V2exApi.init {
+            AppSession.getUserInfo().a2Cookie
+        }
         Stetho.initializeWithDefaults(this)
     }
 

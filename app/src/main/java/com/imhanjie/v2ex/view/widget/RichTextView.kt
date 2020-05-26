@@ -15,7 +15,7 @@ import androidx.core.os.bundleOf
 import androidx.core.text.HtmlCompat
 import cc.shinichi.library.ImagePreview
 import com.imhanjie.support.ext.toActivity
-import com.imhanjie.v2ex.parser.RegexPattern
+import com.imhanjie.v2ex.api.support.RegexPattern
 import com.imhanjie.v2ex.view.TopicActivity
 
 
