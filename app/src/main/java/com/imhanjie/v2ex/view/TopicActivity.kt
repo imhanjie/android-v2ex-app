@@ -49,9 +49,7 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
 
         vb.loadingLayout.update(LoadingWrapLayout.Status.LOADING)
         vb.topBar.setOnClickListener { vb.replyRv.smoothScrollToPosition(0) }
-        vb.topBar.setOnRightClickListener(View.OnClickListener {
-            showTopicMenuDialog()
-        })
+        vb.topBar.setOnRightClickListener(View.OnClickListener { showTopicMenuDialog() })
         vm.loading.observe(this) { loadingDialog.update(!it) }
 
         val delegate = LoadMoreDelegate(vb.replyRv) { vm.loadReplies(append = true, doReverse = false) }
@@ -80,9 +78,13 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
         )
 
         vm.topic.observe(this) {
-            vb.topBar.setRightVisibility(View.VISIBLE)
-            vb.loadingLayout.update(LoadingWrapLayout.Status.DONE)
             val (topic, append, hasMore, isOrder) = it
+
+            vb.loadingLayout.update(LoadingWrapLayout.Status.DONE)
+            if (!topic.isMyTopic) {
+                vb.topBar.setRightVisibility(View.VISIBLE)
+            }
+
             delegate.apply {
                 val isFirst = items.isEmpty()
                 if (isFirst || !append) {
@@ -111,7 +113,6 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
             toast(R.string.tips_ignore_topic_success)
             finish()
             globalViewModel.ignoreTopic.value = vm.topicId
-//            postDelayed(350) { globalViewModel.ignoreTopic.value = vm.topicId }
         }
     }
 
