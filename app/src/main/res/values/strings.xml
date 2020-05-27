@@ -24,4 +24,6 @@
     <string name="menu_reply">回复</string>
     <string name="menu_ignore_topic">忽略主题</string>
     <string name="tips_ignore_topic_success">已忽略主题</string>
+    <string name="menu_favorite_topic">收藏主题</string>
+    <string name="menu_un_favorite_topic">取消收藏主题</string>
 </resources>

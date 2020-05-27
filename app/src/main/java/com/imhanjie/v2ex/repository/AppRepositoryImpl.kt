@@ -113,4 +113,12 @@ object AppRepositoryImpl : AppRepository {
         return api.ignoreTopic(topicId, once).extract()
     }
 
+    override suspend fun favoriteTopic(topicId: Long, favoriteParam: String): Topic {
+        return api.favoriteTopic(topicId, favoriteParam).extract()
+    }
+
+    override suspend fun unFavoriteTopic(topicId: Long, favoriteParam: String): Topic {
+        return api.unFavoriteTopic(topicId, favoriteParam).extract()
+    }
+
 }

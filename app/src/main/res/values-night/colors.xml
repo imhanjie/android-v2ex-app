@@ -3,7 +3,7 @@
     <color name="tab_layout_divider">@android:color/transparent</color>
     <color name="topic_node_background">#0A8F8F8F</color>
     <color name="default_avatar">#373737</color>
-    <color name="background_subtle">#27271E</color>
+    <color name="background_subtle">#1E271F</color>
     <color name="colorAccent">#FFFFFF</color>
     <color name="node_type_background">#4DF6F6F6</color>
 </resources>

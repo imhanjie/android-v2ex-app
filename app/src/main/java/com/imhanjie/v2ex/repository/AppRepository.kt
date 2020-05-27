@@ -35,4 +35,8 @@ interface AppRepository {
 
     suspend fun ignoreTopic(topicId: Long, once: String): Any
 
+    suspend fun favoriteTopic(topicId: Long, favoriteParam: String): Topic
+
+    suspend fun unFavoriteTopic(topicId: Long, favoriteParam: String): Topic
+
 }

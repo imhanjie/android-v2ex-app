@@ -26,6 +26,7 @@ object ApiServer {
             .followRedirects(false)
             .followSslRedirects(false)
             .addInterceptor(logInterceptor)
+            .addInterceptor(HeaderInterceptor())
             .addInterceptor(LoginInterceptor())
             .addInterceptor(ParserInterceptor())
             .addInterceptor(CookieInterceptor)

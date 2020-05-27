@@ -114,6 +114,9 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
             finish()
             globalViewModel.ignoreTopic.value = vm.topicId
         }
+        vm.favoriteTopicState.observe(this) { favorite ->
+            toast(if (favorite) R.string.tips_favorite_success else R.string.tips_un_favorite_success)
+        }
     }
 
     private fun showReplyMenuDialog(item: Reply) {
@@ -145,6 +148,15 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
             withMenuItem(PureListMenuDialog.Item(getString(R.string.menu_ignore_topic), onClickListener = {
                 showIgnoreTopicDialog()
             }))
+            if (!vm.topicIsFavorite()) {
+                withMenuItem(PureListMenuDialog.Item(getString(R.string.menu_favorite_topic), onClickListener = {
+                    vm.favoriteTopic()
+                }))
+            } else {
+                withMenuItem(PureListMenuDialog.Item(getString(R.string.menu_un_favorite_topic), onClickListener = {
+                    vm.unFavoriteTopic()
+                }))
+            }
             show()
         }
     }

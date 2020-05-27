@@ -93,4 +93,16 @@ interface ApiService {
         @Query("once") once: String
     ): RestfulResult<Any>
 
+    @GET("/favorite/topic/{topic_id}")
+    suspend fun favoriteTopic(
+        @Path("topic_id") topicId: Long,
+        @Query("t") favoriteParam: String
+    ): RestfulResult<Topic>
+
+    @GET("/unfavorite/topic/{topic_id}")
+    suspend fun unFavoriteTopic(
+        @Path("topic_id") topicId: Long,
+        @Query("t") favoriteParam: String
+    ): RestfulResult<Topic>
+
 }

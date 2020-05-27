@@ -36,12 +36,15 @@ class TopicViewModel(val topicId: Long, application: Application) : BaseViewMode
     val ignoreTopicState: LiveData<Boolean>
         get() = _ignoreTopicState
 
+    private val _favoriteTopicState = MutableLiveData<Boolean>()
+
+    val favoriteTopicState: LiveData<Boolean>
+        get() = _favoriteTopicState
 
     private var isOrder = true
     private var currentPage = 1
     private var totalPage = -1
     private var isFirst = true
-    private var once = ""
 
     init {
         loadReplies(append = false, doReverse = false)
@@ -92,7 +95,6 @@ class TopicViewModel(val topicId: Long, application: Application) : BaseViewMode
                 newTopic = newTopic.copy(replies = newTopic.replies.reversed())
             }
             _topic.value = TopicLiveData(newTopic, append, hasMore, targetIsOrder)
-            once = newTopic.once
 
             // change state
             if (!isFirst && !append) {
@@ -116,8 +118,9 @@ class TopicViewModel(val topicId: Long, application: Application) : BaseViewMode
      */
     fun thankReply(reply: Reply) {
         request(withLoading = true) {
-            val result = provideAppRepository().thankReply(reply.id, once)
-            once = result.once
+            val topic = _topic.value!!.topic
+            val result = provideAppRepository().thankReply(reply.id, topic.once)
+            topic.once = result.once
             if (result.success) {
                 reply.thanked = true
                 reply.thankCount++
@@ -133,9 +136,43 @@ class TopicViewModel(val topicId: Long, application: Application) : BaseViewMode
      */
     fun ignoreTopic() {
         request(withLoading = true) {
-            provideAppRepository().ignoreTopic(topicId, once)
+            val topic = _topic.value!!.topic
+            provideAppRepository().ignoreTopic(topicId, topic.once)
             _ignoreTopicState.value = true
         }
+    }
+
+    /**
+     * 收藏主题
+     */
+    fun favoriteTopic() {
+        request(withLoading = true) {
+            val topic = _topic.value!!.topic
+            val result = provideAppRepository().favoriteTopic(topicId, topic.favoriteParam)
+            topic.favoriteParam = result.favoriteParam
+            topic.isFavorite = true
+            _favoriteTopicState.value = true
+        }
+    }
+
+    /**
+     * 取消收藏主题
+     */
+    fun unFavoriteTopic() {
+        request(withLoading = true) {
+            val topic = _topic.value!!.topic
+            val result = provideAppRepository().unFavoriteTopic(topicId, topic.favoriteParam)
+            topic.favoriteParam = result.favoriteParam
+            topic.isFavorite = false
+            _favoriteTopicState.value = false
+        }
+    }
+
+    /**
+     * 是否已收藏主题
+     */
+    fun topicIsFavorite(): Boolean {
+        return _topic.value?.topic?.isFavorite == true
     }
 
 }

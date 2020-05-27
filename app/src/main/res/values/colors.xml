@@ -8,6 +8,6 @@
     <color name="tab_layout_divider">#EAEAEA</color>
     <color name="topic_node_background">#0A666666</color>
     <color name="default_avatar">#EEEEEE</color>
-    <color name="background_subtle">#FFFFFA</color>
+    <color name="background_subtle">#F0FFF0</color>
     <color name="node_type_background">#4D757575</color>
 </resources>
