@@ -87,4 +87,10 @@ interface ApiService {
         @Query("once") once: String
     ): RestfulResult<V2exResult>
 
+    @GET("/ignore/topic/{topic_id}")
+    suspend fun ignoreTopic(
+        @Path("topic_id") topicId: Long,
+        @Query("once") once: String
+    ): RestfulResult<Any>
+
 }

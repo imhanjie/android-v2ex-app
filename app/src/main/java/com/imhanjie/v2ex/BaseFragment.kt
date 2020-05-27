@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.viewbinding.ViewBinding
 import com.imhanjie.support.PreferencesManager
 import com.imhanjie.support.ext.toast
+import com.imhanjie.v2ex.common.GlobalViewModel
 import com.imhanjie.v2ex.vm.BaseViewModel
 import com.imhanjie.widget.dialog.PureLoadingDialog
 import java.lang.reflect.ParameterizedType
@@ -19,6 +21,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
     protected val configSp: PreferencesManager = PreferencesManager.getInstance("app_config")
     protected lateinit var loadingDialog: PureLoadingDialog
+    protected lateinit var globalViewModel: GlobalViewModel
 
     abstract fun getViewModels(): List<BaseViewModel>
 
@@ -44,6 +47,8 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
             vm.toast.observe(viewLifecycleOwner) { toast(it) }
             vm.loadingDialogState.observe(viewLifecycleOwner) { loadingDialog.update(!it) }
         }
+
+        globalViewModel = ViewModelProvider(requireActivity().applicationContext as App).get(GlobalViewModel::class.java)
 
         initViews()
         return vb.root

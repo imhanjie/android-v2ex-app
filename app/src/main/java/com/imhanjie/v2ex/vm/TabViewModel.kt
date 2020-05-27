@@ -9,16 +9,32 @@ import com.imhanjie.v2ex.repository.provideAppRepository
 
 class TabViewModel(application: Application) : BaseViewModel(application) {
 
+    data class TopicLiveDataItem(
+        val topics: List<TopicItem>,
+        val diff: Boolean
+    )
+
+
     lateinit var tab: TopicTab
 
-    private val _topic: MutableLiveData<List<TopicItem>> = MutableLiveData()
+    private val _topic: MutableLiveData<TopicLiveDataItem> = MutableLiveData()
 
-    val topic: LiveData<List<TopicItem>>
+    val topic: LiveData<TopicLiveDataItem>
         get() = _topic
 
     fun loadTopics() {
         request {
-            _topic.value = provideAppRepository().loadLatestTopics(tab.value, 1)
+            val topics = provideAppRepository().loadLatestTopics(tab.value, 1)
+            _topic.value = TopicLiveDataItem(topics, diff = false)
+        }
+    }
+
+    fun removeItem(topicId: Long) {
+        _topic.value?.let {
+            _topic.value = TopicLiveDataItem(
+                it.topics.toMutableList().filter { item -> item.id != topicId },
+                diff = true
+            )
         }
     }
 

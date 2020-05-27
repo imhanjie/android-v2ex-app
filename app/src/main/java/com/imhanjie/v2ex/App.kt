@@ -4,6 +4,8 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.ViewModelStore
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.multidex.MultiDexApplication
 import com.facebook.stetho.Stetho
 import com.imhanjie.support.AndroidUtils
@@ -11,7 +13,9 @@ import com.imhanjie.support.ext.toActivity
 import com.imhanjie.v2ex.api.V2exApi
 import com.imhanjie.v2ex.view.LoginActivity
 
-class App : MultiDexApplication() {
+class App : MultiDexApplication(), ViewModelStoreOwner {
+
+    private val globalViewModelStore = ViewModelStore()
 
     companion object {
         lateinit var INSTANCE: Application
@@ -36,6 +40,10 @@ class App : MultiDexApplication() {
             AppSession.getUserInfo().a2Cookie
         }
         Stetho.initializeWithDefaults(this)
+    }
+
+    override fun getViewModelStore(): ViewModelStore {
+        return globalViewModelStore
     }
 
 }

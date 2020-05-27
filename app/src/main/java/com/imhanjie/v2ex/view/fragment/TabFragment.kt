@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.drakeet.multitype.MultiTypeAdapter
@@ -24,7 +25,7 @@ import com.imhanjie.widget.LoadingWrapLayout
 class TabFragment : BaseFragment<FragmentTabBinding>() {
 
     private lateinit var vm: TabViewModel
-    private val items = arrayListOf<Any>()
+    private val items = arrayListOf<TopicItem>()
 
     override fun getViewModels() = listOf(vm)
 
@@ -70,12 +71,24 @@ class TabFragment : BaseFragment<FragmentTabBinding>() {
             vb.loadingLayout.update(LoadingWrapLayout.Status.DONE)
             vb.swipeRefreshLayout.isRefreshing = false
 
-            items.clear()
-            items.addAll(it)
-            adapter.notifyDataSetChanged()
+            val (topics, diff) = it
+            if (!diff) {
+                items.clear()
+                items.addAll(topics)
+                adapter.notifyDataSetChanged()
+            } else {
+                val diffResult = DiffUtil.calculateDiff(TopicAdapter.TopicDiffCallback(items, topics))
+                items.clear()
+                items.addAll(topics)
+                diffResult.dispatchUpdatesTo(adapter)
+            }
         }
 
         vb.swipeRefreshLayout.setOnRefreshListener { vm.loadTopics() }
+
+        globalViewModel.ignoreTopic.observe(this) { topicId ->
+            vm.removeItem(topicId)
+        }
 
         LiveDataBus.get()
             .with(Event.MAIN_SCROLL_TO_TOP, Any::class.java)

@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/white"
         android:elevation="1dp"
+        app:widget_bar_rightIcon="@drawable/ic_menu_more"
         app:widget_bar_titleText="主题" />
 
     <com.imhanjie.widget.LoadingWrapLayout

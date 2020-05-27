@@ -33,4 +33,6 @@ interface AppRepository {
 
     suspend fun thankReply(replyId: Long, once: String): V2exResult
 
+    suspend fun ignoreTopic(topicId: Long, once: String): Any
+
 }

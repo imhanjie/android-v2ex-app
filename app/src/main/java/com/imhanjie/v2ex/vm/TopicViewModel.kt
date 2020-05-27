@@ -7,7 +7,7 @@ import com.imhanjie.v2ex.api.model.Reply
 import com.imhanjie.v2ex.api.model.Topic
 import com.imhanjie.v2ex.repository.provideAppRepository
 
-class TopicViewModel(private val topicId: Long, application: Application) : BaseViewModel(application) {
+class TopicViewModel(val topicId: Long, application: Application) : BaseViewModel(application) {
 
     data class TopicLiveData(
         val topic: Topic,
@@ -30,6 +30,11 @@ class TopicViewModel(private val topicId: Long, application: Application) : Base
 
     val thankReply: LiveData<Reply>
         get() = _thankReply
+
+    private val _ignoreTopicState = MutableLiveData<Boolean>()
+
+    val ignoreTopicState: LiveData<Boolean>
+        get() = _ignoreTopicState
 
 
     private var isOrder = true
@@ -120,6 +125,16 @@ class TopicViewModel(private val topicId: Long, application: Application) : Base
             } else {
                 _toast.value = result.message
             }
+        }
+    }
+
+    /**
+     * 忽略主题
+     */
+    fun ignoreTopic() {
+        request(withLoading = true) {
+            provideAppRepository().ignoreTopic(topicId, once)
+            _ignoreTopicState.value = true
         }
     }
 

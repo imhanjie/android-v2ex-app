@@ -109,4 +109,8 @@ object AppRepositoryImpl : AppRepository {
         return api.thankReply(replyId, once).extract()
     }
 
+    override suspend fun ignoreTopic(topicId: Long, once: String): Any {
+        return api.ignoreTopic(topicId, once).extract()
+    }
+
 }

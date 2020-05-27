@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.viewbinding.ViewBinding
 import com.imhanjie.support.PreferencesManager
 import com.imhanjie.support.ext.getResColor
 import com.imhanjie.support.ext.toast
 import com.imhanjie.support.statusbar.StatusBarUtil
+import com.imhanjie.v2ex.common.GlobalViewModel
 import com.imhanjie.v2ex.vm.BaseViewModel
 import com.imhanjie.widget.dialog.PureLoadingDialog
 import java.lang.reflect.ParameterizedType
@@ -20,6 +22,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
 
     private val configSp: PreferencesManager = PreferencesManager.getInstance("app_config")
     protected lateinit var loadingDialog: PureLoadingDialog
+    protected lateinit var globalViewModel: GlobalViewModel
 
     abstract fun initViewModels(): List<BaseViewModel>
 
@@ -40,6 +43,8 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
             vm.toast.observe(this) { toast(it) }
             vm.loadingDialogState.observe(this) { loadingDialog.update(!it) }
         }
+
+        globalViewModel = ViewModelProvider(applicationContext as App).get(GlobalViewModel::class.java)
 
         when (configSp.getInt("ui_mode", AppCompatDelegate.MODE_NIGHT_NO)) {
             AppCompatDelegate.MODE_NIGHT_NO -> {

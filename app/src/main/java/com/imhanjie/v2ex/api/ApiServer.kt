@@ -13,26 +13,25 @@ object ApiServer {
     private const val REQUEST_TIME_OUT = 15000L
     const val BASE_URL = "https://v2ex.com"
 
-    val okHttpClient: OkHttpClient
-        get() {
-            val builder = OkHttpClient.Builder()
-            val logInterceptor = HttpLoggingInterceptor().apply {
-                level =
-                    if (BuildConfig.DEBUG)
-                        HttpLoggingInterceptor.Level.BODY
-                    else
-                        HttpLoggingInterceptor.Level.NONE
-            }
-            builder
-                .followRedirects(false)
-                .followSslRedirects(false)
-                .addInterceptor(logInterceptor)
-                .addInterceptor(LoginInterceptor())
-                .addInterceptor(ParserInterceptor())
-                .addInterceptor(CookieInterceptor)
-                .connectTimeout(REQUEST_TIME_OUT, TimeUnit.MILLISECONDS)
-            return builder.build()
+    val okHttpClient: OkHttpClient by lazy {
+        val builder = OkHttpClient.Builder()
+        val logInterceptor = HttpLoggingInterceptor().apply {
+            level =
+                if (BuildConfig.DEBUG)
+                    HttpLoggingInterceptor.Level.BODY
+                else
+                    HttpLoggingInterceptor.Level.NONE
         }
+        builder
+            .followRedirects(false)
+            .followSslRedirects(false)
+            .addInterceptor(logInterceptor)
+            .addInterceptor(LoginInterceptor())
+            .addInterceptor(ParserInterceptor())
+            .addInterceptor(CookieInterceptor)
+            .connectTimeout(REQUEST_TIME_OUT, TimeUnit.MILLISECONDS)
+        builder.build()
+    }
 
     inline fun <reified T> create(): T {
         return Retrofit.Builder()

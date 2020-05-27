@@ -1,6 +1,7 @@
 package com.imhanjie.v2ex.view
 
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
@@ -48,6 +49,9 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
 
         vb.loadingLayout.update(LoadingWrapLayout.Status.LOADING)
         vb.topBar.setOnClickListener { vb.replyRv.smoothScrollToPosition(0) }
+        vb.topBar.setOnRightClickListener(View.OnClickListener {
+            showTopicMenuDialog()
+        })
         vm.loading.observe(this) { loadingDialog.update(!it) }
 
         val delegate = LoadMoreDelegate(vb.replyRv) { vm.loadReplies(append = true, doReverse = false) }
@@ -56,7 +60,7 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
             register(Topic.Subtle::class.java, SubtleAdapter())
             register(Reply::class.java, ReplyAdapter().apply {
                 onItemClickListener = { holder, item, position ->
-                    showAlertDialog(item)
+                    showReplyMenuDialog(item)
                 }
             })
             register(ReplyHeaderType::class.java, ReplyHeaderAdapter {
@@ -76,6 +80,7 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
         )
 
         vm.topic.observe(this) {
+            vb.topBar.setRightVisibility(View.VISIBLE)
             vb.loadingLayout.update(LoadingWrapLayout.Status.DONE)
             val (topic, append, hasMore, isOrder) = it
             delegate.apply {
@@ -102,9 +107,15 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
             toast(R.string.tips_thank_reply_success)
             delegate.adapter.notifyItemChanged(delegate.items.indexOf(it))
         }
+        vm.ignoreTopicState.observe(this) {
+            toast(R.string.tips_ignore_topic_success)
+            finish()
+            globalViewModel.ignoreTopic.value = vm.topicId
+//            postDelayed(350) { globalViewModel.ignoreTopic.value = vm.topicId }
+        }
     }
 
-    private fun showAlertDialog(item: Reply) {
+    private fun showReplyMenuDialog(item: Reply) {
         PureListMenuDialog(this).apply {
             withCancelable(true)
             if (!item.thanked) {
@@ -113,7 +124,7 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
                 }))
             }
             withMenuItem(PureListMenuDialog.Item(getString(R.string.menu_reply)))
-                .show()
+            show()
         }
     }
 
@@ -124,6 +135,24 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
             .withPositiveClick {
                 vm.thankReply(item)
             }
+            .show()
+    }
+
+    private fun showTopicMenuDialog() {
+        PureListMenuDialog(this).apply {
+            withCancelable(true)
+            withMenuItem(PureListMenuDialog.Item(getString(R.string.menu_ignore_topic), onClickListener = {
+                showIgnoreTopicDialog()
+            }))
+            show()
+        }
+    }
+
+    private fun showIgnoreTopicDialog() {
+        PureAlertDialog(this)
+            .withTitle("忽略主题")
+            .withContent("确定不想再看到这个主题？")
+            .withPositiveClick { vm.ignoreTopic() }
             .show()
     }
 
