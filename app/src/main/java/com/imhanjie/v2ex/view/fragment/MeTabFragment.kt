@@ -4,8 +4,10 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import com.imhanjie.support.e
+import com.imhanjie.support.ext.toActivity
 import com.imhanjie.v2ex.BaseFragment
 import com.imhanjie.v2ex.databinding.FragmentTabMeBinding
+import com.imhanjie.v2ex.view.FavoriteTopicsActivity
 import com.imhanjie.v2ex.vm.MeTabViewModel
 
 class MeTabFragment : BaseFragment<FragmentTabMeBinding>() {
@@ -22,6 +24,9 @@ class MeTabFragment : BaseFragment<FragmentTabMeBinding>() {
     override fun initViews() {
         vm.userInfo.observe(this) {
             e(it.toString())
+        }
+        vb.root.setOnClickListener {
+            toActivity<FavoriteTopicsActivity>()
         }
     }
 

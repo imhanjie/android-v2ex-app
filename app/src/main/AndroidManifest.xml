@@ -23,6 +23,7 @@
             android:name=".view.LoginActivity"
             android:launchMode="singleTask" />
         <activity android:name=".view.NodeActivity" />
+        <activity android:name=".view.FavoriteTopicsActivity" />
     </application>
 
 </manifest>

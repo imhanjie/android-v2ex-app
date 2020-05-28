@@ -2,7 +2,6 @@ package com.imhanjie.v2ex.view.adapter
 
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
-import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.imhanjie.support.ext.toActivity
@@ -39,25 +38,6 @@ class TopicAdapter : BaseItemViewDelegate<TopicItem, ItemTopicBinding>() {
                 )
             }
         }
-    }
-
-    class TopicDiffCallback(
-        private val oldItems: List<TopicItem>,
-        private val newItems: List<TopicItem>
-    ) : DiffUtil.Callback() {
-
-        override fun getOldListSize() = oldItems.size
-
-        override fun getNewListSize() = newItems.size
-
-        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldItems[oldItemPosition].id == newItems[newItemPosition].id
-        }
-
-        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldItems[oldItemPosition] == newItems[newItemPosition]
-        }
-
     }
 
 }

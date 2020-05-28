@@ -36,10 +36,15 @@ class TopicViewModel(val topicId: Long, application: Application) : BaseViewMode
     val ignoreTopicState: LiveData<Boolean>
         get() = _ignoreTopicState
 
-    private val _favoriteTopicState = MutableLiveData<Boolean>()
+    private val _favoriteState = MutableLiveData<Boolean>()
 
-    val favoriteTopicState: LiveData<Boolean>
-        get() = _favoriteTopicState
+    val favoriteState: LiveData<Boolean>
+        get() = _favoriteState
+
+    private val _unFavoriteState = MutableLiveData<Boolean>()
+
+    val unFavoriteState: LiveData<Boolean>
+        get() = _unFavoriteState
 
     private var isOrder = true
     private var currentPage = 1
@@ -150,8 +155,14 @@ class TopicViewModel(val topicId: Long, application: Application) : BaseViewMode
             val topic = _topic.value!!.topic
             val result = provideAppRepository().favoriteTopic(topicId, topic.favoriteParam)
             topic.favoriteParam = result.favoriteParam
-            topic.isFavorite = true
-            _favoriteTopicState.value = true
+            if (result.isFavorite) {
+                // 收藏成功
+                topic.isFavorite = true
+                _favoriteState.value = true
+            } else {
+                // 收藏失败
+                _favoriteState.value = false
+            }
         }
     }
 
@@ -163,8 +174,14 @@ class TopicViewModel(val topicId: Long, application: Application) : BaseViewMode
             val topic = _topic.value!!.topic
             val result = provideAppRepository().unFavoriteTopic(topicId, topic.favoriteParam)
             topic.favoriteParam = result.favoriteParam
-            topic.isFavorite = false
-            _favoriteTopicState.value = false
+            if (!result.isFavorite) {
+                // 取消收藏成功
+                topic.isFavorite = false
+                _unFavoriteState.value = true
+            } else {
+                // 取消收藏失败
+                _unFavoriteState.value = false
+            }
         }
     }
 

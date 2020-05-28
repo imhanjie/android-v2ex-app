@@ -19,6 +19,7 @@
     <string name="topic_subtle_title">第 %1$d 条附言&#160;&#160;•&#160;&#160;%2$s</string>
     <string name="tips_favorite_success">收藏成功</string>
     <string name="tips_un_favorite_success">已取消收藏</string>
+    <string name="tips_favorite_fail">操作失败，请稍后再试</string>
     <string name="tips_thank_reply_success">感谢成功</string>
     <string name="menu_thank">感谢</string>
     <string name="menu_reply">回复</string>
@@ -26,4 +27,5 @@
     <string name="tips_ignore_topic_success">已忽略主题</string>
     <string name="menu_favorite_topic">收藏主题</string>
     <string name="menu_un_favorite_topic">取消收藏主题</string>
+    <string name="title_favorite_topics">我收藏的主题</string>
 </resources>

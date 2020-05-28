@@ -47,7 +47,9 @@ class NodeActivity : BaseActivity<ActivityNodeBinding>() {
             vm.doFavoriteNode()
         })
         vb.topBar.setOnClickListener { vb.topicRv.smoothScrollToPosition(0) }
-        vb.swipeRefreshLayout.setOnRefreshListener { vm.loadNodeTopics(false) }
+        vb.swipeRefreshLayout.setOnRefreshListener {
+            vm.loadNodeTopics(append = false)
+        }
         vm.isFavorite.observe(this) {
             val (isFavorite, isManual) = it
             if (isManual) {

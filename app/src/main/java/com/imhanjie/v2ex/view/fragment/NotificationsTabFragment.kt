@@ -30,7 +30,9 @@ class NotificationsTabFragment : BaseLazyFragment<FragmentTabNotificationsBindin
             }
         }
         vb.loadingLayout.update(LoadingWrapLayout.Status.LOADING)
-        vb.swipeRefreshLayout.setOnRefreshListener { vm.loadNotifications(false) }
+        vb.swipeRefreshLayout.setOnRefreshListener {
+            vm.loadNotifications(append = false)
+        }
 
         vb.rv.addItemDecoration(LineDividerItemDecoration(requireContext(), height = 4.dpi))
         val delegate = LoadMoreDelegate(vb.rv) {

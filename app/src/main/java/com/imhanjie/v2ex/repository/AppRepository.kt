@@ -39,4 +39,6 @@ interface AppRepository {
 
     suspend fun unFavoriteTopic(topicId: Long, favoriteParam: String): Topic
 
+    suspend fun loadFavoriteTopics(pageIndex: Int): FavoriteTopics
+
 }

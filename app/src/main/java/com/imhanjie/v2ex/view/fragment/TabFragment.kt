@@ -18,6 +18,7 @@ import com.imhanjie.v2ex.common.TopicTab
 import com.imhanjie.v2ex.databinding.FragmentTabBinding
 import com.imhanjie.v2ex.view.TopicActivity
 import com.imhanjie.v2ex.view.adapter.TopicAdapter
+import com.imhanjie.v2ex.view.adapter.diff.TopicDiffCallback
 import com.imhanjie.v2ex.vm.TabViewModel
 import com.imhanjie.widget.LineDividerItemDecoration
 import com.imhanjie.widget.LoadingWrapLayout
@@ -77,7 +78,7 @@ class TabFragment : BaseFragment<FragmentTabBinding>() {
                 items.addAll(topics)
                 adapter.notifyDataSetChanged()
             } else {
-                val diffResult = DiffUtil.calculateDiff(TopicAdapter.TopicDiffCallback(items, topics))
+                val diffResult = DiffUtil.calculateDiff(TopicDiffCallback(items, topics))
                 items.clear()
                 items.addAll(topics)
                 diffResult.dispatchUpdatesTo(adapter)

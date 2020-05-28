@@ -114,8 +114,19 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
             finish()
             globalViewModel.ignoreTopic.value = vm.topicId
         }
-        vm.favoriteTopicState.observe(this) { favorite ->
-            toast(if (favorite) R.string.tips_favorite_success else R.string.tips_un_favorite_success)
+        vm.favoriteState.observe(this) { success ->
+            toast(if (success) R.string.tips_favorite_success else R.string.tips_favorite_fail)
+        }
+        vm.unFavoriteState.observe(this) { success ->
+            if (success) {
+                toast(R.string.tips_un_favorite_success)
+                if (intent.getBooleanExtra("from_favorite_topics", false)) {
+                    finish()
+                }
+                globalViewModel.unFavoriteTopic.value = vm.topicId
+            } else {
+                toast(R.string.tips_favorite_fail)
+            }
         }
     }
 

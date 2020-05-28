@@ -5,5 +5,6 @@ import androidx.lifecycle.ViewModel
 class GlobalViewModel : ViewModel() {
 
     val ignoreTopic = NonStickyLiveData<Long>()
+    val unFavoriteTopic = NonStickyLiveData<Long>()
 
 }

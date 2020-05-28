@@ -32,19 +32,12 @@ interface ApiService {
     suspend fun loadSignIn(): RestfulResult<SignIn>
 
     @GET("/_captcha")
-    @Headers(
-        "Referer: ${ApiServer.BASE_URL}/signin"
-    )
     suspend fun loadVerImage(
         @Query("once") once: String
     ): ResponseBody
 
     @POST("/signin")
     @FormUrlEncoded
-    @Headers(
-        "Origin: ${ApiServer.BASE_URL}",
-        "Referer: ${ApiServer.BASE_URL}/signin"
-    )
     suspend fun login(
         @FieldMap fields: Map<String, String>
     ): RestfulResult<LoginInfo>
@@ -56,18 +49,12 @@ interface ApiService {
     suspend fun loadAllNode(): RestfulResult<List<TinyNode>>
 
     @GET("/favorite/node/{node_id}")
-    @Headers(
-        "Referer: ${ApiServer.BASE_URL}/go"
-    )
     suspend fun favoriteNode(
         @Path("node_id") nodeId: Long,
         @Query("once") once: String
     ): RestfulResult<Any>
 
     @GET("/unfavorite/node/{node_id}")
-    @Headers(
-        "Referer: ${ApiServer.BASE_URL}/go"
-    )
     suspend fun unFavoriteNode(
         @Path("node_id") nodeId: Long,
         @Query("once") once: String
@@ -104,5 +91,10 @@ interface ApiService {
         @Path("topic_id") topicId: Long,
         @Query("t") favoriteParam: String
     ): RestfulResult<Topic>
+
+    @GET("/my/topics")
+    suspend fun loadFavoriteTopics(
+        @Query("p") pageIndex: Int
+    ): RestfulResult<FavoriteTopics>
 
 }

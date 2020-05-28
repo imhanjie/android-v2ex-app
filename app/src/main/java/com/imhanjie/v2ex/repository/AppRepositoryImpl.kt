@@ -121,4 +121,8 @@ object AppRepositoryImpl : AppRepository {
         return api.unFavoriteTopic(topicId, favoriteParam).extract()
     }
 
+    override suspend fun loadFavoriteTopics(pageIndex: Int): FavoriteTopics {
+        return api.loadFavoriteTopics(pageIndex).extract()
+    }
+
 }
