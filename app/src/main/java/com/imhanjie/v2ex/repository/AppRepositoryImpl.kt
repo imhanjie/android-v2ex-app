@@ -125,4 +125,24 @@ object AppRepositoryImpl : AppRepository {
         return api.loadFavoriteTopics(pageIndex).extract()
     }
 
+    override suspend fun loadMember(userName: String): Member {
+        return api.loadMember(userName).extract()
+    }
+
+    override suspend fun followMember(userId: Long, userName: String, once: String): Member {
+        return api.followMember(userId, userName, once).extract()
+    }
+
+    override suspend fun unFollowMember(userId: Long, userName: String, once: String): Member {
+        return api.unFollowMember(userId, userName, once).extract()
+    }
+
+    override suspend fun blockMember(userId: Long, userName: String, t: String): Member {
+        return api.blockMember(userId, userName, t).extract()
+    }
+
+    override suspend fun unBlockMember(userId: Long, userName: String, t: String): Member {
+        return api.unBlockMember(userId, userName, t).extract()
+    }
+
 }

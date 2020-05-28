@@ -97,4 +97,37 @@ interface ApiService {
         @Query("p") pageIndex: Int
     ): RestfulResult<FavoriteTopics>
 
+    @GET("/member/{user_name}")
+    suspend fun loadMember(
+        @Path("user_name") userName: String
+    ): RestfulResult<Member>
+
+    @GET("/follow/{user_id}")
+    suspend fun followMember(
+        @Path("user_id") userId: Long,
+        @Query("userName") userName: String,
+        @Query("once") once: String
+    ): RestfulResult<Member>
+
+    @GET("/unfollow/{user_id}")
+    suspend fun unFollowMember(
+        @Path("user_id") userId: Long,
+        @Query("userName") userName: String,
+        @Query("once") once: String
+    ): RestfulResult<Member>
+
+    @GET("/block/{user_id}")
+    suspend fun blockMember(
+        @Path("user_id") userId: Long,
+        @Query("userName") userName: String,
+        @Query("t") t: String
+    ): RestfulResult<Member>
+
+    @GET("/unblock/{user_id}")
+    suspend fun unBlockMember(
+        @Path("user_id") userId: Long,
+        @Query("userName") userName: String,
+        @Query("t") t: String
+    ): RestfulResult<Member>
+
 }

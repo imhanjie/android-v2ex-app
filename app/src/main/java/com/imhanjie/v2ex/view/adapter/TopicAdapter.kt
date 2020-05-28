@@ -8,6 +8,7 @@ import com.imhanjie.support.ext.toActivity
 import com.imhanjie.v2ex.R
 import com.imhanjie.v2ex.api.model.TopicItem
 import com.imhanjie.v2ex.databinding.ItemTopicBinding
+import com.imhanjie.v2ex.view.MemberActivity
 import com.imhanjie.v2ex.view.NodeActivity
 import com.imhanjie.widget.recyclerview.base.BaseItemViewDelegate
 import com.imhanjie.widget.recyclerview.base.VBViewHolder
@@ -36,6 +37,9 @@ class TopicAdapter : BaseItemViewDelegate<TopicItem, ItemTopicBinding>() {
                         "name" to item.nodeName
                     )
                 )
+            }
+            ivUserAvatar.setOnClickListener {
+                ctx.toActivity<MemberActivity>(bundleOf("userName" to item.userName))
             }
         }
     }

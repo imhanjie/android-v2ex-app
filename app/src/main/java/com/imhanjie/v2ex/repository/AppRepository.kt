@@ -41,4 +41,14 @@ interface AppRepository {
 
     suspend fun loadFavoriteTopics(pageIndex: Int): FavoriteTopics
 
+    suspend fun loadMember(userName: String): Member
+
+    suspend fun followMember(userId: Long, userName: String, once: String): Member
+
+    suspend fun unFollowMember(userId: Long, userName: String, once: String): Member
+
+    suspend fun blockMember(userId: Long, userName: String, t: String): Member
+
+    suspend fun unBlockMember(userId: Long, userName: String, t: String): Member
+
 }
