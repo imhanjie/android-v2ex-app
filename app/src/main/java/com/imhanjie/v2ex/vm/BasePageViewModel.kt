@@ -18,10 +18,6 @@ abstract class BasePageViewModel(application: Application) : BaseViewModel(appli
 
     private var currentPage = 1
 
-    init {
-        loadDataList(loadMore = false)
-    }
-
     fun loadDataList(loadMore: Boolean) = request {
         if (loadMore && _pageLiveData.value == null) {
             throw RuntimeException("不允许首次直接进行 loadMore 操作")

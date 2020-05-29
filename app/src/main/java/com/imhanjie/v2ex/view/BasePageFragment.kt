@@ -22,6 +22,8 @@ abstract class BasePageFragment<VM : BasePageViewModel> : BaseFragment<FragmentB
     }
 
     override fun initViews() {
+        vm.loadDataList(loadMore = false)
+
         vb.loadingLayout.update(LoadingWrapLayout.Status.LOADING)
         vb.swipeRefreshLayout.setOnRefreshListener {
             vm.loadDataList(loadMore = false)
