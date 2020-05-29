@@ -24,11 +24,13 @@ class NotificationsTabFragment : BaseLazyFragment<FragmentTabNotificationsBindin
                 vm.loadDataList(loadMore = false)
             }
         }
-        val fragment = NotificationsPageFragment()
-        childFragmentManager
-            .beginTransaction()
-            .add(R.id.list_container, fragment)
-            .commit()
+        val preFragment = childFragmentManager.findFragmentById(R.id.list_container)
+        if (preFragment == null) {
+            childFragmentManager
+                .beginTransaction()
+                .replace(R.id.list_container, NotificationsPageFragment())
+                .commit()
+        }
     }
 
     override fun onFirstResume() {

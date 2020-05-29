@@ -15,10 +15,13 @@ class FavoriteTopicsActivity : BaseActivity<ActivityFavoriteTopicsBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportFragmentManager
-            .beginTransaction()
-            .add(R.id.list_container, FavoriteTopicsFragment())
-            .commit()
+        val preFragment = supportFragmentManager.findFragmentById(R.id.list_container)
+        if (preFragment == null) {
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.list_container, FavoriteTopicsFragment())
+                .commit()
+        }
     }
 
 }

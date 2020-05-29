@@ -49,10 +49,13 @@ class NodeActivity : BaseActivity<ActivityNodeBinding>() {
             vb.topBar.setRightIcon(if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_un_favorite)
         }
 
-        supportFragmentManager
-            .beginTransaction()
-            .add(R.id.list_container, NodePageFragment())
-            .commit()
+        val preFragment = supportFragmentManager.findFragmentById(R.id.list_container)
+        if (preFragment == null) {
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.list_container, NodePageFragment())
+                .commit()
+        }
     }
 
 }

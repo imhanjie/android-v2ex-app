@@ -15,7 +15,7 @@ import com.imhanjie.v2ex.vm.FavoriteTopicsViewModel
 class FavoriteTopicsFragment : BasePageFragment<FavoriteTopicsViewModel>() {
 
     override fun getViewModel(): FavoriteTopicsViewModel {
-        return ViewModelProvider(this).get(FavoriteTopicsViewModel::class.java)
+        return ViewModelProvider(requireActivity()).get(FavoriteTopicsViewModel::class.java)
     }
 
     override fun getDiffCallback(oldItems: List<Any>, newItems: List<Any>): DiffUtil.Callback {
