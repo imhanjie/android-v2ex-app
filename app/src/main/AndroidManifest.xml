@@ -24,6 +24,7 @@
             android:launchMode="singleTask" />
         <activity android:name=".view.NodeActivity" />
         <activity android:name=".view.FavoriteTopicsActivity" />
+        <activity android:name=".view.FavoriteTopicsActivity" />
         <activity android:name=".view.MemberActivity" />
     </application>
 

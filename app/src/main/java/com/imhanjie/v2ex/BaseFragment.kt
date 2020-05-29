@@ -29,9 +29,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
     @Suppress("UNCHECKED_CAST")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val type = javaClass.genericSuperclass as ParameterizedType
-        val clazz: Class<VB> = type.actualTypeArguments[0] as Class<VB>
-        val method = clazz.getMethod(
+        val method = getVBClass(javaClass).getMethod(
             "inflate",
             LayoutInflater::class.java,
             ViewGroup::class.java,
@@ -52,6 +50,17 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
         initViews()
         return vb.root
+    }
+
+    // TODO 重构，以及 Activity 内的
+    private fun getVBClass(enterClazz: Class<*>): Class<*> {
+        val type = enterClazz.genericSuperclass as ParameterizedType
+        val clazz: Class<VB> = type.actualTypeArguments[0] as Class<VB>
+        if (ViewBinding::class.java.isAssignableFrom(clazz)) {
+            return clazz
+        } else {
+            return getVBClass(enterClazz.superclass as Class<*>)
+        }
     }
 
 }

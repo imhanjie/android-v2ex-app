@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -13,27 +12,12 @@
         android:background="@android:color/white"
         android:elevation="1dp"
         app:widget_bar_rightVisibility="visible"
-        app:widget_bar_titleText="@string/title_favorite_topics"
-        tools:widget_bar_titleText="节点" />
+        app:widget_bar_titleText="@string/title_favorite_topics" />
 
-    <com.imhanjie.widget.LoadingWrapLayout
-        android:id="@+id/loadingLayout"
+    <FrameLayout
+        android:id="@+id/list_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent" />
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipe_refresh_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/topicRv"
-                style="@style/WidgetScrollbarStyle"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-    </com.imhanjie.widget.LoadingWrapLayout>
 
 </LinearLayout>
