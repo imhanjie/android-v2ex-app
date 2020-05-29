@@ -11,11 +11,11 @@ import com.imhanjie.v2ex.R
 import com.imhanjie.v2ex.databinding.ActivityNodeBinding
 import com.imhanjie.v2ex.view.fragment.NodePageFragment
 import com.imhanjie.v2ex.vm.BaseViewModel
-import com.imhanjie.v2ex.vm.NodePageViewModel
+import com.imhanjie.v2ex.vm.NodeViewModel
 
 class NodeActivity : BaseActivity<ActivityNodeBinding>() {
 
-    private lateinit var vm: NodePageViewModel
+    private lateinit var vm: NodeViewModel
 
     private lateinit var nodeName: String
 
@@ -25,9 +25,9 @@ class NodeActivity : BaseActivity<ActivityNodeBinding>() {
             ?: throw IllegalArgumentException("缺少 name 参数")
         vm = ViewModelProvider(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return NodePageViewModel(nodeName, application) as T
+                return NodeViewModel(nodeName, application) as T
             }
-        }).get(NodePageViewModel::class.java)
+        }).get(NodeViewModel::class.java)
         return listOf(vm)
     }
 
@@ -51,7 +51,7 @@ class NodeActivity : BaseActivity<ActivityNodeBinding>() {
 
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.list_container, NodePageFragment.newInstance(nodeName))
+            .add(R.id.list_container, NodePageFragment())
             .commit()
     }
 

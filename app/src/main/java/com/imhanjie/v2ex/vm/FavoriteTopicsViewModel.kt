@@ -5,9 +5,9 @@ import com.imhanjie.v2ex.repository.provideAppRepository
 
 class FavoriteTopicsViewModel(application: Application) : BasePageViewModel(application) {
 
-    override suspend fun provideData(requestPage: Int): PageLiveData {
+    override suspend fun providePageData(requestPage: Int): PageData {
         val result = provideAppRepository().loadFavoriteTopics(requestPage)
-        return PageLiveData(result.topics, result.currentPage != result.totalPage)
+        return PageData(result.topics, result.currentPage != result.totalPage)
     }
 
 }

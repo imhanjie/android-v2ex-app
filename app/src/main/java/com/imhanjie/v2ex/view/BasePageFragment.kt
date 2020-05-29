@@ -3,6 +3,7 @@ package com.imhanjie.v2ex.view
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DiffUtil
 import com.drakeet.multitype.MultiTypeAdapter
+import com.imhanjie.support.e
 import com.imhanjie.support.ext.dpi
 import com.imhanjie.v2ex.BaseFragment
 import com.imhanjie.v2ex.databinding.FragmentBasePageBinding
@@ -22,7 +23,9 @@ abstract class BasePageFragment<VM : BasePageViewModel> : BaseFragment<FragmentB
     }
 
     override fun initViews() {
-        vm.loadDataList(loadMore = false)
+        if (autoLoadDataList()) {
+            vm.loadDataList(loadMore = false)
+        }
 
         vb.loadingLayout.update(LoadingWrapLayout.Status.LOADING)
         vb.swipeRefreshLayout.setOnRefreshListener {
@@ -35,7 +38,8 @@ abstract class BasePageFragment<VM : BasePageViewModel> : BaseFragment<FragmentB
 
         // 子类注册
         registerAdapter(delegate.adapter)
-        vm.pageLiveData.observe(this) {
+        e("注册")
+        vm.pageData.observe(this) {
             vb.loadingLayout.update(LoadingWrapLayout.Status.DONE)
             vb.swipeRefreshLayout.isRefreshing = false
             val (dataList, hasMore) = it
@@ -48,6 +52,8 @@ abstract class BasePageFragment<VM : BasePageViewModel> : BaseFragment<FragmentB
             }
         }
     }
+
+    open fun autoLoadDataList() = true
 
     abstract fun getViewModel(): VM
 

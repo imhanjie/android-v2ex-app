@@ -6,14 +6,14 @@ import androidx.lifecycle.MutableLiveData
 
 abstract class BasePageViewModel(application: Application) : BaseViewModel(application) {
 
-    data class PageLiveData(
+    data class PageData(
         val dataList: List<Any>,
         val hasMore: Boolean
     )
 
-    private val _pageLiveData = MutableLiveData<PageLiveData>()
+    private val _pageLiveData = MutableLiveData<PageData>()
 
-    val pageLiveData: LiveData<PageLiveData>
+    val pageData: LiveData<PageData>
         get() = _pageLiveData
 
     private var currentPage = 1
@@ -23,7 +23,7 @@ abstract class BasePageViewModel(application: Application) : BaseViewModel(appli
             throw RuntimeException("不允许首次直接进行 loadMore 操作")
         }
         val requestPage = if (!loadMore) 1 else currentPage + 1
-        val result = provideData(requestPage)
+        val result = providePageData(requestPage)
         val dataList = if (!loadMore) {
             result.dataList
         } else {
@@ -31,12 +31,12 @@ abstract class BasePageViewModel(application: Application) : BaseViewModel(appli
                 addAll(result.dataList)
             }
         }
-        _pageLiveData.value = PageLiveData(
+        _pageLiveData.value = PageData(
             dataList, result.hasMore
         )
         currentPage = requestPage
     }
 
-    abstract suspend fun provideData(requestPage: Int): PageLiveData
+    abstract suspend fun providePageData(requestPage: Int): PageData
 
 }
