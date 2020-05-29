@@ -23,6 +23,7 @@ abstract class BasePageFragment<VM : BasePageViewModel> : BaseFragment<FragmentB
     }
 
     override fun initViews() {
+        e("page fragment initView: $this")
         if (autoLoadDataList() && vm.pageData.value == null) {
             vm.loadDataList(loadMore = false)
         }
@@ -38,7 +39,6 @@ abstract class BasePageFragment<VM : BasePageViewModel> : BaseFragment<FragmentB
 
         // 子类注册
         registerAdapter(delegate.adapter)
-        e("注册: $this")
         vm.pageData.observe(this) {
             vb.loadingLayout.update(LoadingWrapLayout.Status.DONE)
             vb.swipeRefreshLayout.isRefreshing = false

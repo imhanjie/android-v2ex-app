@@ -1,10 +1,13 @@
 package com.imhanjie.v2ex.view.fragment
 
+import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
+import com.imhanjie.support.e
 import com.imhanjie.v2ex.AppSession
 import com.imhanjie.v2ex.BaseLazyFragment
 import com.imhanjie.v2ex.R
+import com.imhanjie.v2ex.common.valueIsNull
 import com.imhanjie.v2ex.databinding.FragmentTabNotificationsBinding
 import com.imhanjie.v2ex.vm.BaseViewModel
 import com.imhanjie.v2ex.vm.NotificationsViewModel
@@ -16,6 +19,11 @@ class NotificationsTabFragment : BaseLazyFragment<FragmentTabNotificationsBindin
     override fun getViewModels(): List<BaseViewModel> {
         vm = ViewModelProvider(this).get(NotificationsViewModel::class.java)
         return listOf(vm)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        e("NotificationsTabFragment oncreate: $this")
     }
 
     override fun initViews() {
@@ -34,7 +42,9 @@ class NotificationsTabFragment : BaseLazyFragment<FragmentTabNotificationsBindin
     }
 
     override fun onFirstResume() {
-        vm.loadDataList(loadMore = false)
+        if (vm.pageData.valueIsNull()) {
+            vm.loadDataList(loadMore = false)
+        }
     }
 
 }
