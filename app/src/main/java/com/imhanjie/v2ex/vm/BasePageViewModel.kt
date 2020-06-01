@@ -3,6 +3,7 @@ package com.imhanjie.v2ex.vm
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.imhanjie.v2ex.common.valueIsNull
 
 abstract class BasePageViewModel(application: Application) : BaseViewModel(application) {
 
@@ -19,7 +20,7 @@ abstract class BasePageViewModel(application: Application) : BaseViewModel(appli
     private var currentPage = 1
 
     fun loadDataList(loadMore: Boolean) = request {
-        if (loadMore && _pageLiveData.value == null) {
+        if (loadMore && _pageLiveData.valueIsNull()) {
             throw RuntimeException("不允许首次直接进行 loadMore 操作")
         }
         val requestPage = if (!loadMore) 1 else currentPage + 1

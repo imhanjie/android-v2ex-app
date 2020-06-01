@@ -13,7 +13,6 @@ import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
-import com.imhanjie.support.e
 import com.imhanjie.widget.R
 
 
@@ -91,7 +90,6 @@ class BottomNavigationBar @JvmOverloads constructor(
      * 初始化
      */
     fun initialise() {
-        e("initialise")
         var textView: TextView
         var imageView: ImageView
         for (i in items.indices) {
@@ -131,9 +129,10 @@ class BottomNavigationBar @JvmOverloads constructor(
     }
 
     override fun onRestoreInstanceState(state: Parcelable) {
-        val bundle = state as Bundle
-        selectTab(bundle.getInt("current_index"))
-        super.onRestoreInstanceState(bundle.getParcelable("super_state"))
+        with(state as Bundle) {
+            selectTab(getInt("current_index"))
+            super.onRestoreInstanceState(getParcelable("super_state"))
+        }
     }
 
     data class Item(

@@ -15,6 +15,7 @@ import com.imhanjie.v2ex.api.model.TopicItem
 import com.imhanjie.v2ex.common.Event
 import com.imhanjie.v2ex.common.LiveDataBus
 import com.imhanjie.v2ex.common.TopicTab
+import com.imhanjie.v2ex.common.valueIsNull
 import com.imhanjie.v2ex.databinding.FragmentTabBinding
 import com.imhanjie.v2ex.view.TopicActivity
 import com.imhanjie.v2ex.view.adapter.TopicAdapter
@@ -41,7 +42,7 @@ class TabFragment : BaseFragment<FragmentTabBinding>() {
          * 即可忽略 ViewPager 的 Fragment 回收导致的数据重新加载问题。
          */
         vm = ViewModelProvider(requireActivity()).get(tab.value, TabViewModel::class.java)
-        if (vm.topic.value == null) {   // 首次初始化
+        if (vm.topic.valueIsNull()) {   // 首次初始化
             vm.tab = tab
         }
     }
@@ -102,7 +103,7 @@ class TabFragment : BaseFragment<FragmentTabBinding>() {
 
     override fun onResume() {
         super.onResume()
-        if (vm.topic.value == null) {   // 首次初始化
+        if (vm.topic.valueIsNull()) {   // 首次初始化
             vm.loadTopics()
         }
     }

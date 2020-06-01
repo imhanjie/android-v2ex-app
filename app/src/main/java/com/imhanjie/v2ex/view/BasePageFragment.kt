@@ -6,6 +6,7 @@ import com.drakeet.multitype.MultiTypeAdapter
 import com.imhanjie.support.e
 import com.imhanjie.support.ext.dpi
 import com.imhanjie.v2ex.BaseFragment
+import com.imhanjie.v2ex.common.valueIsNull
 import com.imhanjie.v2ex.databinding.FragmentBasePageBinding
 import com.imhanjie.v2ex.vm.BasePageViewModel
 import com.imhanjie.v2ex.vm.BaseViewModel
@@ -24,7 +25,7 @@ abstract class BasePageFragment<VM : BasePageViewModel> : BaseFragment<FragmentB
 
     override fun initViews() {
         e("page fragment initView: $this")
-        if (autoLoadDataList() && vm.pageData.value == null) {
+        if (autoLoadDataList() && vm.pageData.valueIsNull()) {
             vm.loadDataList(loadMore = false)
         }
 

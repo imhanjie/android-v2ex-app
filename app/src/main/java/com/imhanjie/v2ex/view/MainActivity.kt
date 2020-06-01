@@ -67,19 +67,21 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             add(TAB_NOTIFICATION, NotificationsTabFragment())
             add(TAB_ME, MeTabFragment())
         }
-        vb.viewPager.adapter = object : FragmentStateAdapter(this) {
-            override fun getItemCount(): Int {
-                return fragments.size
-            }
+        with(vb) {
+            viewPager.adapter = object : FragmentStateAdapter(this@MainActivity) {
+                override fun getItemCount(): Int {
+                    return fragments.size
+                }
 
-            override fun createFragment(position: Int): Fragment {
-                return fragments[position]
-            }
+                override fun createFragment(position: Int): Fragment {
+                    return fragments[position]
+                }
 
+            }
+            viewPager.isUserInputEnabled = false
+            viewPager.offscreenPageLimit = fragments.size
+            viewPager.setCurrentItem(DEFAULT_INDEX, false)
         }
-        vb.viewPager.isUserInputEnabled = false
-        vb.viewPager.offscreenPageLimit = fragments.size
-        vb.viewPager.setCurrentItem(DEFAULT_INDEX, false)
     }
 
 }

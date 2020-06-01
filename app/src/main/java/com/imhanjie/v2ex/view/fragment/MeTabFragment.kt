@@ -6,6 +6,7 @@ import androidx.lifecycle.observe
 import com.imhanjie.support.e
 import com.imhanjie.support.ext.toActivity
 import com.imhanjie.v2ex.BaseFragment
+import com.imhanjie.v2ex.common.valueIsNull
 import com.imhanjie.v2ex.databinding.FragmentTabMeBinding
 import com.imhanjie.v2ex.view.FavoriteTopicsActivity
 import com.imhanjie.v2ex.vm.MeTabViewModel
@@ -32,7 +33,7 @@ class MeTabFragment : BaseFragment<FragmentTabMeBinding>() {
 
     override fun onResume() {
         super.onResume()
-        if (vm.userInfo.value == null) {
+        if (vm.userInfo.valueIsNull()) {
             vm.loadMyUserInfo()
         }
     }
