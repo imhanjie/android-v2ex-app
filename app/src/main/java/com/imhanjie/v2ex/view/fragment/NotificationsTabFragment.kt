@@ -26,7 +26,7 @@ class NotificationsTabFragment : BaseLazyFragment<FragmentTabNotificationsBindin
     }
 
     override fun initViews() {
-        AppSession.getLoginStateLiveData().observe(this) {
+        AppSession.getLoginStateLiveData().observe(viewLifecycleOwner) {
             if (it && !isFirstResume) {
                 vm.loadDataList(loadMore = false)
             }

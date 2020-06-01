@@ -23,7 +23,7 @@ class MeTabFragment : BaseFragment<FragmentTabMeBinding>() {
     }
 
     override fun initViews() {
-        vm.userInfo.observe(this) {
+        vm.userInfo.observe(viewLifecycleOwner) {
             e(it.toString())
         }
         vb.root.setOnClickListener {

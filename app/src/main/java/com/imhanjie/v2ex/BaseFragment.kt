@@ -52,7 +52,8 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         return vb.root
     }
 
-    // TODO 重构，以及 Activity 内的
+    // 递归向上寻找 ViewBinding 泛型
+    @Suppress("UNCHECKED_CAST")
     private fun getVBClass(enterClazz: Class<*>): Class<*> {
         val type = enterClazz.genericSuperclass as ParameterizedType
         val clazz: Class<VB> = type.actualTypeArguments[0] as Class<VB>

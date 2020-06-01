@@ -69,7 +69,7 @@ class TabFragment : BaseFragment<FragmentTabBinding>() {
             register(TopicItem::class.java, topicAdapter)
         }
         vb.topicRv.adapter = adapter
-        vm.topic.observe(this) {
+        vm.topic.observe(viewLifecycleOwner) {
             vb.loadingLayout.update(LoadingWrapLayout.Status.DONE)
             vb.swipeRefreshLayout.isRefreshing = false
 
@@ -88,13 +88,13 @@ class TabFragment : BaseFragment<FragmentTabBinding>() {
 
         vb.swipeRefreshLayout.setOnRefreshListener { vm.loadTopics() }
 
-        globalViewModel.ignoreTopic.observe(this) { topicId ->
+        globalViewModel.ignoreTopic.observe(viewLifecycleOwner) { topicId ->
             vm.removeItem(topicId)
         }
 
         LiveDataBus.get()
             .with(Event.MAIN_SCROLL_TO_TOP, Any::class.java)
-            .observe(this) {
+            .observe(viewLifecycleOwner) {
                 if (isResumed) {
                     vb.topicRv.smoothScrollToPosition(0)
                 }
