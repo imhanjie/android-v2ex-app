@@ -7,7 +7,6 @@ import com.imhanjie.support.e
 import com.imhanjie.v2ex.AppSession
 import com.imhanjie.v2ex.BaseLazyFragment
 import com.imhanjie.v2ex.R
-import com.imhanjie.v2ex.common.valueIsNull
 import com.imhanjie.v2ex.databinding.FragmentTabNotificationsBinding
 import com.imhanjie.v2ex.vm.BaseViewModel
 import com.imhanjie.v2ex.vm.NotificationsViewModel
@@ -42,9 +41,7 @@ class NotificationsTabFragment : BaseLazyFragment<FragmentTabNotificationsBindin
     }
 
     override fun onFirstResume() {
-        if (vm.pageData.valueIsNull()) {
-            vm.loadDataList(loadMore = false)
-        }
+        vm.loadDataList(loadMore = false)
     }
 
 }

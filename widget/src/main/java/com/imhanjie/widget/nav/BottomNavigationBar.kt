@@ -2,6 +2,8 @@ package com.imhanjie.widget.nav
 
 import android.content.Context
 import android.graphics.PorterDuff
+import android.os.Bundle
+import android.os.Parcelable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +13,7 @@ import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
+import com.imhanjie.support.e
 import com.imhanjie.widget.R
 
 
@@ -88,6 +91,7 @@ class BottomNavigationBar @JvmOverloads constructor(
      * 初始化
      */
     fun initialise() {
+        e("initialise")
         var textView: TextView
         var imageView: ImageView
         for (i in items.indices) {
@@ -117,6 +121,19 @@ class BottomNavigationBar @JvmOverloads constructor(
         if (selectedIndex >= 0 && selectedIndex < items.size) {
             innerSelectTab(selectedIndex, false)
         }
+    }
+
+    override fun onSaveInstanceState(): Parcelable {
+        return Bundle().apply {
+            putParcelable("super_state", super.onSaveInstanceState())
+            putInt("current_index", selectedIndex)
+        }
+    }
+
+    override fun onRestoreInstanceState(state: Parcelable) {
+        val bundle = state as Bundle
+        selectTab(bundle.getInt("current_index"))
+        super.onRestoreInstanceState(bundle.getParcelable("super_state"))
     }
 
     data class Item(
