@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.imhanjie.v2ex.api.model.Reply
 import com.imhanjie.v2ex.api.model.Topic
+import com.imhanjie.v2ex.common.NonStickyLiveData
 import com.imhanjie.v2ex.repository.provideAppRepository
 
 class TopicViewModel(val topicId: Long, application: Application) : BaseViewModel(application) {
@@ -26,22 +27,22 @@ class TopicViewModel(val topicId: Long, application: Application) : BaseViewMode
     val loading: LiveData<Boolean>
         get() = _loading
 
-    private val _thankReply = MutableLiveData<Reply>()
+    private val _thankReply = NonStickyLiveData<Reply>()
 
     val thankReply: LiveData<Reply>
         get() = _thankReply
 
-    private val _ignoreTopicState = MutableLiveData<Boolean>()
+    private val _ignoreTopicState = NonStickyLiveData<Boolean>()
 
     val ignoreTopicState: LiveData<Boolean>
         get() = _ignoreTopicState
 
-    private val _favoriteState = MutableLiveData<Boolean>()
+    private val _favoriteState = NonStickyLiveData<Boolean>()
 
     val favoriteState: LiveData<Boolean>
         get() = _favoriteState
 
-    private val _unFavoriteState = MutableLiveData<Boolean>()
+    private val _unFavoriteState = NonStickyLiveData<Boolean>()
 
     val unFavoriteState: LiveData<Boolean>
         get() = _unFavoriteState

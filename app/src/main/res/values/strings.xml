@@ -28,4 +28,12 @@
     <string name="menu_favorite_topic">收藏主题</string>
     <string name="menu_un_favorite_topic">取消收藏主题</string>
     <string name="title_favorite_topics">我收藏的主题</string>
+    <string name="menu_block_member">屏蔽用户</string>
+    <string name="tips_block_member_success">已屏蔽用户</string>
+    <string name="menu_un_block_member">取消屏蔽用户</string>
+    <string name="tips_un_block_member_success">已取消屏蔽用户</string>
+    <string name="menu_follow_member">关注用户</string>
+    <string name="tips_follow_member_success">已关注用户</string>
+    <string name="menu_un_follow_member">取消关注用户</string>
+    <string name="tips_un_follow_member_success">已取消关注用户</string>
 </resources>
