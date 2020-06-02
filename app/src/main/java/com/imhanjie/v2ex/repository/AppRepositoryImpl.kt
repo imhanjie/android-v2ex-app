@@ -145,4 +145,12 @@ object AppRepositoryImpl : AppRepository {
         return api.unBlockMember(userId, userName, t).extract()
     }
 
+    override suspend fun loadMemberTopics(userName: String, pageIndex: Int): MemberTopics {
+        return api.loadMemberTopics(userName, pageIndex).extract()
+    }
+
+    override suspend fun loadMemberReplies(userName: String, pageIndex: Int): MemberReplies {
+        return api.loadMemberReplies(userName, pageIndex).extract()
+    }
+
 }

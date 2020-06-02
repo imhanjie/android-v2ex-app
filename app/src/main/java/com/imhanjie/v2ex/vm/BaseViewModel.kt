@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.google.gson.stream.MalformedJsonException
 import com.imhanjie.v2ex.common.BizException
-import com.imhanjie.v2ex.common.NonStickyLiveData
+import com.imhanjie.v2ex.common.SingleLiveEvent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.io.IOException
@@ -16,17 +16,17 @@ import java.net.UnknownHostException
 
 open class BaseViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val _error = NonStickyLiveData<String>()
+    private val _error = SingleLiveEvent<String>()
 
     val error: LiveData<String>
         get() = _error
 
-    protected val _toast = NonStickyLiveData<String>()
+    protected val _toast = SingleLiveEvent<String>()
 
     val toast: LiveData<String>
         get() = _toast
 
-    private val _loadingDialogState = NonStickyLiveData<Boolean>()
+    private val _loadingDialogState = SingleLiveEvent<Boolean>()
 
     val loadingDialogState: LiveData<Boolean>
         get() = _loadingDialogState

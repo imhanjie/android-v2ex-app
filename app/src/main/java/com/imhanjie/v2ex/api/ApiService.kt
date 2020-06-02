@@ -130,4 +130,16 @@ interface ApiService {
         @Query("t") t: String
     ): RestfulResult<Member>
 
+    @GET("/member/{user_name}/topics")
+    suspend fun loadMemberTopics(
+        @Path("user_name") userName: String,
+        @Query("p") pageIndex: Int
+    ): RestfulResult<MemberTopics>
+
+    @GET("/member/{user_name}/replies")
+    suspend fun loadMemberReplies(
+        @Path("user_name") userName: String,
+        @Query("p") pageIndex: Int
+    ): RestfulResult<MemberReplies>
+
 }

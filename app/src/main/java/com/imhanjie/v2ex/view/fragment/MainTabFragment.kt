@@ -19,7 +19,7 @@ class MainTabFragment : BaseFragment<FragmentTabMainBinding>() {
 
     private lateinit var vm: MainTabViewModel
 
-    override fun getViewModels() = listOf(vm)
+    override fun initViewModels() = listOf(vm)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

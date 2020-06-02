@@ -16,6 +16,8 @@ import androidx.core.text.HtmlCompat
 import cc.shinichi.library.ImagePreview
 import com.imhanjie.support.ext.toActivity
 import com.imhanjie.v2ex.api.support.RegexPattern
+import com.imhanjie.v2ex.view.MemberActivity
+import com.imhanjie.v2ex.view.NodeActivity
 import com.imhanjie.v2ex.view.TopicActivity
 
 
@@ -68,6 +70,25 @@ class RichTextView @JvmOverloads constructor(
                         }
                         context.toActivity<TopicActivity>(
                             bundleOf("topicId" to topicId)
+                        )
+                        return
+                    } else if (RegexPattern.NODE_URL.matcher(clickUrl).find()) {
+                        /*
+                         * http://v2ex.com/go/Android
+                         */
+                        val nodeName = clickUrl.split("/").last()
+                        context.toActivity<NodeActivity>(bundleOf("name" to nodeName))
+                        return
+                    } else if (RegexPattern.MEMBER_URL.matcher(clickUrl).find()) {
+                        /*
+                         * http://v2ex.com/member/Livid
+                         */
+                        val userName = clickUrl.split("/").last()
+                        context.toActivity<MemberActivity>(
+                            bundleOf(
+                                "userName" to userName,
+                                "title" to ""
+                            )
                         )
                         return
                     }

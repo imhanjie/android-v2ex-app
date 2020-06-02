@@ -51,4 +51,8 @@ interface AppRepository {
 
     suspend fun unBlockMember(userId: Long, userName: String, t: String): Member
 
+    suspend fun loadMemberTopics(userName: String, pageIndex: Int): MemberTopics
+
+    suspend fun loadMemberReplies(userName: String, pageIndex: Int): MemberReplies
+
 }

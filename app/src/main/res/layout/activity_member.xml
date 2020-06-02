@@ -1,31 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btn_follow"
-        android:layout_width="wrap_content"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="关注" />
+        android:background="@color/widget_background_1"
+        app:elevation="0dp">
 
-    <Button
-        android:id="@+id/btn_un_follow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="取消关注" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingBottom="25dp"
+            app:layout_scrollFlags="scroll|enterAlways">
 
-    <Button
-        android:id="@+id/btn_block"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="block" />
+            <com.imhanjie.widget.PureTopBar
+                android:id="@+id/top_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="0dp"
+                app:widget_bar_rightIcon="@drawable/ic_menu_more" />
 
-    <Button
-        android:id="@+id/btn_un_block"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="unblock" />
+            <ImageView
+                android:id="@+id/iv_avatar"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="10dp"
+                tools:ignore="ContentDescription" />
 
-</LinearLayout>
+            <TextView
+                android:id="@+id/tv_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/widget_text_1"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/widget_background_1"
+            android:overScrollMode="never"
+            app:tabIndicator="@drawable/tab_indicator"
+            app:tabIndicatorColor="@color/widget_text_3"
+            app:tabIndicatorFullWidth="false"
+            app:tabMode="fixed"
+            app:tabRippleColor="@color/widget_ripple"
+            app:tabSelectedTextColor="@color/widget_text_1"
+            app:tabTextAppearance="@style/CommandTabLayoutText"
+            app:tabTextColor="@color/widget_text_4" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/tab_layout_divider" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

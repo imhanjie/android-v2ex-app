@@ -17,7 +17,7 @@ abstract class BasePageFragment<VM : BasePageViewModel> : BaseFragment<FragmentB
 
     protected lateinit var vm: VM
 
-    override fun getViewModels(): List<BaseViewModel> {
+    override fun initViewModels(): List<BaseViewModel> {
         vm = getViewModel()
         return listOf(vm)
     }

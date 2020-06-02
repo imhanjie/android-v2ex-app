@@ -13,11 +13,15 @@ class NodeViewModel(private val nodeName: String, application: Application) : Ba
     val isFavorite: LiveData<Pair<Boolean, Boolean>>
         get() = _isFavorite
 
-    private var node: Node? = null
+    private var _node = MutableLiveData<Node>()
+
+    val node: LiveData<Node>
+        get() = _node
+
 
     override suspend fun providePageData(requestPage: Int): PageData {
         return provideAppRepository().loadNodeTopics(nodeName, requestPage).let {
-            node = it
+            _node.value = it
             _isFavorite.value = Pair(it.isFavorite, false)
             PageData(it.topics, it.currentPage != it.totalPage)
         }
@@ -27,7 +31,7 @@ class NodeViewModel(private val nodeName: String, application: Application) : Ba
      * 收藏 / 取消收藏主题
      */
     fun doFavoriteNode() = request(withLoading = true) {
-        node?.let {
+        _node.value?.let {
             if (it.isFavorite) {
                 provideAppRepository().unFavoriteNode(it.id, it.once)
             } else {

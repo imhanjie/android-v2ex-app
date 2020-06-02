@@ -2,8 +2,6 @@ package com.imhanjie.v2ex.view
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import com.imhanjie.support.ext.dp
 import com.imhanjie.support.ext.toast
@@ -11,6 +9,8 @@ import com.imhanjie.v2ex.BaseActivity
 import com.imhanjie.v2ex.R
 import com.imhanjie.v2ex.api.model.Reply
 import com.imhanjie.v2ex.api.model.Topic
+import com.imhanjie.v2ex.common.MissingArgumentException
+import com.imhanjie.v2ex.common.ViewModelProvider
 import com.imhanjie.v2ex.databinding.ActivityTopicBinding
 import com.imhanjie.v2ex.model.ReplyHeaderType
 import com.imhanjie.v2ex.view.adapter.ReplyAdapter
@@ -33,13 +33,9 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
     override fun initViewModels(): List<BaseViewModel> {
         val topicId: Long = intent.getLongExtra("topicId", -1)
         if (topicId < 0) {
-            throw IllegalArgumentException("缺少 topicId 参数")
+            throw MissingArgumentException("topicId")
         }
-        vm = ViewModelProvider(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return TopicViewModel(topicId, application) as T
-            }
-        }).get(TopicViewModel::class.java)
+        vm = ViewModelProvider(this) { TopicViewModel(topicId, application) }
         return listOf(vm)
     }
 

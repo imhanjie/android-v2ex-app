@@ -23,7 +23,7 @@ class NodeTabFragment : BaseLazyFragment<FragmentTabNodeBinding>() {
 
     private val items = arrayListOf<Any>()
 
-    override fun getViewModels(): List<BaseViewModel> {
+    override fun initViewModels(): List<BaseViewModel> {
         vm = ViewModelProvider(this).get(NodeTabViewModel::class.java)
         return listOf(vm)
     }
