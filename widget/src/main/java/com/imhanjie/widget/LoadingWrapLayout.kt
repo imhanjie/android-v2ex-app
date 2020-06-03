@@ -11,6 +11,8 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.imhanjie.support.ext.dpi
+import com.imhanjie.widget.todo.setDrawableColor
+import com.imhanjie.widget.todo.setDrawableTop
 
 class LoadingWrapLayout @JvmOverloads constructor(
     ctx: Context,
@@ -21,7 +23,7 @@ class LoadingWrapLayout @JvmOverloads constructor(
     var retryCallback: (() -> Unit)? = null
 
     enum class Status {
-        LOADING, DONE, FAIL
+        LOADING, DONE, FAIL, EMPTY
     }
 
     init {
@@ -35,28 +37,42 @@ class LoadingWrapLayout @JvmOverloads constructor(
         addView(pb, pbParams)
 
         val errorTextView = TextView(context).apply {
-            setTextColor(ContextCompat.getColor(context, R.color.widget_text_3))
-            text = "暂无数据"
+            setTextColor(ContextCompat.getColor(context, R.color.widget_text_4))
+            text = "这里什么都没有哦"
             textSize = 13f
+            gravity = Gravity.CENTER_HORIZONTAL
+            compoundDrawablePadding = 16.dpi
         }
         errorTextView.visibility = View.GONE
-        val tvParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
-        errorTextView.gravity = Gravity.CENTER
-        errorTextView.setOnClickListener { retryCallback?.invoke() }
+        val tvParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT).apply {
+            gravity = Gravity.CENTER
+        }
+        val padding = 16.dpi
+        errorTextView.setPadding(padding, padding, padding, padding)
+        errorTextView.setOnClickListener {
+            retryCallback?.invoke()
+        }
         addView(errorTextView, tvParams)
     }
 
     /**
      * 刷新页面
      */
-    fun update(status: Status, errorText: String = "加载失败，点击重试") {
+    fun update(status: Status, tipText: String? = null) {
         when (status) {
             Status.LOADING -> {
                 showView(0)
             }
-            Status.FAIL -> {
+            Status.FAIL, Status.EMPTY -> {
                 showView(1)
-                (getChildAt(1) as TextView).text = errorText
+                val tv = (getChildAt(1) as TextView)
+                if (tipText == null) {
+                    tv.text = if (status == Status.FAIL) "加载出现了点问题" else "这里什么都没有哦~"
+                } else {
+                    tv.text = tipText
+                }
+                tv.setDrawableTop(if (status == Status.FAIL) R.drawable.widget_ic_load_list_fail else R.drawable.widget_ic_load_list_empty)
+                tv.setDrawableColor(R.color.widget_text_4)
             }
             Status.DONE -> {
                 showView(2)

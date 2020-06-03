@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import cc.shinichi.library.ImagePreview
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.google.android.material.tabs.TabLayoutMediator
@@ -47,6 +48,7 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>() {
                 .placeholder(ContextCompat.getDrawable(this, R.drawable.default_avatar))
                 .transform(CircleCrop())
                 .into(vb.ivAvatar)
+            vb.tvNo.text = "V2EX 第 ${member.id} 号会员"
         }
         vm.followState.observe(this) { follow ->
             if (follow) {
@@ -70,6 +72,20 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>() {
         })
         initViewPager()
         vb.tvUserName.text = userName
+        vb.ivAvatar.setOnClickListener {
+            vm.member.value?.let {
+                ImagePreview
+                    .getInstance()
+                    .setContext(this)
+                    .setIndex(0)
+                    .setImage(it.avatar)
+                    .setShowDownButton(true)
+                    .setShowCloseButton(true)
+                    .setEnableDragClose(true)
+                    .setEnableUpDragClose(true)
+                    .start()
+            }
+        }
         Glide.with(this)
             .load(ContextCompat.getDrawable(this, R.drawable.default_avatar))
             .transform(CircleCrop())

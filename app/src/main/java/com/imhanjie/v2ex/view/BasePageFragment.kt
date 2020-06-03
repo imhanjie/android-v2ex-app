@@ -28,6 +28,10 @@ abstract class BasePageFragment<VM : BasePageViewModel> : BaseFragment<FragmentB
         }
 
         vb.loadingLayout.update(LoadingWrapLayout.Status.LOADING)
+        vb.loadingLayout.retryCallback = {
+            vb.loadingLayout.update(LoadingWrapLayout.Status.LOADING)
+            vm.loadDataList(loadMore = false)
+        }
         vb.swipeRefreshLayout.setOnRefreshListener {
             vm.loadDataList(loadMore = false)
         }
@@ -39,15 +43,26 @@ abstract class BasePageFragment<VM : BasePageViewModel> : BaseFragment<FragmentB
         // 子类注册
         registerAdapter(delegate.adapter)
         vm.pageData.observe(viewLifecycleOwner) {
-            vb.loadingLayout.update(LoadingWrapLayout.Status.DONE)
-            vb.swipeRefreshLayout.isRefreshing = false
             val (dataList, hasMore) = it
-            delegate.apply {
-                val diffResult = DiffUtil.calculateDiff(getDiffCallback(items, dataList))
-                items.clear()
-                items.addAll(dataList)
-                diffResult.dispatchUpdatesTo(adapter)
-                notifyLoadSuccess(hasMore)
+            vb.swipeRefreshLayout.isRefreshing = false
+            if (dataList.isEmpty()) {
+                vb.loadingLayout.update(LoadingWrapLayout.Status.EMPTY, getEmptyTips())
+            } else {
+                vb.loadingLayout.update(LoadingWrapLayout.Status.DONE)
+                delegate.apply {
+                    val diffResult = DiffUtil.calculateDiff(getDiffCallback(items, dataList))
+                    items.clear()
+                    items.addAll(dataList)
+                    diffResult.dispatchUpdatesTo(adapter)
+                    notifyLoadSuccess(hasMore)
+                }
+            }
+        }
+        vm.loadFailState.observe(this) { loadMore ->
+            if (loadMore) {
+                delegate.notifyLoadFailed()
+            } else {
+                vb.loadingLayout.update(LoadingWrapLayout.Status.FAIL)
             }
         }
     }
@@ -59,5 +74,9 @@ abstract class BasePageFragment<VM : BasePageViewModel> : BaseFragment<FragmentB
     abstract fun getDiffCallback(oldItems: List<Any>, newItems: List<Any>): DiffUtil.Callback
 
     abstract fun registerAdapter(adapter: MultiTypeAdapter)
+
+    open fun getEmptyTips(): String? {
+        return null
+    }
 
 }

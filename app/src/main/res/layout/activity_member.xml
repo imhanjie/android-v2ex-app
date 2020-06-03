@@ -29,8 +29,8 @@
 
             <ImageView
                 android:id="@+id/iv_avatar"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_marginTop="10dp"
                 tools:ignore="ContentDescription" />
 
@@ -40,7 +40,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:textColor="@color/widget_text_1"
+                android:textSize="18sp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/widget_text_4"
+                android:textSize="11sp"
+                tools:ignore="SmallSp"
+                tools:text="V2EX 第 17 号会员" />
 
         </LinearLayout>
 

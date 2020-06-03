@@ -34,7 +34,7 @@ class LoadMoreDelegate(
      *
      * @param hasMore 是否还有更多数据
      */
-    public fun notifyLoadSuccess(hasMore: Boolean) {
+    fun notifyLoadSuccess(hasMore: Boolean) {
         this.isLoading = false
         this.hasMore = hasMore
         items.setFooterType(if (hasMore) FooterType.HAS_MORE else FooterType.NO_MORE)

@@ -16,3 +16,7 @@ fun TextView.setDrawableColor(@ColorRes color: Int) {
 fun TextView.setDrawableStart(@DrawableRes drawableRes: Int) {
     setCompoundDrawablesRelativeWithIntrinsicBounds(drawableRes, 0, 0, 0)
 }
+
+fun TextView.setDrawableTop(@DrawableRes drawableRes: Int) {
+    setCompoundDrawablesRelativeWithIntrinsicBounds(0, drawableRes, 0, 0)
+}

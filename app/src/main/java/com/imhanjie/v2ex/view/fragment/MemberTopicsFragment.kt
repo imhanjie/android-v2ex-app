@@ -44,6 +44,10 @@ class MemberTopicsFragment : BasePageFragment<MemberTopicsViewModel>() {
         adapter.register(TopicItem::class.java, topicAdapter)
     }
 
+    override fun getEmptyTips(): String {
+        return "对方未发表或隐藏了主题"
+    }
+
     override fun onResume() {
         super.onResume()
         if (vm.pageData.valueIsNull()) {
