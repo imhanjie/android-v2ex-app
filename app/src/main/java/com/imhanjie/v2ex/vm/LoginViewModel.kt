@@ -59,8 +59,17 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
         request(
             onRequest = {
                 _loginState.value = true
+                // 1. 登录
                 val loginInfo = provideAppRepository().login(signInData!!, userName, password, verCode)
-                AppSession.setOrUpdateUserInfo(AppSession.getUserInfo().copy(a2Cookie = loginInfo.cookie))
+                // 2. 存储用户标识 cookie
+                AppSession.setOrUpdateUserInfo(
+                    AppSession.getUserInfo().value!!.copy(
+                        a2Cookie = loginInfo.cookie
+                    )
+                )
+                // 3. 获取用户信息
+                val myUserInfo = provideAppRepository().loadMyUserInfo()
+                AppSession.setOrUpdateUserInfo(myUserInfo)
                 _loginResult.value = loginInfo
             },
             onError = {

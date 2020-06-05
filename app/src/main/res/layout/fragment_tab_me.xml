@@ -1,14 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/view_user_info"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Me"
-        android:textColor="@color/widget_text_2"
-        tools:ignore="HardcodedText" />
+        android:background="@color/widget_background_1"
+        android:paddingStart="16dp"
+        android:paddingTop="66dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="16dp">
 
-</FrameLayout>
+        <ImageView
+            android:id="@+id/iv_user_avatar"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription"
+            tools:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            style="@style/WidgetSingleLineText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="10dp"
+            android:textColor="@color/widget_text_1"
+            android:textSize="23sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/iv_arrow"
+            app:layout_constraintStart_toEndOf="@id/iv_user_avatar"
+            app:layout_constraintTop_toTopOf="@id/iv_user_avatar"
+            tools:text="MelodyMelodyMelodyMelody" />
+
+        <TextView
+            android:id="@+id/tv_money_gold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="4dp"
+            android:drawableStart="@drawable/ic_money_gold"
+            android:drawablePadding="2dp"
+            android:gravity="center_vertical"
+            android:text="0"
+            android:textColor="@color/widget_text_1"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/iv_user_avatar"
+            app:layout_constraintStart_toEndOf="@id/iv_user_avatar"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/tv_money_silver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="11dp"
+            android:drawableStart="@drawable/ic_money_silver"
+            android:drawablePadding="2dp"
+            android:gravity="center_vertical"
+            android:text="0"
+            android:textColor="@color/widget_text_1"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/tv_money_gold"
+            app:layout_constraintStart_toEndOf="@id/tv_money_gold"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/tv_money_bronze"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="11dp"
+            android:drawableStart="@drawable/ic_money_bronze"
+            android:drawablePadding="2dp"
+            android:gravity="center_vertical"
+            android:text="0"
+            android:textColor="@color/widget_text_1"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/tv_money_gold"
+            app:layout_constraintStart_toEndOf="@id/tv_money_silver"
+            tools:ignore="HardcodedText" />
+
+        <ImageView
+            android:id="@+id/iv_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:src="@drawable/ic_item_right"
+            app:layout_constraintBottom_toBottomOf="@id/iv_user_avatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_user_avatar"
+            tools:ignore="ContentDescription" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

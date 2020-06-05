@@ -39,7 +39,7 @@ class TopicAdapter : BaseItemViewDelegate<TopicItem, ItemTopicBinding>() {
                 )
             }
             ivUserAvatar.setOnClickListener {
-                ctx.toActivity<MemberActivity>(bundleOf("userName" to item.userName))
+                MemberActivity.start(ctx, item.userName)
             }
         }
     }

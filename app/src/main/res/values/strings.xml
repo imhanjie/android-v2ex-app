@@ -36,4 +36,6 @@
     <string name="tips_follow_member_success">已关注用户</string>
     <string name="menu_un_follow_member">取消关注用户</string>
     <string name="tips_un_follow_member_success">已取消关注用户</string>
+    <string name="title_member_topics">TA 的主题</string>
+    <string name="title_member_replies">TA 的回复</string>
 </resources>

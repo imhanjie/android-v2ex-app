@@ -29,7 +29,7 @@ class NodeTabFragment : BaseLazyFragment<FragmentTabNodeBinding>() {
     }
 
     override fun initViews() {
-        AppSession.getLoginStateLiveData().observe(viewLifecycleOwner) {
+        AppSession.getLoginState().observe(viewLifecycleOwner) {
             if (it && !isFirstResume) {
                 vm.loadFavoriteNodes()
             }

@@ -3,6 +3,7 @@ package com.imhanjie.v2ex.view
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.RecyclerView
@@ -11,6 +12,7 @@ import cc.shinichi.library.ImagePreview
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.google.android.material.tabs.TabLayoutMediator
+import com.imhanjie.support.ext.toActivity
 import com.imhanjie.support.ext.toast
 import com.imhanjie.v2ex.BaseActivity
 import com.imhanjie.v2ex.R
@@ -27,6 +29,14 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>() {
 
     private lateinit var vm: MemberViewModel
     private lateinit var userName: String
+
+    private val fragments = arrayListOf<Fragment>()
+
+    companion object {
+        fun start(from: Any, userName: String) {
+            from.toActivity<MemberActivity>(bundleOf("userName" to userName))
+        }
+    }
 
     @Suppress("UNCHECKED_CAST")
     override fun initViewModels(): List<BaseViewModel> {
@@ -92,8 +102,6 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>() {
             .into(vb.ivAvatar)
     }
 
-    private val fragments = arrayListOf<Fragment>()
-
     private fun initViewPager() {
         with(fragments) {
             add(MemberRepliesFragment.newInstance(userName))
@@ -112,8 +120,8 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>() {
         vb.viewPager.offscreenPageLimit = fragments.size
         TabLayoutMediator(vb.tabLayout, vb.viewPager) { tab, position ->
             when (position) {
-                0 -> tab.text = "TA 的回复"
-                1 -> tab.text = "TA 的主题"
+                0 -> tab.text = getString(R.string.title_member_replies)
+                1 -> tab.text = getString(R.string.title_member_topics)
             }
         }.attach()
     }

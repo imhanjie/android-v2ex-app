@@ -84,12 +84,7 @@ class RichTextView @JvmOverloads constructor(
                          * http://v2ex.com/member/Livid
                          */
                         val userName = clickUrl.split("/").last()
-                        context.toActivity<MemberActivity>(
-                            bundleOf(
-                                "userName" to userName,
-                                "title" to ""
-                            )
-                        )
+                        MemberActivity.start(context, userName)
                         return
                     }
                     super.onClick(widget)

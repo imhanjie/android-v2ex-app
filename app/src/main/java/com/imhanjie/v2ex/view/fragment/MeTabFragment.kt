@@ -1,16 +1,19 @@
 package com.imhanjie.v2ex.view.fragment
 
 import android.os.Bundle
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
-import com.imhanjie.support.ext.toActivity
-import com.imhanjie.v2ex.BaseFragment
-import com.imhanjie.v2ex.common.valueIsNull
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.imhanjie.v2ex.AppSession
+import com.imhanjie.v2ex.BaseLazyFragment
+import com.imhanjie.v2ex.R
 import com.imhanjie.v2ex.databinding.FragmentTabMeBinding
-import com.imhanjie.v2ex.view.FavoriteTopicsActivity
+import com.imhanjie.v2ex.view.MemberActivity
 import com.imhanjie.v2ex.vm.MeTabViewModel
 
-class MeTabFragment : BaseFragment<FragmentTabMeBinding>() {
+class MeTabFragment : BaseLazyFragment<FragmentTabMeBinding>() {
 
     private lateinit var vm: MeTabViewModel
 
@@ -22,19 +25,35 @@ class MeTabFragment : BaseFragment<FragmentTabMeBinding>() {
     }
 
     override fun initViews() {
-        vm.userInfo.observe(viewLifecycleOwner) {
-
+        AppSession.getUserInfo().observe(viewLifecycleOwner) {
+            vb.tvUserName.text = it.userName
+            Glide.with(this)
+                .load(it.userAvatar)
+                .placeholder(ContextCompat.getDrawable(requireContext(), R.drawable.default_avatar))
+                .transform(CircleCrop())
+                .into(vb.ivUserAvatar)
+            vb.tvMoneyGold.text = it.moneyGold.toString()
+            vb.tvMoneySilver.text = it.moneySilver.toString()
+            vb.tvMoneyBronze.text = it.moneyBronze.toString()
         }
-        vb.root.setOnClickListener {
-            toActivity<FavoriteTopicsActivity>()
-        }
+        vb.viewUserInfo.setOnClickListener { MemberActivity.start(this, vb.tvUserName.text.toString()) }
+        // 我收藏的主题
+        // 我屏蔽的人
+        // 切换皮肤
+        // 设置
+        // 关于
     }
 
-    override fun onResume() {
-        super.onResume()
-        if (vm.userInfo.valueIsNull()) {
-            vm.loadMyUserInfo()
-        }
+    private fun loadAvatar(url: String) {
+        Glide.with(this)
+            .load(url)
+            .placeholder(ContextCompat.getDrawable(requireContext(), R.drawable.default_avatar))
+            .transform(CircleCrop())
+            .into(vb.ivUserAvatar)
+    }
+
+    override fun onFirstResume() {
+        vm.loadMyUserInfo()
     }
 
 }

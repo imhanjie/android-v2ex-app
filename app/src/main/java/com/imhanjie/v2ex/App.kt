@@ -37,7 +37,7 @@ class App : MultiDexApplication(), ViewModelStoreOwner {
         INSTANCE = this
         AndroidUtils.install(this, BuildConfig.DEBUG)
         V2exApi.init {
-            AppSession.getUserInfo().a2Cookie
+            AppSession.getUserInfo().value!!.a2Cookie
         }
         Stetho.initializeWithDefaults(this)
     }
