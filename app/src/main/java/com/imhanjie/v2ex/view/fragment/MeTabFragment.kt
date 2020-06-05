@@ -27,7 +27,12 @@ class MeTabFragment : BaseLazyFragment<FragmentTabMeBinding>() {
     }
 
     override fun initViews() {
+        vb.swipeRefreshLayout.setOnRefreshListener {
+            vm.loadMyUserInfo()
+        }
+
         AppSession.getUserInfo().observe(viewLifecycleOwner) {
+            vb.swipeRefreshLayout.isRefreshing = false
             vb.tvUserName.text = it.userName
             Glide.with(this)
                 .load(it.userAvatar)
