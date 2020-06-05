@@ -49,6 +49,17 @@ abstract class BasePageViewModel(application: Application) : BaseViewModel(appli
         currentPage = requestPage
     }
 
+    /**
+     * 过滤 item
+     */
+    protected fun filterItem(predicate: (Any) -> Boolean) {
+        _pageLiveData.value?.let {
+            _pageLiveData.value = it.copy(
+                dataList = it.dataList.toMutableList().filter(predicate)
+            )
+        }
+    }
+
     abstract suspend fun providePageData(requestPage: Int): PageData
 
 }

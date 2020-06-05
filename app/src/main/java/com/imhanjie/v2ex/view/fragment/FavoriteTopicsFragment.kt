@@ -2,6 +2,7 @@ package com.imhanjie.v2ex.view.fragment
 
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DiffUtil
 import com.drakeet.multitype.MultiTypeAdapter
 import com.imhanjie.support.ext.toActivity
@@ -13,6 +14,11 @@ import com.imhanjie.v2ex.view.adapter.diff.TopicDiffCallback
 import com.imhanjie.v2ex.vm.FavoriteTopicsViewModel
 
 class FavoriteTopicsFragment : BasePageFragment<FavoriteTopicsViewModel>() {
+
+    override fun initViews() {
+        super.initViews()
+        globalViewModel.unFavoriteTopic.observe(this) { id -> vm.removeTopic(id) }
+    }
 
     override fun getViewModel(): FavoriteTopicsViewModel {
         return ViewModelProvider(requireActivity()).get(FavoriteTopicsViewModel::class.java)

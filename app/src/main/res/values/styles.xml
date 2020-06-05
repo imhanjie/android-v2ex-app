@@ -28,5 +28,22 @@
         <item name="android:textSize">15sp</item>
     </style>
 
+    <style name="MeTabMenuText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/widget_ripple</item>
+        <item name="android:clickable">true</item>
+        <item name="android:drawableEnd">@drawable/ic_item_right</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:paddingBottom">20dp</item>
+        <item name="android:textColor">@color/widget_text_1</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
 
 </resources>

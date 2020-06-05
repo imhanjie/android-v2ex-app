@@ -95,7 +95,6 @@
             android:id="@+id/iv_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
             android:src="@drawable/ic_item_right"
             app:layout_constraintBottom_toBottomOf="@id/iv_user_avatar"
             app:layout_constraintEnd_toEndOf="parent"
@@ -103,5 +102,35 @@
             tools:ignore="ContentDescription" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/view_favorite_topics"
+        style="@style/MeTabMenuText"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/widget_ripple"
+        android:drawableStart="@drawable/ic_menu_favorite_topics"
+        android:text="@string/title_favorite_topics" />
+
+    <TextView
+        android:id="@+id/view_block_members"
+        style="@style/MeTabMenuText"
+        android:background="@drawable/widget_ripple"
+        android:drawableStart="@drawable/ic_menu_block"
+        android:text="@string/title_block_members" />
+
+    <TextView
+        android:id="@+id/view_settings"
+        style="@style/MeTabMenuText"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/widget_ripple"
+        android:drawableStart="@drawable/ic_menu_settings"
+        android:text="@string/title_settings" />
+
+    <TextView
+        android:id="@+id/view_about"
+        style="@style/MeTabMenuText"
+        android:background="@drawable/widget_ripple"
+        android:drawableStart="@drawable/ic_menu_about"
+        android:text="@string/title_about" />
 
 </LinearLayout>

@@ -6,10 +6,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.imhanjie.support.ext.toActivity
 import com.imhanjie.v2ex.AppSession
 import com.imhanjie.v2ex.BaseLazyFragment
 import com.imhanjie.v2ex.R
 import com.imhanjie.v2ex.databinding.FragmentTabMeBinding
+import com.imhanjie.v2ex.view.FavoriteTopicsActivity
 import com.imhanjie.v2ex.view.MemberActivity
 import com.imhanjie.v2ex.vm.MeTabViewModel
 
@@ -37,19 +39,7 @@ class MeTabFragment : BaseLazyFragment<FragmentTabMeBinding>() {
             vb.tvMoneyBronze.text = it.moneyBronze.toString()
         }
         vb.viewUserInfo.setOnClickListener { MemberActivity.start(this, vb.tvUserName.text.toString()) }
-        // 我收藏的主题
-        // 我屏蔽的人
-        // 切换皮肤
-        // 设置
-        // 关于
-    }
-
-    private fun loadAvatar(url: String) {
-        Glide.with(this)
-            .load(url)
-            .placeholder(ContextCompat.getDrawable(requireContext(), R.drawable.default_avatar))
-            .transform(CircleCrop())
-            .into(vb.ivUserAvatar)
+        vb.viewFavoriteTopics.setOnClickListener { toActivity<FavoriteTopicsActivity>() }
     }
 
     override fun onFirstResume() {
