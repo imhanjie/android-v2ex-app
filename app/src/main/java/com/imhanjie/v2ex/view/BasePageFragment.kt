@@ -44,9 +44,9 @@ abstract class BasePageFragment<VM : BasePageViewModel> : BaseFragment<FragmentB
         registerAdapter(delegate.adapter)
         vm.pageData.observe(viewLifecycleOwner) {
             val (dataList, hasMore) = it
-            vb.swipeRefreshLayout.isRefreshing = false
             if (dataList.isEmpty()) {
                 vb.loadingLayout.update(LoadingWrapLayout.Status.EMPTY, getEmptyTips())
+                vb.swipeRefreshLayout.isRefreshing = false
             } else {
                 vb.loadingLayout.update(LoadingWrapLayout.Status.DONE)
                 delegate.apply {
@@ -55,6 +55,13 @@ abstract class BasePageFragment<VM : BasePageViewModel> : BaseFragment<FragmentB
                     items.addAll(dataList)
                     diffResult.dispatchUpdatesTo(adapter)
                     notifyLoadSuccess(hasMore)
+                }
+                // 下拉刷新完回到顶部
+                if (vb.swipeRefreshLayout.isRefreshing) {
+                    vb.swipeRefreshLayout.isRefreshing = false
+                    vb.rv.post {
+                        vb.rv.smoothScrollToPosition(0)
+                    }
                 }
             }
         }

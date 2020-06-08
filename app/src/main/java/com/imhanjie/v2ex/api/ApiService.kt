@@ -42,7 +42,7 @@ interface ApiService {
         @FieldMap fields: Map<String, String>
     ): RestfulResult<LoginInfo>
 
-    @GET("/settings")
+    @GET("/settings/privacy")
     suspend fun loadMyUserInfo(): RestfulResult<MyUserInfo>
 
     @GET("/planes")
