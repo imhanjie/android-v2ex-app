@@ -42,7 +42,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "com.imhanjie.library:android-utils:0.1.9"
+    implementation "com.imhanjie.library:android-utils:0.1.10"
     api "androidx.recyclerview:recyclerview:1.1.0"
     api 'com.drakeet.multitype:multitype:4.2.0'
     api 'androidx.viewpager2:viewpager2:1.0.0'

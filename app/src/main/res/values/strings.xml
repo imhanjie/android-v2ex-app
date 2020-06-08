@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">V2EX</string>
+    <string name="app_github_repo_url">https://github.com/imhanjie/android-v2ex-app</string>
+    <string name="app_about_version">版本号：%1$s  ( Build %2$d )</string>
     <string name="tab_main">首页</string>
     <string name="tab_node">节点</string>
     <string name="tab_notification">消息</string>
@@ -40,4 +42,7 @@
     <string name="title_member_replies">TA 的回复</string>
     <string name="title_settings">设置</string>
     <string name="title_about">关于</string>
+    <string name="view_source_code">查看开放源代码</string>
+    <string name="cancel">取消</string>
+    <string name="coming_soon">暂未开放</string>
 </resources>

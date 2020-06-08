@@ -7,12 +7,14 @@ import androidx.lifecycle.observe
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.imhanjie.support.ext.toActivity
+import com.imhanjie.support.ext.toast
 import com.imhanjie.v2ex.AppSession
 import com.imhanjie.v2ex.BaseLazyFragment
 import com.imhanjie.v2ex.R
 import com.imhanjie.v2ex.databinding.FragmentTabMeBinding
 import com.imhanjie.v2ex.view.FavoriteTopicsActivity
 import com.imhanjie.v2ex.view.MemberActivity
+import com.imhanjie.v2ex.view.widget.AboutDialog
 import com.imhanjie.v2ex.vm.MeTabViewModel
 
 class MeTabFragment : BaseLazyFragment<FragmentTabMeBinding>() {
@@ -33,6 +35,8 @@ class MeTabFragment : BaseLazyFragment<FragmentTabMeBinding>() {
             }
             viewFavoriteTopics.setOnClickListener { this@MeTabFragment.toActivity<FavoriteTopicsActivity>() }
             viewUserInfo.setOnClickListener { MemberActivity.start(this@MeTabFragment, tvUserName.text.toString()) }
+            viewSettings.setOnClickListener { toast(R.string.coming_soon) }
+            viewAbout.setOnClickListener { AboutDialog(requireContext()).show() }
         }
 
         vm.loadState.observe(this) {
