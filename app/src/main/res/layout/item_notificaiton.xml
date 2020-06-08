@@ -11,7 +11,7 @@
         android:id="@+id/iv_user_avatar"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:src="@mipmap/ic_launcher_round"
+        android:src="@mipmap/ic_launcher"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />
