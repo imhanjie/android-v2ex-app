@@ -38,7 +38,6 @@
     <string name="tips_un_follow_member_success">已取消关注用户</string>
     <string name="title_member_topics">TA 的主题</string>
     <string name="title_member_replies">TA 的回复</string>
-    <string name="title_block_members">我屏蔽的用户</string>
     <string name="title_settings">设置</string>
     <string name="title_about">关于</string>
 </resources>

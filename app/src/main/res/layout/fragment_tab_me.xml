@@ -117,13 +117,6 @@
             android:text="@string/title_favorite_topics" />
 
         <TextView
-            android:id="@+id/view_block_members"
-            style="@style/MeTabMenuText"
-            android:background="@drawable/widget_ripple"
-            android:drawableStart="@drawable/ic_menu_block"
-            android:text="@string/title_block_members" />
-
-        <TextView
             android:id="@+id/view_settings"
             style="@style/MeTabMenuText"
             android:layout_marginTop="16dp"
