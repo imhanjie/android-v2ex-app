@@ -2,35 +2,33 @@ package com.imhanjie.v2ex.view.fragment
 
 import android.os.Bundle
 import androidx.core.os.bundleOf
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.SimpleItemAnimator
 import com.drakeet.multitype.MultiTypeAdapter
-import com.imhanjie.support.ext.dpi
 import com.imhanjie.support.ext.toActivity
-import com.imhanjie.v2ex.BaseFragment
 import com.imhanjie.v2ex.api.model.TopicItem
-import com.imhanjie.v2ex.common.*
-import com.imhanjie.v2ex.databinding.FragmentTabBinding
+import com.imhanjie.v2ex.common.MissingArgumentException
+import com.imhanjie.v2ex.common.TopicTab
+import com.imhanjie.v2ex.common.ViewModelProvider
+import com.imhanjie.v2ex.common.valueIsNull
+import com.imhanjie.v2ex.view.BasePageFragment
 import com.imhanjie.v2ex.view.TopicActivity
 import com.imhanjie.v2ex.view.adapter.TopicAdapter
 import com.imhanjie.v2ex.view.adapter.diff.TopicDiffCallback
 import com.imhanjie.v2ex.vm.TabViewModel
-import com.imhanjie.widget.LineDividerItemDecoration
-import com.imhanjie.widget.LoadingWrapLayout
 
-class TabFragment : BaseFragment<FragmentTabBinding>() {
+class TabFragment : BasePageFragment<TabViewModel>() {
 
-    private lateinit var vm: TabViewModel
-    private val items = arrayListOf<TopicItem>()
+    override fun autoLoadDataList(): Boolean {
+        return false
+    }
 
-    override fun initViewModels() = listOf(vm)
+    override fun initViews() {
+        super.initViews()
+        globalViewModel.ignoreTopic.observe(viewLifecycleOwner) { id -> vm.removeTopic(id) }
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
+    override fun getViewModel(): TabViewModel {
         val tab = arguments?.getSerializable("tab") as? TopicTab
             ?: throw MissingArgumentException("tab")
         /**
@@ -38,70 +36,28 @@ class TabFragment : BaseFragment<FragmentTabBinding>() {
          * 这样可以保证在 Activity 的生命周期内，每个 Tab Fragment 的不同实例都能一直对应一个 ViewModel，
          * 即可忽略 ViewPager 的 Fragment 回收导致的数据重新加载问题。
          */
-        vm = ViewModelProvider(requireActivity()).get(tab.value, TabViewModel::class.java)
-        if (vm.topic.valueIsNull()) {   // 首次初始化
-            vm.tab = tab
+        return ViewModelProvider(requireActivity(), key = tab.value) {
+            TabViewModel(tab, requireActivity().application)
         }
     }
 
-    override fun initViews() {
-        vb.loadingLayout.update(LoadingWrapLayout.Status.LOADING)
+    override fun getDiffCallback(oldItems: List<Any>, newItems: List<Any>): DiffUtil.Callback {
+        return TopicDiffCallback(oldItems, newItems)
+    }
 
-        vb.topicRv.layoutManager = LinearLayoutManager(context)
-        (vb.topicRv.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
-        vb.topicRv.addItemDecoration(
-            LineDividerItemDecoration(
-                requireContext(),
-                height = 4.dpi
-            )
-        )
-
-        val adapter = MultiTypeAdapter(items)
+    override fun registerAdapter(adapter: MultiTypeAdapter) {
         val topicAdapter = TopicAdapter().apply {
             onItemClickListener = { _, item, _ ->
                 this@TabFragment.toActivity<TopicActivity>(bundleOf("topicId" to item.id))
             }
         }
-        adapter.apply {
-            register(TopicItem::class.java, topicAdapter)
-        }
-        vb.topicRv.adapter = adapter
-        vm.topic.observe(viewLifecycleOwner) {
-            vb.loadingLayout.update(LoadingWrapLayout.Status.DONE)
-            vb.swipeRefreshLayout.isRefreshing = false
-
-            val (topics, diff) = it
-            if (!diff) {
-                items.clear()
-                items.addAll(topics)
-                adapter.notifyDataSetChanged()
-            } else {
-                val diffResult = DiffUtil.calculateDiff(TopicDiffCallback(items, topics))
-                items.clear()
-                items.addAll(topics)
-                diffResult.dispatchUpdatesTo(adapter)
-            }
-        }
-
-        vb.swipeRefreshLayout.setOnRefreshListener { vm.loadTopics() }
-
-        globalViewModel.ignoreTopic.observe(viewLifecycleOwner) { topicId ->
-            vm.removeItem(topicId)
-        }
-
-        LiveDataBus.get()
-            .with(Event.MAIN_SCROLL_TO_TOP, Any::class.java)
-            .observe(viewLifecycleOwner) {
-                if (isResumed) {
-                    vb.topicRv.smoothScrollToPosition(0)
-                }
-            }
+        adapter.register(TopicItem::class.java, topicAdapter)
     }
 
     override fun onResume() {
         super.onResume()
-        if (vm.topic.valueIsNull()) {   // 首次初始化
-            vm.loadTopics()
+        if (vm.pageData.valueIsNull()) {   // 首次初始化
+            vm.loadDataList(false)
         }
     }
 

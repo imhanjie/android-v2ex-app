@@ -62,9 +62,12 @@ class NodeTabFragment : BaseLazyFragment<FragmentTabNodeBinding>() {
         }
         vb.rv.adapter = adapter
 
+        vm.loadState.observe(this) {
+            vb.swipeRefreshLayout.isRefreshing = false
+        }
+
         vm.nodes.observe(this) {
             vb.loadingLayout.update(LoadingWrapLayout.Status.DONE)
-            vb.swipeRefreshLayout.isRefreshing = false
             items.clear()
             items.addAll(it)
             adapter.notifyDataSetChanged()

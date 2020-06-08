@@ -27,24 +27,31 @@ class MeTabFragment : BaseLazyFragment<FragmentTabMeBinding>() {
     }
 
     override fun initViews() {
-        vb.swipeRefreshLayout.setOnRefreshListener {
-            vm.loadMyUserInfo()
+        with(vb) {
+            swipeRefreshLayout.setOnRefreshListener {
+                vm.loadMyUserInfo()
+            }
+            viewFavoriteTopics.setOnClickListener { this@MeTabFragment.toActivity<FavoriteTopicsActivity>() }
+            viewUserInfo.setOnClickListener { MemberActivity.start(this@MeTabFragment, tvUserName.text.toString()) }
         }
 
-        AppSession.getUserInfo().observe(viewLifecycleOwner) {
+        vm.loadState.observe(this) {
             vb.swipeRefreshLayout.isRefreshing = false
-            vb.tvUserName.text = it.userName
-            Glide.with(this)
-                .load(it.userAvatar)
-                .placeholder(ContextCompat.getDrawable(requireContext(), R.drawable.default_avatar))
-                .transform(CircleCrop())
-                .into(vb.ivUserAvatar)
-            vb.tvMoneyGold.text = it.moneyGold.toString()
-            vb.tvMoneySilver.text = it.moneySilver.toString()
-            vb.tvMoneyBronze.text = it.moneyBronze.toString()
         }
-        vb.viewUserInfo.setOnClickListener { MemberActivity.start(this, vb.tvUserName.text.toString()) }
-        vb.viewFavoriteTopics.setOnClickListener { toActivity<FavoriteTopicsActivity>() }
+
+        AppSession.getUserInfo().observe(viewLifecycleOwner) { info ->
+            with(vb) {
+                tvUserName.text = info.userName
+                Glide.with(this@MeTabFragment)
+                    .load(info.userAvatar)
+                    .placeholder(ContextCompat.getDrawable(requireContext(), R.drawable.default_avatar))
+                    .transform(CircleCrop())
+                    .into(ivUserAvatar)
+                tvMoneyGold.text = info.moneyGold.toString()
+                tvMoneySilver.text = info.moneySilver.toString()
+                tvMoneyBronze.text = info.moneyBronze.toString()
+            }
+        }
     }
 
     override fun onFirstResume() {

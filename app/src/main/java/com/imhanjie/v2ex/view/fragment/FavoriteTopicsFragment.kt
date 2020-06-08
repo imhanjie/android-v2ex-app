@@ -17,7 +17,7 @@ class FavoriteTopicsFragment : BasePageFragment<FavoriteTopicsViewModel>() {
 
     override fun initViews() {
         super.initViews()
-        globalViewModel.unFavoriteTopic.observe(this) { id -> vm.removeTopic(id) }
+        globalViewModel.unFavoriteTopic.observe(viewLifecycleOwner) { id -> vm.removeTopic(id) }
     }
 
     override fun getViewModel(): FavoriteTopicsViewModel {
