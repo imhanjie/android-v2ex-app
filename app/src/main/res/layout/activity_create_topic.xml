@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.imhanjie.widget.PureTopBar
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        app:widget_bar_rightText="预览"
+        app:widget_bar_rightVisibility="visible"
+        app:widget_bar_titleText="创建新主题" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/topic_title"
+            android:textColor="@color/widget_text_1"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/et_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_create_topic_input"
+            android:gravity="top"
+            android:hint="@string/hint_create_topic_title"
+            android:lineSpacingExtra="4dp"
+            android:padding="16dp"
+            android:textColor="@color/widget_text_1"
+            android:textColorHint="@color/widget_text_4"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/topic_content"
+            android:textColor="@color/widget_text_1"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/et_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_create_topic_input"
+            android:gravity="top"
+            android:hint="@string/hint_create_topic_content"
+            android:lineSpacingExtra="4dp"
+            android:padding="16dp"
+            android:textColor="@color/widget_text_1"
+            android:textColorHint="@color/widget_text_4"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

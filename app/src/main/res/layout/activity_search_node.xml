@@ -9,13 +9,21 @@
         android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/widget_background_2"
-        app:widget_bar_leftVisibility="invisible"
-        app:widget_bar_rightVisibility="visible"
-        app:widget_bar_titleText="消息" />
+        android:background="@android:color/white"
+        app:widget_bar_titleText="搜索节点" />
 
-    <FrameLayout
-        android:id="@+id/list_container"
+    <EditText
+        android:id="@+id/et_search"
+        style="@style/WidgetSearchBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:hint="@string/hint_search_node"
+        android:imeOptions="actionNone" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_nodes"
+        style="@style/WidgetScrollbarStyle"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

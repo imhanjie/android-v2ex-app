@@ -9,8 +9,8 @@ import com.imhanjie.v2ex.common.valueIsNull
 import com.imhanjie.v2ex.databinding.FragmentBasePageBinding
 import com.imhanjie.v2ex.vm.BasePageViewModel
 import com.imhanjie.v2ex.vm.BaseViewModel
-import com.imhanjie.widget.LineDividerItemDecoration
 import com.imhanjie.widget.LoadingWrapLayout
+import com.imhanjie.widget.recyclerview.SpaceItemDecoration
 import com.imhanjie.widget.recyclerview.loadmore.LoadMoreDelegate
 
 abstract class BasePageFragment<VM : BasePageViewModel> : BaseFragment<FragmentBasePageBinding>() {
@@ -35,7 +35,7 @@ abstract class BasePageFragment<VM : BasePageViewModel> : BaseFragment<FragmentB
         vb.swipeRefreshLayout.setOnRefreshListener {
             vm.loadDataList(loadMore = false)
         }
-        vb.rv.addItemDecoration(LineDividerItemDecoration(requireContext(), height = 4.dpi))
+        vb.rv.addItemDecoration(SpaceItemDecoration(4.dpi, 0, 0))
         val delegate = LoadMoreDelegate(vb.rv) {
             vm.loadDataList(loadMore = true)
         }

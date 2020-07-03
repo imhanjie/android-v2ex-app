@@ -13,6 +13,7 @@ import com.imhanjie.support.PreferencesManager
 import com.imhanjie.support.e
 import com.imhanjie.support.ext.toast
 import com.imhanjie.v2ex.common.GlobalViewModel
+import com.imhanjie.v2ex.common.SpConstants
 import com.imhanjie.v2ex.vm.BaseViewModel
 import com.imhanjie.widget.dialog.PureLoadingDialog
 import java.lang.reflect.ParameterizedType
@@ -21,7 +22,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
     protected lateinit var vb: VB
 
-    protected val configSp: PreferencesManager = PreferencesManager.getInstance("app_config")
+    protected val configSp: PreferencesManager = PreferencesManager.getInstance(SpConstants.FILE_APP_CONFIG)
     protected lateinit var loadingDialog: PureLoadingDialog
     protected lateinit var globalViewModel: GlobalViewModel
 

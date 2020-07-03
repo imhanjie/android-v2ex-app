@@ -7,6 +7,7 @@ import com.imhanjie.v2ex.api.ApiService
 import com.imhanjie.v2ex.api.model.*
 import com.imhanjie.v2ex.common.BizException
 import com.imhanjie.v2ex.common.TopicTab
+import com.imhanjie.v2ex.model.SearchNode
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.InputStream
@@ -81,6 +82,10 @@ object AppRepositoryImpl : AppRepository {
         return api.loadAllNode().extract()
     }
 
+    override suspend fun loadAllNodeForSearch(): List<SearchNode> {
+        return api.loadAllNodeForSearch()
+    }
+
     override suspend fun favoriteNode(nodeId: Long, once: String): Any {
         return api.favoriteNode(nodeId, once).extract()
     }
@@ -151,6 +156,10 @@ object AppRepositoryImpl : AppRepository {
 
     override suspend fun loadMemberReplies(userName: String, pageIndex: Int): MemberReplies {
         return api.loadMemberReplies(userName, pageIndex).extract()
+    }
+
+    override suspend fun previewTopicContent(content: String): String {
+        return api.previewTopicContent(content)
     }
 
 }

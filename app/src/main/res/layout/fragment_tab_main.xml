@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -18,9 +19,10 @@
             android:elevation="0dp"
             app:layout_scrollFlags="scroll|enterAlways"
             app:widget_bar_leftVisibility="invisible"
-            app:widget_bar_rightText="Switch"
-            app:widget_bar_rightVisibility="visible"
-            app:widget_bar_titleText="V2EX" />
+            app:widget_bar_rightIcon="@drawable/ic_create_topic"
+            app:widget_bar_rightVisibility="invisible"
+            app:widget_bar_titleText="V2EX"
+            tools:widget_bar_rightVisibility="visible" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
@@ -36,11 +38,6 @@
             app:tabSelectedTextColor="@color/widget_text_1"
             app:tabTextAppearance="@style/CommandTabLayoutText"
             app:tabTextColor="@color/widget_text_4" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/tab_layout_divider" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

@@ -45,4 +45,9 @@
     <string name="view_source_code">查看开放源代码</string>
     <string name="cancel">取消</string>
     <string name="coming_soon">暂未开放</string>
+    <string name="hint_search_node">输入节点名搜索</string>
+    <string name="topic_title">标题</string>
+    <string name="topic_content">正文</string>
+    <string name="hint_create_topic_title">如果标题能够表达完整内容，则正文可以为空</string>
+    <string name="hint_create_topic_content">请输入正文</string>
 </resources>

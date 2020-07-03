@@ -12,6 +12,7 @@ import com.imhanjie.support.ext.getResColor
 import com.imhanjie.support.ext.toast
 import com.imhanjie.support.statusbar.StatusBarUtil
 import com.imhanjie.v2ex.common.GlobalViewModel
+import com.imhanjie.v2ex.common.SpConstants
 import com.imhanjie.v2ex.vm.BaseViewModel
 import com.imhanjie.widget.dialog.PureLoadingDialog
 import java.lang.reflect.ParameterizedType
@@ -20,7 +21,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
 
     protected lateinit var vb: VB
 
-    private val configSp: PreferencesManager = PreferencesManager.getInstance("app_config")
+    private val configSp: PreferencesManager = PreferencesManager.getInstance(SpConstants.FILE_APP_CONFIG)
     protected lateinit var loadingDialog: PureLoadingDialog
     protected lateinit var globalViewModel: GlobalViewModel
 
@@ -46,7 +47,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
 
         globalViewModel = ViewModelProvider(applicationContext as App).get(GlobalViewModel::class.java)
 
-        when (configSp.getInt("ui_mode", AppCompatDelegate.MODE_NIGHT_NO)) {
+        when (configSp.getInt(SpConstants.UI_MODE, AppCompatDelegate.MODE_NIGHT_NO)) {
             AppCompatDelegate.MODE_NIGHT_NO -> {
                 StatusBarUtil.setLightMode(this)
             }

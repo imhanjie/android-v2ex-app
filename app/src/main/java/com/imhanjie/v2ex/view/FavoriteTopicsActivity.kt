@@ -15,8 +15,7 @@ class FavoriteTopicsActivity : BaseActivity<ActivityFavoriteTopicsBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val preFragment = supportFragmentManager.findFragmentById(R.id.list_container)
-        if (preFragment == null) {
+        if (supportFragmentManager.findFragmentById(R.id.list_container) == null) {
             supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.list_container, FavoriteTopicsFragment())

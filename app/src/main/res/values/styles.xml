@@ -7,6 +7,10 @@
         <item name="android:windowBackground">@color/widget_background_2</item>
     </style>
 
+    <style name="BasicAppTheme.WhiteWindow">
+        <item name="android:windowBackground">@color/widget_background_1</item>
+    </style>
+
     <style name="CommandTabLayoutText" parent="TextAppearance.Design.Tab">
         <item name="textAllCaps">false</item>
     </style>

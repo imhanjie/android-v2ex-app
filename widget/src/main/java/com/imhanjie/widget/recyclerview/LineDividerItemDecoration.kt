@@ -1,4 +1,4 @@
-package com.imhanjie.widget
+package com.imhanjie.widget.recyclerview
 
 import android.content.Context
 import android.graphics.Canvas
@@ -8,7 +8,6 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.view.View
 import androidx.annotation.ColorInt
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
 open class LineDividerItemDecoration @JvmOverloads constructor(

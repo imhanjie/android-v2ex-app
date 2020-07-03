@@ -1,6 +1,7 @@
 package com.imhanjie.v2ex.repository
 
 import com.imhanjie.v2ex.api.model.*
+import com.imhanjie.v2ex.model.SearchNode
 import java.io.InputStream
 
 interface AppRepository {
@@ -20,6 +21,8 @@ interface AppRepository {
     suspend fun loadMyUserInfo(): MyUserInfo
 
     suspend fun loadAllNode(): List<TinyNode>
+
+    suspend fun loadAllNodeForSearch(): List<SearchNode>
 
     suspend fun favoriteNode(nodeId: Long, once: String): Any
 
@@ -54,5 +57,7 @@ interface AppRepository {
     suspend fun loadMemberTopics(userName: String, pageIndex: Int): MemberTopics
 
     suspend fun loadMemberReplies(userName: String, pageIndex: Int): MemberReplies
+
+    suspend fun previewTopicContent(content: String): String
 
 }

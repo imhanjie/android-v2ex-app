@@ -10,14 +10,7 @@ import com.imhanjie.v2ex.common.SpConstants
 
 object AppSession {
 
-    /**
-     * 登录状态
-     */
-    private val loginStateLiveData = MutableLiveData<Boolean>()
-
-    fun getLoginState() = loginStateLiveData as LiveData<Boolean>
-
-    private val userInfo = MutableLiveData(
+    private val userInfoLiveData = MutableLiveData(
         PreferencesManager.getInstance(SpConstants.FILE_APP_SESSION).run {
             LocalUserInfo(
                 getString(SpConstants.USER_NAME, ""),
@@ -30,11 +23,17 @@ object AppSession {
         }
     )
 
-    fun getUserInfo() = userInfo as LiveData<LocalUserInfo>
+    fun getUserInfo() = userInfoLiveData as LiveData<LocalUserInfo>
+
+    private val loginStateLiveData = MutableLiveData<Boolean>(isLogin())
+
+    fun getLoginState() = loginStateLiveData as LiveData<Boolean>
+
+    fun isLogin() = getUserInfo().value!!.a2Cookie.isNotEmpty()
 
     fun setOrUpdateUserInfo(info: MyUserInfo) {
         setOrUpdateUserInfo(
-            this.userInfo.value!!.copy(
+            this.userInfoLiveData.value!!.copy(
                 userName = info.name,
                 userAvatar = info.avatar,
                 moneyGold = info.moneyGold,
@@ -47,7 +46,7 @@ object AppSession {
     fun setOrUpdateUserInfo(userInfo: LocalUserInfo) {
         e("分发 userInfo 更新")
         val preIsLogin = isLogin()
-        this.userInfo.value = userInfo
+        this.userInfoLiveData.value = userInfo
         PreferencesManager.getInstance(SpConstants.FILE_APP_SESSION).apply {
             putString(SpConstants.USER_NAME, userInfo.userName)
             putString(SpConstants.USER_AVATAR, userInfo.userAvatar)
@@ -64,11 +63,9 @@ object AppSession {
         }
     }
 
-    fun isLogin() = getUserInfo().value!!.a2Cookie.isNotEmpty()
-
     fun clear() {
         val preIsLogin = isLogin()
-        this.userInfo.value = LocalUserInfo.EMPTY
+        this.userInfoLiveData.value = LocalUserInfo.EMPTY
         PreferencesManager.getInstance(SpConstants.FILE_APP_SESSION).clearAll()
         // 状态发生变更时才进行分发登录状态
         if (preIsLogin) {

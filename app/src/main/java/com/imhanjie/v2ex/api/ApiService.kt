@@ -1,6 +1,7 @@
 package com.imhanjie.v2ex.api
 
 import com.imhanjie.v2ex.api.model.*
+import com.imhanjie.v2ex.model.SearchNode
 import okhttp3.ResponseBody
 import retrofit2.http.*
 
@@ -47,6 +48,9 @@ interface ApiService {
 
     @GET("/planes")
     suspend fun loadAllNode(): RestfulResult<List<TinyNode>>
+
+    @GET("/api/nodes/s2.json")
+    suspend fun loadAllNodeForSearch(): List<SearchNode>
 
     @GET("/favorite/node/{node_id}")
     suspend fun favoriteNode(
@@ -141,5 +145,11 @@ interface ApiService {
         @Path("user_name") userName: String,
         @Query("p") pageIndex: Int
     ): RestfulResult<MemberReplies>
+
+    @POST("/preview/markdown")
+    @FormUrlEncoded
+    suspend fun previewTopicContent(
+        @Field("md") content: String
+    ): String
 
 }

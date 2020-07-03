@@ -19,7 +19,7 @@ import com.imhanjie.v2ex.view.adapter.SubtleAdapter
 import com.imhanjie.v2ex.view.adapter.TopicDetailsAdapter
 import com.imhanjie.v2ex.vm.BaseViewModel
 import com.imhanjie.v2ex.vm.TopicViewModel
-import com.imhanjie.widget.LineDividerItemDecoration
+import com.imhanjie.widget.recyclerview.LineDividerItemDecoration
 import com.imhanjie.widget.LoadingWrapLayout
 import com.imhanjie.widget.dialog.PureAlertDialog
 import com.imhanjie.widget.dialog.PureListMenuDialog
