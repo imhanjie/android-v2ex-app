@@ -1,11 +1,9 @@
 package com.imhanjie.v2ex.view.fragment
 
-import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.GridLayoutManager
 import com.drakeet.multitype.MultiTypeAdapter
-import com.imhanjie.support.ext.toActivity
 import com.imhanjie.v2ex.AppSession
 import com.imhanjie.v2ex.BaseLazyFragment
 import com.imhanjie.v2ex.api.model.TinyNode
@@ -43,12 +41,7 @@ class NodeTabFragment : BaseLazyFragment<FragmentTabNodeBinding>() {
             register(String::class.java, NodeTypeAdapter())
             register(TinyNode::class.java, NodeItemAdapter().apply {
                 onItemClickListener = { _, item, _ ->
-                    this@NodeTabFragment.toActivity<NodeActivity>(
-                        bundleOf(
-                            "title" to item.title,
-                            "name" to item.name
-                        )
-                    )
+                    NodeActivity.start(this@NodeTabFragment, item.title, item.name)
                 }
             })
         }

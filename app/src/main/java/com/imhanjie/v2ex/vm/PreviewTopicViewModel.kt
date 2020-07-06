@@ -6,9 +6,14 @@ import com.imhanjie.v2ex.repository.provideAppRepository
 
 class PreviewTopicViewModel(application: Application) : BaseViewModel(application) {
 
-    fun previewContent(content: String) = request {
-        val result = provideAppRepository().previewTopicContent(content)
-        e("preview: $result")
+    fun previewContent(content: String) {
+        if (content.isEmpty()) {
+            return
+        }
+        request {
+            val result = provideAppRepository().previewTopicContent(content)
+            e("preview: $result")
+        }
     }
 
 }

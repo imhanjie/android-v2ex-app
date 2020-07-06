@@ -2,13 +2,16 @@ package com.imhanjie.v2ex.view
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.lifecycle.observe
 import com.imhanjie.support.ext.dp
+import com.imhanjie.support.ext.toActivity
 import com.imhanjie.support.ext.toast
 import com.imhanjie.v2ex.BaseActivity
 import com.imhanjie.v2ex.R
 import com.imhanjie.v2ex.api.model.Reply
 import com.imhanjie.v2ex.api.model.Topic
+import com.imhanjie.v2ex.common.ExtraKeys
 import com.imhanjie.v2ex.common.MissingArgumentException
 import com.imhanjie.v2ex.common.ViewModelProvider
 import com.imhanjie.v2ex.databinding.ActivityTopicBinding
@@ -19,19 +22,30 @@ import com.imhanjie.v2ex.view.adapter.SubtleAdapter
 import com.imhanjie.v2ex.view.adapter.TopicDetailsAdapter
 import com.imhanjie.v2ex.vm.BaseViewModel
 import com.imhanjie.v2ex.vm.TopicViewModel
-import com.imhanjie.widget.recyclerview.LineDividerItemDecoration
 import com.imhanjie.widget.LoadingWrapLayout
 import com.imhanjie.widget.dialog.PureAlertDialog
 import com.imhanjie.widget.dialog.PureListMenuDialog
+import com.imhanjie.widget.recyclerview.LineDividerItemDecoration
 import com.imhanjie.widget.recyclerview.loadmore.LoadMoreDelegate
 
 class TopicActivity : BaseActivity<ActivityTopicBinding>() {
 
     private lateinit var vm: TopicViewModel
 
+    companion object {
+        fun start(from: Any, topicId: Long, fromFavoriteTopics: Boolean = false) {
+            from.toActivity<TopicActivity>(
+                bundleOf(
+                    ExtraKeys.TOPIC_ID to topicId,
+                    ExtraKeys.FROM_FAVORITE_TOPICS to fromFavoriteTopics
+                )
+            )
+        }
+    }
+
     @Suppress("UNCHECKED_CAST")
     override fun initViewModels(): List<BaseViewModel> {
-        val topicId: Long = intent.getLongExtra("topicId", -1)
+        val topicId: Long = intent.getLongExtra(ExtraKeys.TOPIC_ID, -1)
         if (topicId < 0) {
             throw MissingArgumentException("topicId")
         }
@@ -53,7 +67,7 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
             register(Topic::class.java, TopicDetailsAdapter())
             register(Topic.Subtle::class.java, SubtleAdapter())
             register(Reply::class.java, ReplyAdapter().apply {
-                onItemClickListener = { holder, item, position ->
+                onItemClickListener = { _, item, _ ->
                     showReplyMenuDialog(item)
                 }
             })
@@ -116,7 +130,7 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
         vm.unFavoriteState.observe(this) { success ->
             if (success) {
                 toast(R.string.tips_un_favorite_success)
-                if (intent.getBooleanExtra("from_favorite_topics", false)) {
+                if (intent.getBooleanExtra(ExtraKeys.FROM_FAVORITE_TOPICS, false)) {
                     finish()
                 }
                 globalViewModel.unFavoriteTopic.value = vm.topicId

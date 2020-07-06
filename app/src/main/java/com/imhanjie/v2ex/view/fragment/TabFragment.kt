@@ -1,11 +1,9 @@
 package com.imhanjie.v2ex.view.fragment
 
 import android.os.Bundle
-import androidx.core.os.bundleOf
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DiffUtil
 import com.drakeet.multitype.MultiTypeAdapter
-import com.imhanjie.support.ext.toActivity
 import com.imhanjie.v2ex.api.model.TopicItem
 import com.imhanjie.v2ex.common.MissingArgumentException
 import com.imhanjie.v2ex.common.TopicTab
@@ -48,7 +46,7 @@ class TabFragment : BasePageFragment<TabViewModel>() {
     override fun registerAdapter(adapter: MultiTypeAdapter) {
         val topicAdapter = TopicAdapter().apply {
             onItemClickListener = { _, item, _ ->
-                this@TabFragment.toActivity<TopicActivity>(bundleOf("topicId" to item.id))
+                TopicActivity.start(this@TabFragment, item.id)
             }
         }
         adapter.register(TopicItem::class.java, topicAdapter)

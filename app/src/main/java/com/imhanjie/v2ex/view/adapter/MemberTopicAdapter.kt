@@ -1,7 +1,5 @@
 package com.imhanjie.v2ex.view.adapter
 
-import androidx.core.os.bundleOf
-import com.imhanjie.support.ext.toActivity
 import com.imhanjie.v2ex.R
 import com.imhanjie.v2ex.api.model.TopicItem
 import com.imhanjie.v2ex.databinding.ItemMemberTopicBinding
@@ -21,12 +19,7 @@ class MemberTopicAdapter : BaseItemViewDelegate<TopicItem, ItemMemberTopicBindin
             }
             tvNodeTitle.text = item.nodeTitle
             tvNodeTitle.setOnClickListener {
-                ctx.toActivity<NodeActivity>(
-                    bundleOf(
-                        "title" to item.nodeTitle,
-                        "name" to item.nodeName
-                    )
-                )
+                NodeActivity.start(ctx, item.nodeTitle, item.nodeName)
             }
         }
     }

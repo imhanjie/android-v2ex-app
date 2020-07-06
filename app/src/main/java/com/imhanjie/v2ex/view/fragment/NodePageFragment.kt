@@ -1,10 +1,8 @@
 package com.imhanjie.v2ex.view.fragment
 
-import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DiffUtil
 import com.drakeet.multitype.MultiTypeAdapter
-import com.imhanjie.support.ext.toActivity
 import com.imhanjie.v2ex.api.model.TopicItem
 import com.imhanjie.v2ex.view.BasePageFragment
 import com.imhanjie.v2ex.view.TopicActivity
@@ -29,7 +27,7 @@ class NodePageFragment : BasePageFragment<NodeViewModel>() {
     override fun registerAdapter(adapter: MultiTypeAdapter) {
         val topicAdapter = TopicAdapter().apply {
             onItemClickListener = { _, item, _ ->
-                this@NodePageFragment.toActivity<TopicActivity>(bundleOf("topicId" to item.id))
+                TopicActivity.start(this@NodePageFragment, item.id)
             }
         }
         adapter.register(TopicItem::class.java, topicAdapter)

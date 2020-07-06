@@ -2,10 +2,8 @@ package com.imhanjie.v2ex.view.adapter
 
 import android.view.View
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
-import com.imhanjie.support.ext.toActivity
 import com.imhanjie.v2ex.R
 import com.imhanjie.v2ex.api.model.Topic
 import com.imhanjie.v2ex.databinding.ItemTopicDetailsBinding
@@ -31,12 +29,7 @@ class TopicDetailsAdapter : BaseItemViewDelegate<Topic, ItemTopicDetailsBinding>
             content.visibility = if (item.richContent.isEmpty()) View.GONE else View.VISIBLE
 
             tvNodeTitle.setOnClickListener {
-                ctx.toActivity<NodeActivity>(
-                    bundleOf(
-                        "title" to item.nodeTitle,
-                        "name" to item.nodeName
-                    )
-                )
+                NodeActivity.start(ctx, item.nodeTitle, item.nodeName)
             }
 
             ivUserAvatar.setOnClickListener {

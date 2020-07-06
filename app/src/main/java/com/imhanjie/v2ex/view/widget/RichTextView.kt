@@ -11,10 +11,8 @@ import android.text.style.URLSpan
 import android.util.AttributeSet
 import android.view.View
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.core.os.bundleOf
 import androidx.core.text.HtmlCompat
 import cc.shinichi.library.ImagePreview
-import com.imhanjie.support.ext.toActivity
 import com.imhanjie.v2ex.api.support.RegexPattern
 import com.imhanjie.v2ex.view.MemberActivity
 import com.imhanjie.v2ex.view.NodeActivity
@@ -68,16 +66,14 @@ class RichTextView @JvmOverloads constructor(
                         } else {
                             clickUrl.split("?")[0].split("/").last().toLong()
                         }
-                        context.toActivity<TopicActivity>(
-                            bundleOf("topicId" to topicId)
-                        )
+                        TopicActivity.start(context, topicId)
                         return
                     } else if (RegexPattern.NODE_URL.matcher(clickUrl).find()) {
                         /*
                          * http://v2ex.com/go/Android
                          */
                         val nodeName = clickUrl.split("/").last()
-                        context.toActivity<NodeActivity>(bundleOf("name" to nodeName))
+                        NodeActivity.start(context, "", nodeName)
                         return
                     } else if (RegexPattern.MEMBER_URL.matcher(clickUrl).find()) {
                         /*

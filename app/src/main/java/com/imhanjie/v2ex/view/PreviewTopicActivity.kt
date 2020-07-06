@@ -5,6 +5,7 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import com.imhanjie.support.ext.toActivity
 import com.imhanjie.v2ex.BaseActivity
+import com.imhanjie.v2ex.common.ExtraKeys
 import com.imhanjie.v2ex.databinding.ActivityPreviewTopicBinding
 import com.imhanjie.v2ex.vm.BaseViewModel
 import com.imhanjie.v2ex.vm.PreviewTopicViewModel
@@ -20,22 +21,22 @@ class PreviewTopicActivity : BaseActivity<ActivityPreviewTopicBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val title = intent.getStringExtra("title") ?: ""
-        val content = intent.getStringExtra("content") ?: ""
-        val nodeTitle = intent.getStringExtra("nodeTitle") ?: ""
+        val title = intent.getStringExtra(ExtraKeys.TITLE) ?: ""
+        val content = intent.getStringExtra(ExtraKeys.CONTENT) ?: ""
+        val nodeTitle = intent.getStringExtra(ExtraKeys.NODE_TITLE) ?: ""
         vm.previewContent(content)
     }
 
     companion object {
         fun start(from: Any, title: String, content: String, nodeTitle: String) {
-            if (content.isEmpty()) {
+            if (title.isEmpty() && content.isEmpty()) {
                 return
             }
             from.toActivity<PreviewTopicActivity>(
                 bundleOf(
-                    "title" to title,
-                    "content" to content,
-                    "nodeTitle" to nodeTitle
+                    ExtraKeys.TITLE to title,
+                    ExtraKeys.CONTENT to content,
+                    ExtraKeys.NODE_TITLE to nodeTitle
                 )
             )
         }

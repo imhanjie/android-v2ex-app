@@ -1,10 +1,8 @@
 package com.imhanjie.v2ex.view.adapter
 
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
-import com.imhanjie.support.ext.toActivity
 import com.imhanjie.v2ex.R
 import com.imhanjie.v2ex.api.model.TopicItem
 import com.imhanjie.v2ex.databinding.ItemTopicBinding
@@ -31,12 +29,7 @@ class TopicAdapter : BaseItemViewDelegate<TopicItem, ItemTopicBinding>() {
             }
             tvNodeTitle.text = item.nodeTitle
             tvNodeTitle.setOnClickListener {
-                ctx.toActivity<NodeActivity>(
-                    bundleOf(
-                        "title" to item.nodeTitle,
-                        "name" to item.nodeName
-                    )
-                )
+                NodeActivity.start(ctx, item.nodeTitle, item.nodeName)
             }
             ivUserAvatar.setOnClickListener {
                 MemberActivity.start(ctx, item.userName)

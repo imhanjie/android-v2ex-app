@@ -16,6 +16,7 @@ import com.imhanjie.support.ext.toActivity
 import com.imhanjie.support.ext.toast
 import com.imhanjie.v2ex.BaseActivity
 import com.imhanjie.v2ex.R
+import com.imhanjie.v2ex.common.ExtraKeys
 import com.imhanjie.v2ex.common.MissingArgumentException
 import com.imhanjie.v2ex.common.ViewModelProvider
 import com.imhanjie.v2ex.databinding.ActivityMemberBinding
@@ -34,14 +35,13 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>() {
 
     companion object {
         fun start(from: Any, userName: String) {
-            from.toActivity<MemberActivity>(bundleOf("userName" to userName))
+            from.toActivity<MemberActivity>(bundleOf(ExtraKeys.USER_NAME to userName))
         }
     }
 
     @Suppress("UNCHECKED_CAST")
     override fun initViewModels(): List<BaseViewModel> {
-        userName = intent.getStringExtra("userName")
-            ?: throw MissingArgumentException("userName")
+        userName = intent.getStringExtra(ExtraKeys.USER_NAME) ?: throw MissingArgumentException("userName")
         vm = ViewModelProvider(this) { MemberViewModel(userName, application) }
         return listOf(vm)
     }
