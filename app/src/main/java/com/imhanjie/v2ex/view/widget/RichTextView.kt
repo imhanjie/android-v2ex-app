@@ -7,12 +7,16 @@ import android.text.Spanned
 import android.text.TextPaint
 import android.text.style.ClickableSpan
 import android.text.style.ImageSpan
+import android.text.style.QuoteSpan
 import android.text.style.URLSpan
 import android.util.AttributeSet
 import android.view.View
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import cc.shinichi.library.ImagePreview
+import com.imhanjie.support.ext.dp
+import com.imhanjie.v2ex.R
 import com.imhanjie.v2ex.api.support.RegexPattern
 import com.imhanjie.v2ex.view.MemberActivity
 import com.imhanjie.v2ex.view.NodeActivity
@@ -117,6 +121,26 @@ class RichTextView @JvmOverloads constructor(
                 s.removeSpan(clickSpan)
             }
             s.setSpan(clickableSpan, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        }
+
+        val quoteSpans = s.getSpans(0, s.length, QuoteSpan::class.java)
+        for (quoteSpan in quoteSpans) {
+            val start: Int = s.getSpanStart(quoteSpan)
+            val end: Int = s.getSpanEnd(quoteSpan)
+            val flags: Int = s.getSpanFlags(quoteSpan)
+            s.removeSpan(quoteSpan)
+            s.setSpan(
+                CustomQuoteSpan(
+                    context,
+                    ContextCompat.getColor(context, R.color.widget_background_2),
+                    ContextCompat.getColor(context, R.color.widget_text_5),
+                    4.dp,
+                    6.dp
+                ),
+                start,
+                end,
+                flags
+            )
         }
 
         super.setText(s)

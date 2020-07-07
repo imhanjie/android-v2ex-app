@@ -3,7 +3,6 @@ package com.imhanjie.v2ex
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.imhanjie.support.PreferencesManager
-import com.imhanjie.support.e
 import com.imhanjie.v2ex.api.model.MyUserInfo
 import com.imhanjie.v2ex.common.LocalUserInfo
 import com.imhanjie.v2ex.common.SpConstants
@@ -44,7 +43,6 @@ object AppSession {
     }
 
     fun setOrUpdateUserInfo(userInfo: LocalUserInfo) {
-        e("分发 userInfo 更新")
         val preIsLogin = isLogin()
         this.userInfoLiveData.value = userInfo
         PreferencesManager.getInstance(SpConstants.FILE_APP_SESSION).apply {
