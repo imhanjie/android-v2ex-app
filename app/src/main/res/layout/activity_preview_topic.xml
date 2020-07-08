@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        app:widget_bar_rightText="发布"
         app:widget_bar_rightVisibility="visible"
         app:widget_bar_titleText="预览主题" />
 

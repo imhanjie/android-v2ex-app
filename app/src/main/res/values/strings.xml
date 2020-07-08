@@ -48,6 +48,8 @@
     <string name="hint_search_node">输入节点名搜索</string>
     <string name="topic_title">标题</string>
     <string name="topic_content">正文</string>
-    <string name="hint_create_topic_title">如果标题能够表达完整内容，则正文可以为空</string>
-    <string name="hint_create_topic_content">请输入正文</string>
+    <string name="hint_create_topic_title">标题</string>
+    <string name="hint_create_topic_content">正文\n\n👉 支持 Markdown 语法。\n👉 如果标题能够表达完整内容，则正文可以为空。</string>
+    <string name="plz_choose_node">请选择节点</string>
+    <string name="preview_topic">预览</string>
 </resources>

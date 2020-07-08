@@ -34,7 +34,8 @@
 
         <activity
             android:name=".view.CreateTopicActivity"
-            android:theme="@style/BasicAppTheme.WhiteWindow" />
+            android:theme="@style/BasicAppTheme.WhiteWindow"
+            android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".view.SearchNodeActivity"

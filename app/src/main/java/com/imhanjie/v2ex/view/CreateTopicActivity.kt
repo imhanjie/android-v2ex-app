@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.imhanjie.support.ext.postDelayed
-import com.imhanjie.support.ext.toast
 import com.imhanjie.support.showKeyBoard
 import com.imhanjie.v2ex.BaseActivity
 import com.imhanjie.v2ex.databinding.ActivityCreateTopicBinding
@@ -28,19 +27,24 @@ class CreateTopicActivity : BaseActivity<ActivityCreateTopicBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        SearchNodeActivity.start(this, REQUEST_NODE)
         initViews()
     }
 
     private fun initViews() {
         postDelayed(delayMillis = 150) { showKeyBoard(this, vb.etTitle) }
-        vb.topBar.setOnRightClickListener(View.OnClickListener {
+        vb.tvNode.setOnClickListener {
+            SearchNodeActivity.start(this, REQUEST_NODE)
+        }
+        vb.tvPreview.setOnClickListener {
             PreviewTopicActivity.start(
                 this,
                 vb.etTitle.text.toString().trim(),
                 vb.etContent.text.toString().trim(),
                 ""
             )
+        }
+        vb.topBar.setOnRightClickListener(View.OnClickListener {
+
         })
     }
 
@@ -52,7 +56,7 @@ class CreateTopicActivity : BaseActivity<ActivityCreateTopicBinding>() {
         when (requestCode) {
             REQUEST_NODE -> {
                 val selectedNode = SearchNodeActivity.extractResult(data)
-                toast(selectedNode.text)
+                vb.tvNode.text = selectedNode.text
             }
         }
     }
