@@ -47,7 +47,7 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
     override fun initViewModels(): List<BaseViewModel> {
         val topicId: Long = intent.getLongExtra(ExtraKeys.TOPIC_ID, -1)
         if (topicId < 0) {
-            throw MissingArgumentException("topicId")
+            throw MissingArgumentException(ExtraKeys.TOPIC_ID)
         }
         vm = ViewModelProvider(this) { TopicViewModel(topicId, application) }
         return listOf(vm)
@@ -90,10 +90,8 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
         vm.topic.observe(this) {
             val (topic, append, hasMore, isOrder) = it
 
+            vb.topBar.setRightVisibility(View.VISIBLE)
             vb.loadingLayout.update(LoadingWrapLayout.Status.DONE)
-            if (!topic.isMyTopic) {
-                vb.topBar.setRightVisibility(View.VISIBLE)
-            }
 
             delegate.apply {
                 val isFirst = items.isEmpty()
@@ -166,6 +164,11 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
     private fun showTopicMenuDialog() {
         PureListMenuDialog(this).apply {
             withCancelable(true)
+            if (vm.canAppendTopic()) {
+                withMenuItem(PureListMenuDialog.Item(getString(R.string.menu_append_topic), onClickListener = {
+                    AppendTopicActivity.start(this@TopicActivity, vm.topicId)
+                }))
+            }
             withMenuItem(PureListMenuDialog.Item(getString(R.string.menu_ignore_topic), onClickListener = {
                 showIgnoreTopicDialog()
             }))

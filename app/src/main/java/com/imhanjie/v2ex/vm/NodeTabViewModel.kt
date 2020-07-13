@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.imhanjie.v2ex.api.model.TinyNode
 import com.imhanjie.v2ex.common.NonStickyLiveData
-import com.imhanjie.v2ex.repository.provideAppRepository
 
 class NodeTabViewModel(application: Application) : BaseViewModel(application) {
 
@@ -24,14 +23,14 @@ class NodeTabViewModel(application: Application) : BaseViewModel(application) {
             _loadState.value = false
         }) {
             val result = mutableListOf<Any>()
-            val myNodes = provideAppRepository().loadFavoriteNodes()
+            val myNodes = repo.loadFavoriteNodes()
             if (myNodes.isNotEmpty()) {
                 result.add("我的收藏")
                 result.addAll(myNodes.map {
                     TinyNode(it.title, it.name)
                 })
             }
-            for (navNode in provideAppRepository().loadNavNodes()) {
+            for (navNode in repo.loadNavNodes()) {
                 result.add(navNode.type)
                 result.addAll(navNode.children)
             }

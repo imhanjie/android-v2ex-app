@@ -7,7 +7,6 @@ import com.imhanjie.v2ex.api.ApiService
 import com.imhanjie.v2ex.api.model.*
 import com.imhanjie.v2ex.common.BizException
 import com.imhanjie.v2ex.common.TopicTab
-import com.imhanjie.v2ex.model.SearchNode
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.InputStream
@@ -53,7 +52,7 @@ object AppRepositoryImpl : AppRepository {
         return api.loadTopic(topicId, pageIndex).extract()
     }
 
-    override suspend fun loadSignIn(): SignIn {
+    override suspend fun loadSignIn(): SignInInfo {
         return api.loadSignIn().extract()
     }
 
@@ -61,7 +60,7 @@ object AppRepositoryImpl : AppRepository {
         return api.loadVerImage(once).byteStream()
     }
 
-    override suspend fun login(signIn: SignIn, userName: String, password: String, verCode: String): LoginInfo {
+    override suspend fun login(signIn: SignInInfo, userName: String, password: String, verCode: String): LoginInfo {
         val result = api.login(
             mapOf(
                 signIn.keyUserName to userName,
@@ -160,6 +159,23 @@ object AppRepositoryImpl : AppRepository {
 
     override suspend fun previewTopicContent(content: String): String {
         return api.previewTopicContent(content)
+    }
+
+    override suspend fun loadCreateTopicInfo(): CreateTopicInfo {
+        return api.loadCreateTopicInfo().extract()
+    }
+
+    override suspend fun createTopic(title: String, content: String, nodeName: String, once: String): Long {
+        return api.createTopic(title, content, nodeName, once).extract()
+    }
+
+    override suspend fun loadAppendTopicInfo(topicId: Long): AppendTopicInfo {
+        return api.loadAppendTopicInfo(topicId).extract()
+    }
+
+    override suspend fun appendTopic(topicId: Long, content: String, once: String): Any {
+        val syntax = 1 // 回复内容文本格式，1 为 markdown
+        return api.appendTopic(topicId, content, syntax, once)
     }
 
 }

@@ -43,6 +43,11 @@
 
         <activity android:name=".view.PreviewTopicActivity" />
 
+        <activity
+            android:name=".view.AppendTopicActivity"
+            android:theme="@style/BasicAppTheme.WhiteWindow"
+            android:windowSoftInputMode="adjustResize" />
+
     </application>
 
 </manifest>

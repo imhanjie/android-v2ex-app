@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import com.imhanjie.v2ex.AppSession
 import com.imhanjie.v2ex.common.NonStickyLiveData
-import com.imhanjie.v2ex.repository.provideAppRepository
 
 class MeTabViewModel(application: Application) : BaseViewModel(application) {
 
@@ -17,7 +16,7 @@ class MeTabViewModel(application: Application) : BaseViewModel(application) {
         request(onError = {
             _loadState.value = false
         }) {
-            val result = provideAppRepository().loadMyUserInfo()
+            val result = repo.loadMyUserInfo()
             AppSession.setOrUpdateUserInfo(result)
             _loadState.value = true
         }

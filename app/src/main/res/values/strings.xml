@@ -30,6 +30,7 @@
     <string name="menu_favorite_topic">收藏主题</string>
     <string name="menu_un_favorite_topic">取消收藏主题</string>
     <string name="title_favorite_topics">我收藏的主题</string>
+    <string name="menu_append_topic">添加附言</string>
     <string name="menu_block_member">屏蔽用户</string>
     <string name="tips_block_member_success">已屏蔽用户</string>
     <string name="menu_un_block_member">取消屏蔽用户</string>
@@ -50,6 +51,10 @@
     <string name="topic_content">正文</string>
     <string name="hint_create_topic_title">标题</string>
     <string name="hint_create_topic_content">正文\n\n👉 支持 Markdown 语法。\n👉 如果标题能够表达完整内容，则正文可以为空。</string>
+    <string name="hint_append_topic_content">附言\n\n👉 支持 Markdown 语法。</string>
     <string name="plz_choose_node">请选择节点</string>
     <string name="preview_topic">预览</string>
+    <string name="hint_empty_topic_title">请输入标题内容</string>
+    <string name="tips_empty_page_once">页面初始化失败，请重试</string>
+    <string name="tips_success_create_topic">主题创建成功</string>
 </resources>

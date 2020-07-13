@@ -7,6 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.google.gson.stream.MalformedJsonException
 import com.imhanjie.v2ex.common.BizException
 import com.imhanjie.v2ex.common.SingleLiveEvent
+import com.imhanjie.v2ex.repository.AppRepository
+import com.imhanjie.v2ex.repository.provideAppRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.io.IOException
@@ -15,6 +17,8 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
 open class BaseViewModel(application: Application) : AndroidViewModel(application) {
+
+    protected val repo: AppRepository by lazy { provideAppRepository() }
 
     private val _error = SingleLiveEvent<String>()
 

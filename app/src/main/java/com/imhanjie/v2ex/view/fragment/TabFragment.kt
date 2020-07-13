@@ -5,10 +5,7 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DiffUtil
 import com.drakeet.multitype.MultiTypeAdapter
 import com.imhanjie.v2ex.api.model.TopicItem
-import com.imhanjie.v2ex.common.MissingArgumentException
-import com.imhanjie.v2ex.common.TopicTab
-import com.imhanjie.v2ex.common.ViewModelProvider
-import com.imhanjie.v2ex.common.valueIsNull
+import com.imhanjie.v2ex.common.*
 import com.imhanjie.v2ex.view.BasePageFragment
 import com.imhanjie.v2ex.view.TopicActivity
 import com.imhanjie.v2ex.view.adapter.TopicAdapter
@@ -27,8 +24,8 @@ class TabFragment : BasePageFragment<TabViewModel>() {
     }
 
     override fun getViewModel(): TabViewModel {
-        val tab = arguments?.getSerializable("tab") as? TopicTab
-            ?: throw MissingArgumentException("tab")
+        val tab = arguments?.getSerializable(ExtraKeys.TAB) as? TopicTab
+            ?: throw MissingArgumentException(ExtraKeys.TAB)
         /**
          * 这里为了使 ViewModel 存活时间更久以持有列表数据，以 tab 的 value 字段作为 key 存储。
          * 这样可以保证在 Activity 的生命周期内，每个 Tab Fragment 的不同实例都能一直对应一个 ViewModel，
@@ -63,7 +60,7 @@ class TabFragment : BasePageFragment<TabViewModel>() {
         fun newInstance(tab: TopicTab): TabFragment {
             val fragment = TabFragment()
             fragment.arguments = Bundle().apply {
-                putSerializable("tab", tab)
+                putSerializable(ExtraKeys.TAB, tab)
             }
             return fragment
         }

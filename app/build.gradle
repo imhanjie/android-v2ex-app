@@ -16,8 +16,8 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    viewBinding {
-        enabled = true
+    buildFeatures {
+        viewBinding = true
     }
 
     buildTypes {
@@ -70,7 +70,7 @@ dependencies {
 
     implementation project(':widget')
     implementation "com.imhanjie.library:android-utils:0.1.10"
-    implementation 'com.imhanjie.library:v2ex-api:0.2.25'
+    implementation 'com.imhanjie.library:v2ex-api:0.2.35'
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${rootProject.ext.kotlin}"

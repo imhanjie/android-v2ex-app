@@ -24,6 +24,7 @@ object ExtraKeys {
     const val USER_NAME = BuildConfig.APPLICATION_ID + ".user_name"
     const val TOPIC_ID = BuildConfig.APPLICATION_ID + ".topic_id"
     const val FROM_FAVORITE_TOPICS = BuildConfig.APPLICATION_ID + ".from_favorite_topics"
+    const val TAB = BuildConfig.APPLICATION_ID + ".tab"
 }
 
 object Event {

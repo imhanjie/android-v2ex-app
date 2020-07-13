@@ -5,8 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.imhanjie.v2ex.AppSession
 import com.imhanjie.v2ex.api.model.LoginInfo
-import com.imhanjie.v2ex.api.model.SignIn
-import com.imhanjie.v2ex.repository.provideAppRepository
+import com.imhanjie.v2ex.api.model.SignInInfo
 import java.io.InputStream
 
 class LoginViewModel(application: Application) : BaseViewModel(application) {
@@ -31,7 +30,7 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
     val loadSignInState: LiveData<Boolean>
         get() = _loadSignInState
 
-    private var signInData: SignIn? = null
+    private var signInData: SignInInfo? = null
 
     /**
      * 获取用于登陆的信息
@@ -40,8 +39,8 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
         request(
             onRequest = {
                 _loadSignInState.value = true
-                signInData = provideAppRepository().loadSignIn()
-                _imageInputStream.value = provideAppRepository().loadVerImage(signInData!!.verUrlOnce)
+                signInData = repo.loadSignIn()
+                _imageInputStream.value = repo.loadVerImage(signInData!!.verUrlOnce)
             },
             onError = {
                 _loadSignInState.value = false
@@ -60,7 +59,7 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
             onRequest = {
                 _loginState.value = true
                 // 1. 登录
-                val loginInfo = provideAppRepository().login(signInData!!, userName, password, verCode)
+                val loginInfo = repo.login(signInData!!, userName, password, verCode)
                 // 2. 存储用户标识 cookie
                 AppSession.setOrUpdateUserInfo(
                     AppSession.getUserInfo().value!!.copy(
@@ -68,7 +67,7 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
                     )
                 )
                 // 3. 获取用户信息
-                val myUserInfo = provideAppRepository().loadMyUserInfo()
+                val myUserInfo = repo.loadMyUserInfo()
                 AppSession.setOrUpdateUserInfo(myUserInfo)
                 _loginResult.value = loginInfo
             },

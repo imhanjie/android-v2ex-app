@@ -41,7 +41,7 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>() {
 
     @Suppress("UNCHECKED_CAST")
     override fun initViewModels(): List<BaseViewModel> {
-        userName = intent.getStringExtra(ExtraKeys.USER_NAME) ?: throw MissingArgumentException("userName")
+        userName = intent.getStringExtra(ExtraKeys.USER_NAME) ?: throw MissingArgumentException(ExtraKeys.USER_NAME)
         vm = ViewModelProvider(this) { MemberViewModel(userName, application) }
         return listOf(vm)
     }

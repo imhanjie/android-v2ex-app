@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import com.imhanjie.v2ex.api.model.Reply
 import com.imhanjie.v2ex.api.model.Topic
 import com.imhanjie.v2ex.common.NonStickyLiveData
-import com.imhanjie.v2ex.repository.provideAppRepository
 
 class TopicViewModel(val topicId: Long, application: Application) : BaseViewModel(application) {
 
@@ -91,7 +90,7 @@ class TopicViewModel(val topicId: Long, application: Application) : BaseViewMode
                 _loading.value = true
             }
 
-            var newTopic = provideAppRepository().loadTopic(topicId, currentPage)
+            var newTopic = repo.loadTopic(topicId, currentPage)
             val hasMore = if (targetIsOrder) {
                 newTopic.currentPage != newTopic.totalPage
             } else {
@@ -125,7 +124,7 @@ class TopicViewModel(val topicId: Long, application: Application) : BaseViewMode
     fun thankReply(reply: Reply) {
         request(withLoading = true) {
             val topic = _topic.value!!.topic
-            val result = provideAppRepository().thankReply(reply.id, topic.once)
+            val result = repo.thankReply(reply.id, topic.once)
             topic.once = result.once
             if (result.success) {
                 reply.thanked = true
@@ -143,7 +142,7 @@ class TopicViewModel(val topicId: Long, application: Application) : BaseViewMode
     fun ignoreTopic() {
         request(withLoading = true) {
             val topic = _topic.value!!.topic
-            provideAppRepository().ignoreTopic(topicId, topic.once)
+            repo.ignoreTopic(topicId, topic.once)
             _ignoreTopicState.value = true
         }
     }
@@ -154,7 +153,7 @@ class TopicViewModel(val topicId: Long, application: Application) : BaseViewMode
     fun favoriteTopic() {
         request(withLoading = true) {
             val topic = _topic.value!!.topic
-            val result = provideAppRepository().favoriteTopic(topicId, topic.favoriteParam)
+            val result = repo.favoriteTopic(topicId, topic.favoriteParam)
             topic.favoriteParam = result.favoriteParam
             if (result.isFavorite) {
                 // 收藏成功
@@ -173,7 +172,7 @@ class TopicViewModel(val topicId: Long, application: Application) : BaseViewMode
     fun unFavoriteTopic() {
         request(withLoading = true) {
             val topic = _topic.value!!.topic
-            val result = provideAppRepository().unFavoriteTopic(topicId, topic.favoriteParam)
+            val result = repo.unFavoriteTopic(topicId, topic.favoriteParam)
             topic.favoriteParam = result.favoriteParam
             if (!result.isFavorite) {
                 // 取消收藏成功
@@ -191,6 +190,13 @@ class TopicViewModel(val topicId: Long, application: Application) : BaseViewMode
      */
     fun topicIsFavorite(): Boolean {
         return _topic.value?.topic?.isFavorite == true
+    }
+
+    /**
+     * 是否可以 APPEND 主题
+     */
+    fun canAppendTopic(): Boolean {
+        return _topic.value?.topic?.canAppend == true
     }
 
 }

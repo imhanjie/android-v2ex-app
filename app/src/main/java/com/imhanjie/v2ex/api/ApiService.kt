@@ -1,7 +1,6 @@
 package com.imhanjie.v2ex.api
 
 import com.imhanjie.v2ex.api.model.*
-import com.imhanjie.v2ex.model.SearchNode
 import okhttp3.ResponseBody
 import retrofit2.http.*
 
@@ -30,7 +29,7 @@ interface ApiService {
     ): RestfulResult<Topic>
 
     @GET("/signin")
-    suspend fun loadSignIn(): RestfulResult<SignIn>
+    suspend fun loadSignIn(): RestfulResult<SignInInfo>
 
     @GET("/_captcha")
     suspend fun loadVerImage(
@@ -151,5 +150,31 @@ interface ApiService {
     suspend fun previewTopicContent(
         @Field("md") content: String
     ): String
+
+    @GET("/new")
+    suspend fun loadCreateTopicInfo(): RestfulResult<CreateTopicInfo>
+
+    @POST("/new")
+    @FormUrlEncoded
+    suspend fun createTopic(
+        @Field("title") title: String,
+        @Field("content") content: String,
+        @Field("node_name") nodeName: String,
+        @Field("once") once: String
+    ): RestfulResult<Long>
+
+    @GET("/append/topic/{topic_id}")
+    suspend fun loadAppendTopicInfo(
+        @Path("topic_id") topicId: Long
+    ): RestfulResult<AppendTopicInfo>
+
+    @POST("/append/topic/{topic_id}")
+    @FormUrlEncoded
+    suspend fun appendTopic(
+        @Path("topic_id") topicId: Long,
+        @Field("content") content: String,
+        @Field("syntax") syntax: Int,
+        @Field("once") once: String
+    ): RestfulResult<Any>
 
 }

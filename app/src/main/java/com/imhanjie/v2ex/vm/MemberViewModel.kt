@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.imhanjie.v2ex.api.model.Member
 import com.imhanjie.v2ex.common.NonStickyLiveData
-import com.imhanjie.v2ex.repository.provideAppRepository
 
 class MemberViewModel(private val userName: String, application: Application) : BaseViewModel(application) {
 
@@ -30,14 +29,14 @@ class MemberViewModel(private val userName: String, application: Application) : 
 
     private fun loadMember() {
         request {
-            _member.value = provideAppRepository().loadMember(userName)
+            _member.value = repo.loadMember(userName)
         }
     }
 
     fun followMember() {
         request(withLoading = true) {
             _member.value = _member.value?.let {
-                provideAppRepository().followMember(it.id, it.name, it.once)
+                repo.followMember(it.id, it.name, it.once)
             }
             _followState.value = true
         }
@@ -46,7 +45,7 @@ class MemberViewModel(private val userName: String, application: Application) : 
     fun unFollowMember() {
         request(withLoading = true) {
             _member.value = _member.value?.let {
-                provideAppRepository().unFollowMember(it.id, it.name, it.once)
+                repo.unFollowMember(it.id, it.name, it.once)
             }
             _followState.value = false
         }
@@ -55,7 +54,7 @@ class MemberViewModel(private val userName: String, application: Application) : 
     fun blockMember() {
         request(withLoading = true) {
             _member.value = _member.value?.let {
-                provideAppRepository().blockMember(it.id, it.name, it.blockParamT)
+                repo.blockMember(it.id, it.name, it.blockParamT)
             }
             _blockState.value = true
         }
@@ -64,7 +63,7 @@ class MemberViewModel(private val userName: String, application: Application) : 
     fun unBlockMember() {
         request(withLoading = true) {
             _member.value = _member.value?.let {
-                provideAppRepository().unBlockMember(it.id, it.name, it.blockParamT)
+                repo.unBlockMember(it.id, it.name, it.blockParamT)
             }
             _blockState.value = false
         }

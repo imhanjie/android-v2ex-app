@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.DiffUtil
 import com.drakeet.multitype.MultiTypeAdapter
 import com.imhanjie.v2ex.api.model.MemberReplies
+import com.imhanjie.v2ex.common.ExtraKeys
 import com.imhanjie.v2ex.common.MissingArgumentException
 import com.imhanjie.v2ex.common.ViewModelProvider
 import com.imhanjie.v2ex.common.valueIsNull
@@ -19,8 +20,7 @@ class MemberRepliesFragment : BasePageFragment<MemberRepliesViewModel>() {
     }
 
     override fun getViewModel(): MemberRepliesViewModel {
-        val userName = arguments?.getString("userName")
-            ?: throw MissingArgumentException("userName")
+        val userName = arguments?.getString(ExtraKeys.USER_NAME) ?: throw MissingArgumentException(ExtraKeys.USER_NAME)
         return ViewModelProvider(this) { MemberRepliesViewModel(userName, requireActivity().application) }
     }
 
@@ -44,7 +44,7 @@ class MemberRepliesFragment : BasePageFragment<MemberRepliesViewModel>() {
         fun newInstance(userName: String): MemberRepliesFragment {
             val fragment = MemberRepliesFragment()
             fragment.arguments = Bundle().apply {
-                putString("userName", userName)
+                putString(ExtraKeys.USER_NAME, userName)
             }
             return fragment
         }

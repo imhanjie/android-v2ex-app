@@ -5,9 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import com.imhanjie.support.ext.postDelayed
+import com.imhanjie.support.ext.toast
 import com.imhanjie.support.showKeyBoard
 import com.imhanjie.v2ex.BaseActivity
+import com.imhanjie.v2ex.R
 import com.imhanjie.v2ex.databinding.ActivityCreateTopicBinding
 import com.imhanjie.v2ex.vm.BaseViewModel
 import com.imhanjie.v2ex.vm.CreateTopicViewModel
@@ -36,16 +39,20 @@ class CreateTopicActivity : BaseActivity<ActivityCreateTopicBinding>() {
             SearchNodeActivity.start(this, REQUEST_NODE)
         }
         vb.tvPreview.setOnClickListener {
-            PreviewTopicActivity.start(
-                this,
-                vb.etTitle.text.toString().trim(),
-                vb.etContent.text.toString().trim(),
-                ""
-            )
+            PreviewTopicActivity.start(this, vb.etContent.text.toString().trim())
         }
         vb.topBar.setOnRightClickListener(View.OnClickListener {
-
+            vm.createTopic(vb.etTitle.text.toString().trim(), vb.etContent.text.toString().trim())
         })
+
+        vm.selectedNode.observe(this) {
+            vb.tvNode.text = it.text
+        }
+        vm.newTopicId.observe(this) { newTopicId ->
+            TopicActivity.start(this, newTopicId)
+            toast(R.string.tips_success_create_topic)
+            finish()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -56,7 +63,7 @@ class CreateTopicActivity : BaseActivity<ActivityCreateTopicBinding>() {
         when (requestCode) {
             REQUEST_NODE -> {
                 val selectedNode = SearchNodeActivity.extractResult(data)
-                vb.tvNode.text = selectedNode.text
+                vm.setSelectedNode(selectedNode)
             }
         }
     }

@@ -61,10 +61,10 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     private fun getVBClass(enterClazz: Class<*>): Class<*> {
         val type = enterClazz.genericSuperclass as ParameterizedType
         val clazz: Class<VB> = type.actualTypeArguments[0] as Class<VB>
-        if (ViewBinding::class.java.isAssignableFrom(clazz)) {
-            return clazz
+        return if (ViewBinding::class.java.isAssignableFrom(clazz)) {
+            clazz
         } else {
-            return getVBClass(enterClazz.superclass as Class<*>)
+            getVBClass(enterClazz.superclass as Class<*>)
         }
     }
 

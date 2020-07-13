@@ -3,8 +3,7 @@ package com.imhanjie.v2ex.vm
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.imhanjie.v2ex.model.SearchNode
-import com.imhanjie.v2ex.repository.provideAppRepository
+import com.imhanjie.v2ex.api.model.SearchNode
 
 class SearchNodeViewModel(application: Application) : BaseViewModel(application) {
 
@@ -21,7 +20,7 @@ class SearchNodeViewModel(application: Application) : BaseViewModel(application)
 
     private fun loadAllNode() = request {
         allNodes.clear()
-        allNodes.addAll(provideAppRepository().loadAllNodeForSearch())
+        allNodes.addAll(repo.loadAllNodeForSearch())
     }
 
     fun searchNodes(keyWord: String) {
@@ -29,7 +28,7 @@ class SearchNodeViewModel(application: Application) : BaseViewModel(application)
             if (keyWord.isBlank()) {
                 emptyList()
             } else {
-                allNodes.filter { it.text.contains(keyWord) }
+                allNodes.filter { it.text.contains(keyWord, ignoreCase = true) }
             }
     }
 

@@ -35,7 +35,7 @@ class NodeActivity : BaseActivity<ActivityNodeBinding>() {
 
     @Suppress("UNCHECKED_CAST")
     override fun initViewModels(): List<BaseViewModel> {
-        nodeName = intent.getStringExtra(ExtraKeys.NODE_NAME) ?: throw MissingArgumentException("nodeName")
+        nodeName = intent.getStringExtra(ExtraKeys.NODE_NAME) ?: throw MissingArgumentException(ExtraKeys.NODE_NAME)
         vm = ViewModelProvider(this) { NodeViewModel(nodeName, application) }
         return listOf(vm)
     }

@@ -11,10 +11,10 @@ import com.imhanjie.support.ext.postDelayed
 import com.imhanjie.support.ext.toActivity
 import com.imhanjie.support.showKeyBoard
 import com.imhanjie.v2ex.BaseActivity
+import com.imhanjie.v2ex.api.model.SearchNode
 import com.imhanjie.v2ex.common.ExtraKeys
 import com.imhanjie.v2ex.databinding.ActivitySearchNodeBinding
 import com.imhanjie.v2ex.databinding.ItemSearchNodeBinding
-import com.imhanjie.v2ex.model.SearchNode
 import com.imhanjie.v2ex.vm.BaseViewModel
 import com.imhanjie.v2ex.vm.SearchNodeViewModel
 import com.imhanjie.widget.listener.BaseTextWatcher

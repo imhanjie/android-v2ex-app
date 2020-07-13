@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.imhanjie.v2ex.api.model.Node
-import com.imhanjie.v2ex.repository.provideAppRepository
 
 class NodeViewModel(private val nodeName: String, application: Application) : BasePageViewModel(application) {
 
@@ -20,7 +19,7 @@ class NodeViewModel(private val nodeName: String, application: Application) : Ba
 
 
     override suspend fun providePageData(requestPage: Int): PageData {
-        return provideAppRepository().loadNodeTopics(nodeName, requestPage).let {
+        return repo.loadNodeTopics(nodeName, requestPage).let {
             _node.value = it
             _isFavorite.value = Pair(it.isFavorite, false)
             PageData(it.topics, it.currentPage != it.totalPage)
@@ -33,9 +32,9 @@ class NodeViewModel(private val nodeName: String, application: Application) : Ba
     fun doFavoriteNode() = request(withLoading = true) {
         _node.value?.let {
             if (it.isFavorite) {
-                provideAppRepository().unFavoriteNode(it.id, it.once)
+                repo.unFavoriteNode(it.id, it.once)
             } else {
-                provideAppRepository().favoriteNode(it.id, it.once)
+                repo.favoriteNode(it.id, it.once)
             }
             _isFavorite.value = Pair(!it.isFavorite, true)
             it.isFavorite = !it.isFavorite
