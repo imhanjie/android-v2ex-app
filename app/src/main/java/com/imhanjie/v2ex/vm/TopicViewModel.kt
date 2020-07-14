@@ -26,6 +26,11 @@ class TopicViewModel(val topicId: Long, application: Application) : BaseViewMode
     val loading: LiveData<Boolean>
         get() = _loading
 
+    private val _loadingLayout = MutableLiveData<Boolean>()
+
+    val loadingLayout: LiveData<Boolean>
+        get() = _loadingLayout
+
     private val _thankReply = NonStickyLiveData<Reply>()
 
     val thankReply: LiveData<Reply>
@@ -52,6 +57,11 @@ class TopicViewModel(val topicId: Long, application: Application) : BaseViewMode
     private var isFirst = true
 
     init {
+        reloadReplies()
+    }
+
+    fun reloadReplies() {
+        isFirst = true
         loadReplies(append = false, doReverse = false)
     }
 
@@ -86,7 +96,9 @@ class TopicViewModel(val topicId: Long, application: Application) : BaseViewMode
         }
         request {
             // change state
-            if (!isFirst && !append) {
+            if (isFirst) {
+                _loadingLayout.value = true
+            } else if (!append) {
                 _loading.value = true
             }
 
@@ -102,7 +114,9 @@ class TopicViewModel(val topicId: Long, application: Application) : BaseViewMode
             _topic.value = TopicLiveData(newTopic, append, hasMore, targetIsOrder)
 
             // change state
-            if (!isFirst && !append) {
+            if (isFirst) {
+                _loadingLayout.value = false
+            } else if (!append) {
                 _loading.value = false
             }
 

@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.imhanjie.support.ext.postDelayed
@@ -22,12 +22,11 @@ import com.imhanjie.widget.recyclerview.base.BaseAdapter
 
 class SearchNodeActivity : BaseActivity<ActivitySearchNodeBinding>() {
 
-    private lateinit var vm: SearchNodeViewModel
+    private val vm: SearchNodeViewModel by viewModels()
 
     private val nodes = mutableListOf<SearchNode>()
 
     override fun initViewModels(): List<BaseViewModel> {
-        vm = ViewModelProvider(this).get(SearchNodeViewModel::class.java)
         return listOf(vm)
     }
 

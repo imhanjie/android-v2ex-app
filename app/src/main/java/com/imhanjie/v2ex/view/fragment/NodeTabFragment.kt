@@ -1,6 +1,6 @@
 package com.imhanjie.v2ex.view.fragment
 
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.GridLayoutManager
 import com.drakeet.multitype.MultiTypeAdapter
@@ -17,12 +17,11 @@ import com.imhanjie.widget.LoadingWrapLayout
 
 class NodeTabFragment : BaseLazyFragment<FragmentTabNodeBinding>() {
 
-    private lateinit var vm: NodeTabViewModel
+    private val vm: NodeTabViewModel by viewModels()
 
     private val items = arrayListOf<Any>()
 
     override fun initViewModels(): List<BaseViewModel> {
-        vm = ViewModelProvider(this).get(NodeTabViewModel::class.java)
         return listOf(vm)
     }
 

@@ -54,7 +54,8 @@
     <string name="hint_append_topic_content">附言\n\n👉 支持 Markdown 语法。</string>
     <string name="plz_choose_node">请选择节点</string>
     <string name="preview_topic">预览</string>
-    <string name="hint_empty_topic_title">请输入标题内容</string>
+    <string name="tips_empty_topic_title">请输入标题内容</string>
+    <string name="tips_empty_append_content">请输入附言内容</string>
     <string name="tips_empty_page_once">页面初始化失败，请重试</string>
     <string name="tips_success_create_topic">主题创建成功</string>
 </resources>

@@ -6,5 +6,6 @@ class GlobalViewModel : ViewModel() {
 
     val ignoreTopic = NonStickyLiveData<Long>()
     val unFavoriteTopic = NonStickyLiveData<Long>()
+    val appendTopic = NonStickyLiveData<Any>()
 
 }

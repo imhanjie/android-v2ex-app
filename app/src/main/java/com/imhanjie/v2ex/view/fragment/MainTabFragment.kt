@@ -1,9 +1,8 @@
 package com.imhanjie.v2ex.view.fragment
 
-import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -20,14 +19,9 @@ import com.imhanjie.v2ex.vm.MainTabViewModel
 
 class MainTabFragment : BaseFragment<FragmentTabMainBinding>() {
 
-    private lateinit var vm: MainTabViewModel
+    private val vm: MainTabViewModel by viewModels()
 
     override fun initViewModels() = listOf(vm)
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        vm = ViewModelProvider(this).get(MainTabViewModel::class.java)
-    }
 
     override fun initViews() {
         vb.topBar.setOnClickListener {

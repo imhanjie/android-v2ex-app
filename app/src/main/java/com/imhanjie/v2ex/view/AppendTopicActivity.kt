@@ -1,8 +1,12 @@
 package com.imhanjie.v2ex.view
 
 import android.os.Bundle
+import android.view.View
 import androidx.core.os.bundleOf
+import androidx.lifecycle.observe
+import com.imhanjie.support.ext.postDelayed
 import com.imhanjie.support.ext.toActivity
+import com.imhanjie.support.showKeyBoard
 import com.imhanjie.v2ex.BaseActivity
 import com.imhanjie.v2ex.common.ExtraKeys
 import com.imhanjie.v2ex.common.MissingArgumentException
@@ -30,8 +34,20 @@ class AppendTopicActivity : BaseActivity<ActivityAppendTopicBinding>() {
     }
 
     private fun initViews() {
+        postDelayed(delayMillis = 150) { showKeyBoard(this, vb.etContent) }
         vb.tvPreview.setOnClickListener {
             PreviewTopicActivity.start(this, vb.etContent.text.toString().trim())
+        }
+        vb.topBar.setOnRightClickListener(View.OnClickListener {
+            vm.appendTopic(vb.etContent.text.toString().trim())
+        })
+
+        vm.appendResult.observe(this) {
+            if (!it) {
+                return@observe
+            }
+            finish()
+            globalViewModel.appendTopic.value = Any()
         }
     }
 

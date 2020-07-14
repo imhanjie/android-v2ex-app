@@ -22,7 +22,6 @@ import com.imhanjie.v2ex.view.MemberActivity
 import com.imhanjie.v2ex.view.NodeActivity
 import com.imhanjie.v2ex.view.TopicActivity
 
-
 class RichTextView @JvmOverloads constructor(
     ctx: Context,
     attrs: AttributeSet? = null,
@@ -168,9 +167,9 @@ class RichTextView @JvmOverloads constructor(
         var result = content
         var tagStart = "<$tagName"
         val tagEnd = "</$tagName>"
-        if (content.endsWith(tagEnd)) {
-            val index = content.lastIndexOf(tagStart)
-            tagStart = content.substring(index, content.indexOf(">", index) + 1)
+        if (result.endsWith(tagEnd)) {
+            val index = result.lastIndexOf(tagStart)
+            tagStart = result.substring(index, result.indexOf(">", index) + 1)
             result = result.substring(0, index) + result.substring(index).replace(tagStart, "").replace(tagEnd, "")
         }
         return result

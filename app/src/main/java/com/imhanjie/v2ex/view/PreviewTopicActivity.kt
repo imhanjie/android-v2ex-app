@@ -1,8 +1,8 @@
 package com.imhanjie.v2ex.view
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.core.os.bundleOf
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import com.imhanjie.support.ext.toActivity
 import com.imhanjie.v2ex.BaseActivity
@@ -13,10 +13,9 @@ import com.imhanjie.v2ex.vm.PreviewTopicViewModel
 
 class PreviewTopicActivity : BaseActivity<ActivityPreviewTopicBinding>() {
 
-    private lateinit var vm: PreviewTopicViewModel
+    private val vm: PreviewTopicViewModel by viewModels()
 
     override fun initViewModels(): List<BaseViewModel> {
-        vm = ViewModelProvider(this).get(PreviewTopicViewModel::class.java)
         return listOf(vm)
     }
 

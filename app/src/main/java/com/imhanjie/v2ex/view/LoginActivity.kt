@@ -4,7 +4,7 @@ import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.widget.ImageView
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
 import androidx.lifecycle.observe
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -23,10 +23,9 @@ import com.imhanjie.widget.LoadingWrapLayout
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
-    private lateinit var vm: LoginViewModel
+    private val vm: LoginViewModel by viewModels()
 
     override fun initViewModels(): List<BaseViewModel> {
-        vm = ViewModelProvider(this).get(LoginViewModel::class.java)
         return listOf(vm)
     }
 

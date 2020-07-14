@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.lifecycle.observe
+import com.imhanjie.support.e
 import com.imhanjie.support.ext.dp
 import com.imhanjie.support.ext.toActivity
 import com.imhanjie.support.ext.toast
@@ -57,10 +58,18 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        vb.loadingLayout.update(LoadingWrapLayout.Status.LOADING)
         vb.topBar.setOnClickListener { vb.replyRv.smoothScrollToPosition(0) }
         vb.topBar.setOnRightClickListener(View.OnClickListener { showTopicMenuDialog() })
+
         vm.loading.observe(this) { loadingDialog.update(!it) }
+
+        vm.loadingLayout.observe(this) {
+            if (it) {
+                vb.loadingLayout.update(LoadingWrapLayout.Status.LOADING)
+            } else {
+                vb.loadingLayout.update(LoadingWrapLayout.Status.DONE)
+            }
+        }
 
         val delegate = LoadMoreDelegate(vb.replyRv) { vm.loadReplies(append = true, doReverse = false) }
         delegate.adapter.apply {
@@ -89,10 +98,7 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
 
         vm.topic.observe(this) {
             val (topic, append, hasMore, isOrder) = it
-
             vb.topBar.setRightVisibility(View.VISIBLE)
-            vb.loadingLayout.update(LoadingWrapLayout.Status.DONE)
-
             delegate.apply {
                 val isFirst = items.isEmpty()
                 if (isFirst || !append) {
@@ -135,6 +141,10 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
             } else {
                 toast(R.string.tips_favorite_fail)
             }
+        }
+        globalViewModel.appendTopic.observe(this) {
+            e("reload replies")
+            vm.reloadReplies()
         }
     }
 

@@ -70,7 +70,7 @@ dependencies {
 
     implementation project(':widget')
     implementation "com.imhanjie.library:android-utils:0.1.10"
-    implementation 'com.imhanjie.library:v2ex-api:0.2.35'
+    implementation 'com.imhanjie.library:v2ex-api:0.2.37'
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${rootProject.ext.kotlin}"
@@ -84,12 +84,12 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:${rootProject.ext.lifecycle}"
     implementation "androidx.lifecycle:lifecycle-common-java8:${rootProject.ext.lifecycle}"
 
-    // AndroidX 其他组件
+    // androidx 其他组件
     implementation "androidx.appcompat:appcompat:${rootProject.ext.appcompat}"
-    implementation "androidx.activity:activity:${rootProject.ext.activity}"
-    implementation "androidx.fragment:fragment:${rootProject.ext.fragment}"
-    implementation "androidx.multidex:multidex:${rootProject.ext.multidex}"
     implementation "androidx.core:core-ktx:${rootProject.ext.core_ktx}"
+    implementation "androidx.activity:activity-ktx:${rootProject.ext.activity}"
+    implementation "androidx.fragment:fragment-ktx:${rootProject.ext.fragment}"
+    implementation "androidx.multidex:multidex:${rootProject.ext.multidex}"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
     implementation "com.google.android.material:material:1.1.0"
 

@@ -41,7 +41,7 @@ class CreateTopicViewModel(application: Application) : BaseViewModel(application
             return
         }
         if (title.isEmpty()) {
-            _toast.value = getApplication<App>().getString(R.string.hint_empty_topic_title)
+            _toast.value = getApplication<App>().getString(R.string.tips_empty_topic_title)
             return
         }
         if (_selectedNode.valueIsNull()) {
