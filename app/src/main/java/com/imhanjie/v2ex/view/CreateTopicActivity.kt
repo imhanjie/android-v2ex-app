@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
 import androidx.lifecycle.observe
 import com.imhanjie.support.ext.postDelayed
 import com.imhanjie.support.ext.toast
@@ -21,12 +21,9 @@ class CreateTopicActivity : BaseActivity<ActivityCreateTopicBinding>() {
         const val REQUEST_NODE = 1000
     }
 
-    private lateinit var vm: CreateTopicViewModel
+    private val vm: CreateTopicViewModel by viewModels()
 
-    override fun initViewModels(): List<BaseViewModel> {
-        vm = ViewModelProvider(this).get(CreateTopicViewModel::class.java)
-        return listOf(vm)
-    }
+    override fun initViewModels(): List<BaseViewModel> = listOf(vm)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

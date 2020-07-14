@@ -3,10 +3,16 @@ package com.imhanjie.v2ex.vm
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import com.imhanjie.v2ex.api.model.Member
+import com.imhanjie.v2ex.common.ExtraKeys
+import com.imhanjie.v2ex.common.MissingArgumentException
 import com.imhanjie.v2ex.common.NonStickyLiveData
 
-class MemberViewModel(private val userName: String, application: Application) : BaseViewModel(application) {
+class MemberViewModel(application: Application, savedStateHandle: SavedStateHandle) : BaseViewModel(application) {
+
+    val userName: String = savedStateHandle[ExtraKeys.USER_NAME]
+        ?: throw MissingArgumentException(ExtraKeys.USER_NAME)
 
     private val _member = MutableLiveData<Member>()
 

@@ -3,11 +3,17 @@ package com.imhanjie.v2ex.vm
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import com.imhanjie.v2ex.api.model.Reply
 import com.imhanjie.v2ex.api.model.Topic
+import com.imhanjie.v2ex.common.ExtraKeys
+import com.imhanjie.v2ex.common.MissingArgumentException
 import com.imhanjie.v2ex.common.NonStickyLiveData
 
-class TopicViewModel(val topicId: Long, application: Application) : BaseViewModel(application) {
+class TopicViewModel(application: Application, savedStateHandle: SavedStateHandle) : BaseViewModel(application) {
+
+    val topicId = savedStateHandle.get<Long>(ExtraKeys.TOPIC_ID)
+        ?: throw MissingArgumentException(ExtraKeys.TOPIC_ID)
 
     data class TopicLiveData(
         val topic: Topic,

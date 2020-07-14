@@ -1,12 +1,11 @@
 package com.imhanjie.v2ex.view.fragment
 
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DiffUtil
 import com.drakeet.multitype.MultiTypeAdapter
 import com.imhanjie.v2ex.api.model.TopicItem
 import com.imhanjie.v2ex.common.ExtraKeys
-import com.imhanjie.v2ex.common.MissingArgumentException
-import com.imhanjie.v2ex.common.ViewModelProvider
 import com.imhanjie.v2ex.common.valueIsNull
 import com.imhanjie.v2ex.view.BasePageFragment
 import com.imhanjie.v2ex.view.TopicActivity
@@ -21,9 +20,7 @@ class MemberTopicsFragment : BasePageFragment<MemberTopicsViewModel>() {
     }
 
     override fun getViewModel(): MemberTopicsViewModel {
-        val userName = arguments?.getString(ExtraKeys.USER_NAME)
-            ?: throw MissingArgumentException(ExtraKeys.USER_NAME)
-        return ViewModelProvider(this) { MemberTopicsViewModel(userName, requireActivity().application) }
+        return ViewModelProvider(this).get(MemberTopicsViewModel::class.java)
     }
 
     override fun getDiffCallback(oldItems: List<Any>, newItems: List<Any>): DiffUtil.Callback {

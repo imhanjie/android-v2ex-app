@@ -3,9 +3,15 @@ package com.imhanjie.v2ex.vm
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import com.imhanjie.v2ex.api.model.Node
+import com.imhanjie.v2ex.common.ExtraKeys
+import com.imhanjie.v2ex.common.MissingArgumentException
 
-class NodeViewModel(private val nodeName: String, application: Application) : BasePageViewModel(application) {
+class NodeViewModel(application: Application, savedStateHandle: SavedStateHandle) : BasePageViewModel(application) {
+
+    private val nodeName = savedStateHandle.get<String>(ExtraKeys.NODE_NAME)
+        ?: throw MissingArgumentException(ExtraKeys.NODE_NAME)
 
     private val _isFavorite = MutableLiveData<Pair<Boolean, Boolean>>()
 

@@ -64,13 +64,11 @@ static def getBuildDate() {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    testImplementation 'junit:junit:4.13'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation "junit:junit:${rootProject.ext.junit}"
 
     implementation project(':widget')
-    implementation "com.imhanjie.library:android-utils:0.1.10"
-    implementation 'com.imhanjie.library:v2ex-api:0.2.37'
+    implementation "com.imhanjie.library:android-utils:${rootProject.ext.android_utils}"
+    implementation "com.imhanjie.library:v2ex-api:${rootProject.ext.v2ex_api}"
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${rootProject.ext.kotlin}"
@@ -90,8 +88,10 @@ dependencies {
     implementation "androidx.activity:activity-ktx:${rootProject.ext.activity}"
     implementation "androidx.fragment:fragment-ktx:${rootProject.ext.fragment}"
     implementation "androidx.multidex:multidex:${rootProject.ext.multidex}"
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
-    implementation "com.google.android.material:material:1.1.0"
+
+    // androidx widget
+    implementation "com.google.android.material:material:${rootProject.ext.material}"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:${rootProject.ext.swiperefreshlayout}"
 
     // Room
     implementation "androidx.room:room-runtime:${rootProject.ext.room}"
@@ -116,5 +116,5 @@ dependencies {
     implementation "com.facebook.stetho:stetho:${rootProject.ext.stetho}"
 
     // 大图预览
-    implementation 'com.github.SherlockGougou:BigImageViewPager:androidx-6.0.1'
+    implementation "com.github.SherlockGougou:BigImageViewPager:${rootProject.ext.big_image_view_pager}"
 }

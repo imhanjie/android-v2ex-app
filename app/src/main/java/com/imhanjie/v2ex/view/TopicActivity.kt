@@ -2,6 +2,7 @@ package com.imhanjie.v2ex.view
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.core.os.bundleOf
 import androidx.lifecycle.observe
 import com.imhanjie.support.e
@@ -13,8 +14,6 @@ import com.imhanjie.v2ex.R
 import com.imhanjie.v2ex.api.model.Reply
 import com.imhanjie.v2ex.api.model.Topic
 import com.imhanjie.v2ex.common.ExtraKeys
-import com.imhanjie.v2ex.common.MissingArgumentException
-import com.imhanjie.v2ex.common.ViewModelProvider
 import com.imhanjie.v2ex.databinding.ActivityTopicBinding
 import com.imhanjie.v2ex.model.ReplyHeaderType
 import com.imhanjie.v2ex.view.adapter.ReplyAdapter
@@ -31,30 +30,10 @@ import com.imhanjie.widget.recyclerview.loadmore.LoadMoreDelegate
 
 class TopicActivity : BaseActivity<ActivityTopicBinding>() {
 
-    private lateinit var vm: TopicViewModel
+    private val vm: TopicViewModel by viewModels()
 
-    companion object {
-        fun start(from: Any, topicId: Long, fromFavoriteTopics: Boolean = false) {
-            from.toActivity<TopicActivity>(
-                bundleOf(
-                    ExtraKeys.TOPIC_ID to topicId,
-                    ExtraKeys.FROM_FAVORITE_TOPICS to fromFavoriteTopics
-                )
-            )
-        }
-    }
+    override fun initViewModels(): List<BaseViewModel> = listOf(vm)
 
-    @Suppress("UNCHECKED_CAST")
-    override fun initViewModels(): List<BaseViewModel> {
-        val topicId: Long = intent.getLongExtra(ExtraKeys.TOPIC_ID, -1)
-        if (topicId < 0) {
-            throw MissingArgumentException(ExtraKeys.TOPIC_ID)
-        }
-        vm = ViewModelProvider(this) { TopicViewModel(topicId, application) }
-        return listOf(vm)
-    }
-
-    @Suppress("UNCHECKED_CAST")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -114,7 +93,7 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
                     adapter.notifyItemChanged(items.itemSize - 1)   // fix 最后一项 divider 不刷新的问题
                     val originSize = items.itemSize
                     items.addAll(topic.replies)
-                    adapter.notifyItemRangeInserted(originSize, topic.replies.size);
+                    adapter.notifyItemRangeInserted(originSize, topic.replies.size)
                 }
                 notifyLoadSuccess(hasMore)
             }
@@ -201,6 +180,17 @@ class TopicActivity : BaseActivity<ActivityTopicBinding>() {
             .withContent("确定不想再看到这个主题？")
             .withPositiveClick { vm.ignoreTopic() }
             .show()
+    }
+
+    companion object {
+        fun start(from: Any, topicId: Long, fromFavoriteTopics: Boolean = false) {
+            from.toActivity<TopicActivity>(
+                bundleOf(
+                    ExtraKeys.TOPIC_ID to topicId,
+                    ExtraKeys.FROM_FAVORITE_TOPICS to fromFavoriteTopics
+                )
+            )
+        }
     }
 
 }

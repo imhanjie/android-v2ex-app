@@ -2,6 +2,7 @@ package com.imhanjie.v2ex.view
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.core.os.bundleOf
 import androidx.lifecycle.observe
 import com.imhanjie.support.ext.postDelayed
@@ -9,22 +10,15 @@ import com.imhanjie.support.ext.toActivity
 import com.imhanjie.support.showKeyBoard
 import com.imhanjie.v2ex.BaseActivity
 import com.imhanjie.v2ex.common.ExtraKeys
-import com.imhanjie.v2ex.common.MissingArgumentException
-import com.imhanjie.v2ex.common.ViewModelProvider
 import com.imhanjie.v2ex.databinding.ActivityAppendTopicBinding
 import com.imhanjie.v2ex.vm.AppendTopicViewModel
 import com.imhanjie.v2ex.vm.BaseViewModel
 
 class AppendTopicActivity : BaseActivity<ActivityAppendTopicBinding>() {
 
-    private lateinit var vm: AppendTopicViewModel
+    private val vm: AppendTopicViewModel by viewModels()
 
     override fun initViewModels(): List<BaseViewModel> {
-        val topicId = intent.getLongExtra(ExtraKeys.TOPIC_ID, -1L)
-        if (topicId < 0) {
-            throw MissingArgumentException(ExtraKeys.TOPIC_ID)
-        }
-        vm = ViewModelProvider(this) { AppendTopicViewModel(topicId, application) }
         return listOf(vm)
     }
 

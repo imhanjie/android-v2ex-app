@@ -2,6 +2,7 @@ package com.imhanjie.v2ex.view
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.core.os.bundleOf
 import androidx.lifecycle.observe
 import com.imhanjie.support.ext.toActivity
@@ -9,8 +10,6 @@ import com.imhanjie.support.ext.toast
 import com.imhanjie.v2ex.BaseActivity
 import com.imhanjie.v2ex.R
 import com.imhanjie.v2ex.common.ExtraKeys
-import com.imhanjie.v2ex.common.MissingArgumentException
-import com.imhanjie.v2ex.common.ViewModelProvider
 import com.imhanjie.v2ex.databinding.ActivityNodeBinding
 import com.imhanjie.v2ex.view.fragment.NodePageFragment
 import com.imhanjie.v2ex.vm.BaseViewModel
@@ -18,27 +17,9 @@ import com.imhanjie.v2ex.vm.NodeViewModel
 
 class NodeActivity : BaseActivity<ActivityNodeBinding>() {
 
-    private lateinit var vm: NodeViewModel
+    private val vm: NodeViewModel by viewModels()
 
-    private lateinit var nodeName: String
-
-    companion object {
-        fun start(from: Any, title: String, name: String) {
-            from.toActivity<NodeActivity>(
-                bundleOf(
-                    ExtraKeys.NODE_TITLE to title,
-                    ExtraKeys.NODE_NAME to name
-                )
-            )
-        }
-    }
-
-    @Suppress("UNCHECKED_CAST")
-    override fun initViewModels(): List<BaseViewModel> {
-        nodeName = intent.getStringExtra(ExtraKeys.NODE_NAME) ?: throw MissingArgumentException(ExtraKeys.NODE_NAME)
-        vm = ViewModelProvider(this) { NodeViewModel(nodeName, application) }
-        return listOf(vm)
-    }
+    override fun initViewModels(): List<BaseViewModel> = listOf(vm)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,6 +48,17 @@ class NodeActivity : BaseActivity<ActivityNodeBinding>() {
                 .beginTransaction()
                 .replace(R.id.list_container, NodePageFragment())
                 .commit()
+        }
+    }
+
+    companion object {
+        fun start(from: Any, title: String, name: String) {
+            from.toActivity<NodeActivity>(
+                bundleOf(
+                    ExtraKeys.NODE_TITLE to title,
+                    ExtraKeys.NODE_NAME to name
+                )
+            )
         }
     }
 
