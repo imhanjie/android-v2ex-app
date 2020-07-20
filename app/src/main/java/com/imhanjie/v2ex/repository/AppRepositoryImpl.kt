@@ -31,7 +31,6 @@ object AppRepositoryImpl : AppRepository {
 
     override suspend fun loadLatestTopics(tab: String, pageIndex: Int): List<TopicItem> {
         val result = if (tab == TopicTab.ALL.value) {
-//            api.loadRecentTopics(pageIndex - 1)
             api.loadLatestTopics(tab)
         } else {
             api.loadLatestTopics(tab)
@@ -44,11 +43,6 @@ object AppRepositoryImpl : AppRepository {
     }
 
     override suspend fun loadTopic(topicId: Long, pageIndex: Int): Topic {
-//        api.loadTopic(topicId, pageIndex)
-//        api.loadTopic(567112, pageIndex) // MY
-//        api.loadTopic(419135, pageIndex) // PIC
-//        api.loadTopic(670151, pageIndex) // SUBTLE
-//        api.loadTopic(671006, pageIndex) // TEST
         return api.loadTopic(topicId, pageIndex).extract()
     }
 

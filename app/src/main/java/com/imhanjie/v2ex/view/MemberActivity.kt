@@ -37,7 +37,7 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>() {
         }
     }
 
-    override fun initViewModels(): List<BaseViewModel> = listOf(vm)
+    override fun getViewModels(): List<BaseViewModel> = listOf(vm)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

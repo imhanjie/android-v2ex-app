@@ -65,7 +65,7 @@ abstract class BasePageFragment<VM : BasePageViewModel> : BaseFragment<FragmentB
                 }
             }
         }
-        vm.loadFailState.observe(this) { loadMore ->
+        vm.loadFailState.observe(viewLifecycleOwner) { loadMore ->
             if (loadMore) {
                 delegate.notifyLoadFailed()
             } else {

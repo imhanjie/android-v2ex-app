@@ -14,8 +14,7 @@ class NodePageFragment : BasePageFragment<NodeViewModel>() {
 
     override fun getViewModel(): NodeViewModel {
         /*
-         * 这里从依附的 activity 的 ViewModelStoreOwner 中取出 NodeViewModel，
-         * 不会走 ViewModelFactory 的 create 方法了，所以不用传构造器参数给 NodeViewModel 了
+         * 这里从依附的 activity 的 ViewModelStoreOwner 中取出 NodeViewModel
          */
         return ViewModelProvider(requireActivity()).get(NodeViewModel::class.java)
     }

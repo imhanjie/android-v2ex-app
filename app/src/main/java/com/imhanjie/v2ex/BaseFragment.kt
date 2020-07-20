@@ -14,9 +14,9 @@ import com.imhanjie.support.e
 import com.imhanjie.support.ext.toast
 import com.imhanjie.v2ex.common.GlobalViewModel
 import com.imhanjie.v2ex.common.SpConstants
+import com.imhanjie.v2ex.common.getVBClass
 import com.imhanjie.v2ex.vm.BaseViewModel
 import com.imhanjie.widget.dialog.PureLoadingDialog
-import java.lang.reflect.ParameterizedType
 
 abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
@@ -30,17 +30,29 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
     abstract fun initViews()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        globalViewModel = ViewModelProvider(requireActivity().applicationContext as App).get(GlobalViewModel::class.java)
+        e("${javaClass.simpleName} : onCreate()")
+    }
+
     @Suppress("UNCHECKED_CAST")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         e("${javaClass.simpleName} : onCreateView()")
-        val method = getVBClass(javaClass).getMethod(
+        val vbClass = getVBClass<VB>(javaClass)
+        val method = vbClass.getMethod(
             "inflate",
             LayoutInflater::class.java,
             ViewGroup::class.java,
             Boolean::class.java
         )
         vb = method.invoke(null, inflater, container, false) as VB
+        return vb.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        e("${javaClass.simpleName} : onViewCreated()")
         loadingDialog = PureLoadingDialog(requireContext()).apply {
             setCancelable(false)
         }
@@ -49,33 +61,12 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
             vm.toast.observe(viewLifecycleOwner) { toast(it) }
             vm.loadingDialogState.observe(viewLifecycleOwner) { loadingDialog.update(!it) }
         }
-
-        globalViewModel = ViewModelProvider(requireActivity().applicationContext as App).get(GlobalViewModel::class.java)
-
         initViews()
-        return vb.root
-    }
-
-    // 递归向上寻找 ViewBinding 泛型
-    @Suppress("UNCHECKED_CAST")
-    private fun getVBClass(enterClazz: Class<*>): Class<*> {
-        val type = enterClazz.genericSuperclass as ParameterizedType
-        val clazz: Class<VB> = type.actualTypeArguments[0] as Class<VB>
-        return if (ViewBinding::class.java.isAssignableFrom(clazz)) {
-            clazz
-        } else {
-            getVBClass(enterClazz.superclass as Class<*>)
-        }
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         e("${javaClass.simpleName} : onAttach()")
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        e("${javaClass.simpleName} : onCreate()")
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -117,5 +108,17 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         super.onDetach()
         e("${javaClass.simpleName} : onDetach()")
     }
+
+    // 递归向上寻找 ViewBinding 泛型
+//    @Suppress("UNCHECKED_CAST")
+//    private fun getVBClass(enterClazz: Class<*>): Class<*> {
+//        val type = enterClazz.genericSuperclass as ParameterizedType
+//        val clazz: Class<VB> = type.actualTypeArguments[0] as Class<VB>
+//        return if (ViewBinding::class.java.isAssignableFrom(clazz)) {
+//            clazz
+//        } else {
+//            getVBClass(enterClazz.superclass as Class<*>)
+//        }
+//    }
 
 }

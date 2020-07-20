@@ -89,10 +89,6 @@ dependencies {
     implementation "androidx.fragment:fragment-ktx:${rootProject.ext.fragment}"
     implementation "androidx.multidex:multidex:${rootProject.ext.multidex}"
 
-    // androidx widget
-    implementation "com.google.android.material:material:${rootProject.ext.material}"
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:${rootProject.ext.swiperefreshlayout}"
-
     // Room
     implementation "androidx.room:room-runtime:${rootProject.ext.room}"
     kapt "androidx.room:room-compiler:${rootProject.ext.room}"

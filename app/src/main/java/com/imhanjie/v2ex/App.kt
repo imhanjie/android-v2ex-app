@@ -18,6 +18,10 @@ class App : MultiDexApplication(), ViewModelStoreOwner {
 
     private val globalViewModelStore = ViewModelStore()
 
+    override fun getViewModelStore(): ViewModelStore {
+        return globalViewModelStore
+    }
+
     companion object {
         lateinit var INSTANCE: Application
 
@@ -41,10 +45,6 @@ class App : MultiDexApplication(), ViewModelStoreOwner {
             AppSession.getUserInfo().value!!.a2Cookie
         }
         Stetho.initializeWithDefaults(this)
-    }
-
-    override fun getViewModelStore(): ViewModelStore {
-        return globalViewModelStore
     }
 
 }

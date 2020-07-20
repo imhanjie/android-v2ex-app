@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer
 
 /**
  * 一个可以让 Observer 订阅时不立即分发订阅之前的事件的 LiveData，只分发订阅之后的事件
+ * - 去除 LiveData 黏性事件
  */
 class NonStickyLiveData<T> : MutableLiveData<T>() {
 

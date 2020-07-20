@@ -15,7 +15,7 @@ class PreviewTopicActivity : BaseActivity<ActivityPreviewTopicBinding>() {
 
     private val vm: PreviewTopicViewModel by viewModels()
 
-    override fun initViewModels(): List<BaseViewModel> {
+    override fun getViewModels(): List<BaseViewModel> {
         return listOf(vm)
     }
 

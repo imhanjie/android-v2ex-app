@@ -28,7 +28,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         private const val DEFAULT_INDEX = TAB_MAIN
     }
 
-    override fun initViewModels(): List<BaseViewModel> = emptyList()
+    override fun getViewModels(): List<BaseViewModel> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

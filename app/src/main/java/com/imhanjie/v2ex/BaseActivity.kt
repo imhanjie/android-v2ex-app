@@ -13,9 +13,9 @@ import com.imhanjie.support.ext.toast
 import com.imhanjie.support.statusbar.StatusBarUtil
 import com.imhanjie.v2ex.common.GlobalViewModel
 import com.imhanjie.v2ex.common.SpConstants
+import com.imhanjie.v2ex.common.getVBClass
 import com.imhanjie.v2ex.vm.BaseViewModel
 import com.imhanjie.widget.dialog.PureLoadingDialog
-import java.lang.reflect.ParameterizedType
 
 abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
 
@@ -25,21 +25,20 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
     protected lateinit var loadingDialog: PureLoadingDialog
     protected lateinit var globalViewModel: GlobalViewModel
 
-    abstract fun initViewModels(): List<BaseViewModel>
+    abstract fun getViewModels(): List<BaseViewModel>
 
     @Suppress("UNCHECKED_CAST")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val type = javaClass.genericSuperclass as ParameterizedType
-        val clazz: Class<VB> = type.actualTypeArguments[0] as Class<VB>
-        val method = clazz.getMethod("inflate", LayoutInflater::class.java)
+        val vbClass = getVBClass<VB>(javaClass)
+        val method = vbClass.getMethod("inflate", LayoutInflater::class.java)
         vb = method.invoke(null, layoutInflater) as VB
         setContentView(vb.root)
 
         loadingDialog = PureLoadingDialog(this).apply {
             setCancelable(false)
         }
-        for (vm in initViewModels()) {
+        for (vm in getViewModels()) {
             vm.error.observe(this) { toast(it) }
             vm.toast.observe(this) { toast(it) }
             vm.loadingDialogState.observe(this) { loadingDialog.update(!it) }

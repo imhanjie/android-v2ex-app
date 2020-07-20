@@ -30,7 +30,7 @@ class MainTabFragment : BaseFragment<FragmentTabMainBinding>() {
         vb.topBar.setOnRightClickListener(View.OnClickListener {
             toActivity<CreateTopicActivity>()
         })
-        AppSession.getLoginState().observe(this) { isLogin ->
+        AppSession.getLoginState().observe(viewLifecycleOwner) { isLogin ->
             vb.topBar.setRightVisibility(if (isLogin) View.VISIBLE else View.INVISIBLE)
         }
 

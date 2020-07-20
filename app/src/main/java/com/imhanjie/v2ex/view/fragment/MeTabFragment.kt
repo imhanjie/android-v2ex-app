@@ -33,7 +33,7 @@ class MeTabFragment : BaseLazyFragment<FragmentTabMeBinding>() {
             viewAbout.setOnClickListener { AboutDialog(requireContext()).show() }
         }
 
-        vm.loadState.observe(this) {
+        vm.loadState.observe(viewLifecycleOwner) {
             vb.swipeRefreshLayout.isRefreshing = false
         }
 

@@ -19,7 +19,7 @@ class NodeActivity : BaseActivity<ActivityNodeBinding>() {
 
     private val vm: NodeViewModel by viewModels()
 
-    override fun initViewModels(): List<BaseViewModel> = listOf(vm)
+    override fun getViewModels(): List<BaseViewModel> = listOf(vm)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

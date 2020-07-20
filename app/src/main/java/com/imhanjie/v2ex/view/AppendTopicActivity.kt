@@ -18,7 +18,7 @@ class AppendTopicActivity : BaseActivity<ActivityAppendTopicBinding>() {
 
     private val vm: AppendTopicViewModel by viewModels()
 
-    override fun initViewModels(): List<BaseViewModel> {
+    override fun getViewModels(): List<BaseViewModel> {
         return listOf(vm)
     }
 

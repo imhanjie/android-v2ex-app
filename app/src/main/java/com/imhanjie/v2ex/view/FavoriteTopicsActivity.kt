@@ -9,7 +9,7 @@ import com.imhanjie.v2ex.vm.BaseViewModel
 
 class FavoriteTopicsActivity : BaseActivity<ActivityFavoriteTopicsBinding>() {
 
-    override fun initViewModels(): List<BaseViewModel> {
+    override fun getViewModels(): List<BaseViewModel> {
         return emptyList()
     }
 

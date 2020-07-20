@@ -25,7 +25,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
     private val vm: LoginViewModel by viewModels()
 
-    override fun initViewModels(): List<BaseViewModel> {
+    override fun getViewModels(): List<BaseViewModel> {
         return listOf(vm)
     }
 

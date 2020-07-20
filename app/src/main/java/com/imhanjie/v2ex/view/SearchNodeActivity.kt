@@ -26,7 +26,7 @@ class SearchNodeActivity : BaseActivity<ActivitySearchNodeBinding>() {
 
     private val nodes = mutableListOf<SearchNode>()
 
-    override fun initViewModels(): List<BaseViewModel> {
+    override fun getViewModels(): List<BaseViewModel> {
         return listOf(vm)
     }
 
