@@ -4,10 +4,10 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
-import com.imhanjie.v2ex.App
 import com.imhanjie.v2ex.R
 import com.imhanjie.v2ex.common.ExtraKeys
 import com.imhanjie.v2ex.common.MissingArgumentException
+import com.imhanjie.v2ex.model.VMEvent
 
 class AppendTopicViewModel(application: Application, savedStateHandle: SavedStateHandle) : BaseViewModel(application) {
 
@@ -32,11 +32,11 @@ class AppendTopicViewModel(application: Application, savedStateHandle: SavedStat
 
     fun appendTopic(content: String) {
         if (once == null) {
-            _toast.value = getApplication<App>().getString(R.string.tips_empty_page_once)
+            _event.value = VMEvent(VMEvent.Event.TOAST, getResString(R.string.tips_empty_page_once))
             return
         }
         if (content.isEmpty()) {
-            _toast.value = getApplication<App>().getString(R.string.tips_empty_append_content)
+            _event.value = VMEvent(VMEvent.Event.TOAST, getResString(R.string.tips_empty_append_content))
             return
         }
         request(withLoading = true) {

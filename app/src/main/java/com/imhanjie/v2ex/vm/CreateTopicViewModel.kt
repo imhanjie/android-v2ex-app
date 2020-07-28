@@ -3,10 +3,10 @@ package com.imhanjie.v2ex.vm
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.imhanjie.v2ex.App
 import com.imhanjie.v2ex.R
 import com.imhanjie.v2ex.api.model.SearchNode
 import com.imhanjie.v2ex.common.valueIsNull
+import com.imhanjie.v2ex.model.VMEvent
 
 class CreateTopicViewModel(application: Application) : BaseViewModel(application) {
 
@@ -37,15 +37,15 @@ class CreateTopicViewModel(application: Application) : BaseViewModel(application
 
     fun createTopic(title: String, content: String) {
         if (once == null) {
-            _toast.value = getApplication<App>().getString(R.string.tips_empty_page_once)
+            _event.value = VMEvent(VMEvent.Event.TOAST, getResString(R.string.tips_empty_page_once))
             return
         }
         if (title.isEmpty()) {
-            _toast.value = getApplication<App>().getString(R.string.tips_empty_topic_title)
+            _event.value = VMEvent(VMEvent.Event.TOAST, getResString(R.string.tips_empty_topic_title))
             return
         }
         if (_selectedNode.valueIsNull()) {
-            _toast.value = getApplication<App>().getString(R.string.plz_choose_node)
+            _event.value = VMEvent(VMEvent.Event.TOAST, getResString(R.string.plz_choose_node))
             return
         }
         request(withLoading = true) {

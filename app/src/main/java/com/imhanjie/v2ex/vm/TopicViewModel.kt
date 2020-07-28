@@ -9,6 +9,7 @@ import com.imhanjie.v2ex.api.model.Topic
 import com.imhanjie.v2ex.common.ExtraKeys
 import com.imhanjie.v2ex.common.MissingArgumentException
 import com.imhanjie.v2ex.common.NonStickyLiveData
+import com.imhanjie.v2ex.model.VMEvent
 
 class TopicViewModel(application: Application, savedStateHandle: SavedStateHandle) : BaseViewModel(application) {
 
@@ -151,7 +152,7 @@ class TopicViewModel(application: Application, savedStateHandle: SavedStateHandl
                 reply.thankCount++
                 _thankReply.value = reply
             } else {
-                _toast.value = result.message
+                _event.value = VMEvent(VMEvent.Event.TOAST, result.message)
             }
         }
     }

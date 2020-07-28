@@ -14,6 +14,7 @@ import com.imhanjie.support.statusbar.StatusBarUtil
 import com.imhanjie.v2ex.common.GlobalViewModel
 import com.imhanjie.v2ex.common.SpConstants
 import com.imhanjie.v2ex.common.getVBClass
+import com.imhanjie.v2ex.model.VMEvent
 import com.imhanjie.v2ex.vm.BaseViewModel
 import com.imhanjie.widget.dialog.PureLoadingDialog
 
@@ -39,9 +40,13 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
             setCancelable(false)
         }
         for (vm in getViewModels()) {
-            vm.error.observe(this) { toast(it) }
-            vm.toast.observe(this) { toast(it) }
-            vm.loadingDialogState.observe(this) { loadingDialog.update(!it) }
+            vm.event.observe(this) {
+                when (it.event) {
+                    VMEvent.Event.SHOW_LOADING -> loadingDialog.update(false)
+                    VMEvent.Event.HIDE_LOADING -> loadingDialog.update(true)
+                    VMEvent.Event.TOAST, VMEvent.Event.ERROR -> toast(it.text)
+                }
+            }
         }
 
         globalViewModel = ViewModelProvider(applicationContext as App).get(GlobalViewModel::class.java)

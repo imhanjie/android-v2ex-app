@@ -1,12 +1,15 @@
 package com.imhanjie.v2ex.vm
 
 import android.app.Application
+import androidx.annotation.StringRes
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.google.gson.stream.MalformedJsonException
+import com.imhanjie.v2ex.App
 import com.imhanjie.v2ex.common.BizException
 import com.imhanjie.v2ex.common.SingleLiveEvent
+import com.imhanjie.v2ex.model.VMEvent
 import com.imhanjie.v2ex.repository.AppRepository
 import com.imhanjie.v2ex.repository.provideAppRepository
 import kotlinx.coroutines.CoroutineScope
@@ -20,20 +23,10 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
 
     protected val repo: AppRepository by lazy { provideAppRepository() }
 
-    private val _error = SingleLiveEvent<String>()
+    protected val _event = SingleLiveEvent<VMEvent>()
 
-    val error: LiveData<String>
-        get() = _error
-
-    protected val _toast = SingleLiveEvent<String>()
-
-    val toast: LiveData<String>
-        get() = _toast
-
-    private val _loadingDialogState = SingleLiveEvent<Boolean>()
-
-    val loadingDialogState: LiveData<Boolean>
-        get() = _loadingDialogState
+    val event: LiveData<VMEvent>
+        get() = _event
 
     fun request(
         withLoading: Boolean = false,
@@ -44,20 +37,24 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
         viewModelScope.launch {
             try {
                 if (withLoading) {
-                    _loadingDialogState.value = true
+                    _event.value = VMEvent(VMEvent.Event.SHOW_LOADING)
                 }
                 onRequest()
             } catch (e: Throwable) {
                 val msg = handleException(e)
-                _error.value = msg
+                _event.value = VMEvent(VMEvent.Event.ERROR, msg)
                 onError(msg)
             } finally {
                 if (withLoading) {
-                    _loadingDialogState.value = false
+                    _event.value = VMEvent(VMEvent.Event.HIDE_LOADING)
                 }
                 onComplete()
             }
         }
+    }
+
+    fun getResString(@StringRes resId: Int): String {
+        return getApplication<App>().getString(resId)
     }
 
     private fun handleException(e: Throwable): String {

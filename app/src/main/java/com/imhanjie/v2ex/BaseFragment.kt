@@ -15,6 +15,7 @@ import com.imhanjie.support.ext.toast
 import com.imhanjie.v2ex.common.GlobalViewModel
 import com.imhanjie.v2ex.common.SpConstants
 import com.imhanjie.v2ex.common.getVBClass
+import com.imhanjie.v2ex.model.VMEvent
 import com.imhanjie.v2ex.vm.BaseViewModel
 import com.imhanjie.widget.dialog.PureLoadingDialog
 
@@ -57,9 +58,13 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
             setCancelable(false)
         }
         for (vm in initViewModels()) {
-            vm.error.observe(viewLifecycleOwner) { toast(it) }
-            vm.toast.observe(viewLifecycleOwner) { toast(it) }
-            vm.loadingDialogState.observe(viewLifecycleOwner) { loadingDialog.update(!it) }
+            vm.event.observe(viewLifecycleOwner) {
+                when (it.event) {
+                    VMEvent.Event.SHOW_LOADING -> loadingDialog.update(false)
+                    VMEvent.Event.HIDE_LOADING -> loadingDialog.update(true)
+                    VMEvent.Event.TOAST, VMEvent.Event.ERROR -> toast(it.text)
+                }
+            }
         }
         initViews()
     }
