@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.drakeet.multitype.MultiTypeAdapter
 import com.imhanjie.v2ex.api.model.TopicItem
 import com.imhanjie.v2ex.common.ExtraKeys
-import com.imhanjie.v2ex.common.valueIsNull
+import com.imhanjie.v2ex.common.extension.valueIsNull
 import com.imhanjie.v2ex.view.BasePageFragment
 import com.imhanjie.v2ex.view.TopicActivity
 import com.imhanjie.v2ex.view.adapter.MemberTopicAdapter

@@ -3,7 +3,7 @@ package com.imhanjie.v2ex.vm
 import android.app.Application
 import androidx.lifecycle.LiveData
 import com.imhanjie.v2ex.AppSession
-import com.imhanjie.v2ex.common.NonStickyLiveData
+import com.imhanjie.v2ex.common.extension.NonStickyLiveData
 
 class MeTabViewModel(application: Application) : BaseViewModel(application) {
 

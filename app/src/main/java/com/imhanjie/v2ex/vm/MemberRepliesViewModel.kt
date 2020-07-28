@@ -3,7 +3,7 @@ package com.imhanjie.v2ex.vm
 import android.app.Application
 import androidx.lifecycle.SavedStateHandle
 import com.imhanjie.v2ex.common.ExtraKeys
-import com.imhanjie.v2ex.common.MissingArgumentException
+import com.imhanjie.v2ex.common.exception.MissingArgumentException
 
 class MemberRepliesViewModel(application: Application, savedStateHandle: SavedStateHandle) : BasePageViewModel(application) {
 

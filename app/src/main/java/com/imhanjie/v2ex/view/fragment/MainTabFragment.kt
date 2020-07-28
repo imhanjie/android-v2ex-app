@@ -11,7 +11,7 @@ import com.imhanjie.support.ext.toActivity
 import com.imhanjie.v2ex.AppSession
 import com.imhanjie.v2ex.BaseFragment
 import com.imhanjie.v2ex.common.Event
-import com.imhanjie.v2ex.common.LiveDataBus
+import com.imhanjie.v2ex.common.extension.LiveDataBus
 import com.imhanjie.v2ex.common.TopicTab
 import com.imhanjie.v2ex.databinding.FragmentTabMainBinding
 import com.imhanjie.v2ex.view.CreateTopicActivity

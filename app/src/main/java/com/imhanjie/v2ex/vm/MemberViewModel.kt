@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.imhanjie.v2ex.api.model.Member
 import com.imhanjie.v2ex.common.ExtraKeys
-import com.imhanjie.v2ex.common.MissingArgumentException
-import com.imhanjie.v2ex.common.NonStickyLiveData
+import com.imhanjie.v2ex.common.exception.MissingArgumentException
+import com.imhanjie.v2ex.common.extension.NonStickyLiveData
 
 class MemberViewModel(application: Application, savedStateHandle: SavedStateHandle) : BaseViewModel(application) {
 

@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.imhanjie.v2ex.R
 import com.imhanjie.v2ex.common.ExtraKeys
-import com.imhanjie.v2ex.common.MissingArgumentException
+import com.imhanjie.v2ex.common.exception.MissingArgumentException
 import com.imhanjie.v2ex.model.VMEvent
 
 class AppendTopicViewModel(application: Application, savedStateHandle: SavedStateHandle) : BaseViewModel(application) {

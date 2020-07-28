@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.imhanjie.v2ex.R
 import com.imhanjie.v2ex.api.model.SearchNode
-import com.imhanjie.v2ex.common.valueIsNull
+import com.imhanjie.v2ex.common.extension.valueIsNull
 import com.imhanjie.v2ex.model.VMEvent
 
 class CreateTopicViewModel(application: Application) : BaseViewModel(application) {

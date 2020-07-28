@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.imhanjie.support.PreferencesManager
 import com.imhanjie.v2ex.api.model.MyUserInfo
-import com.imhanjie.v2ex.common.LocalUserInfo
+import com.imhanjie.v2ex.model.LocalUserInfo
 import com.imhanjie.v2ex.common.SpConstants
 
 object AppSession {

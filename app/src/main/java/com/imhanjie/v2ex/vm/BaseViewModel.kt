@@ -7,8 +7,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.google.gson.stream.MalformedJsonException
 import com.imhanjie.v2ex.App
-import com.imhanjie.v2ex.common.BizException
-import com.imhanjie.v2ex.common.SingleLiveEvent
+import com.imhanjie.v2ex.common.exception.BizException
+import com.imhanjie.v2ex.common.extension.SingleLiveEvent
 import com.imhanjie.v2ex.model.VMEvent
 import com.imhanjie.v2ex.repository.AppRepository
 import com.imhanjie.v2ex.repository.provideAppRepository

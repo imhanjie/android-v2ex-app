@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.drakeet.multitype.MultiTypeAdapter
 import com.imhanjie.support.ext.dpi
 import com.imhanjie.v2ex.BaseFragment
-import com.imhanjie.v2ex.common.valueIsNull
+import com.imhanjie.v2ex.common.extension.valueIsNull
 import com.imhanjie.v2ex.databinding.FragmentBasePageBinding
 import com.imhanjie.v2ex.vm.BasePageViewModel
 import com.imhanjie.v2ex.vm.BaseViewModel

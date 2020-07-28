@@ -1,4 +1,4 @@
-package com.imhanjie.v2ex.common
+package com.imhanjie.v2ex.model
 
 data class LocalUserInfo(
     var userName: String = "",

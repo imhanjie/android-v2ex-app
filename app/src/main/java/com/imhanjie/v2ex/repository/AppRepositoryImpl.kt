@@ -5,7 +5,7 @@ import com.imhanjie.v2ex.App
 import com.imhanjie.v2ex.api.ApiServer
 import com.imhanjie.v2ex.api.ApiService
 import com.imhanjie.v2ex.api.model.*
-import com.imhanjie.v2ex.common.BizException
+import com.imhanjie.v2ex.common.exception.BizException
 import com.imhanjie.v2ex.common.TopicTab
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.imhanjie.v2ex.api.model.Node
 import com.imhanjie.v2ex.common.ExtraKeys
-import com.imhanjie.v2ex.common.MissingArgumentException
+import com.imhanjie.v2ex.common.exception.MissingArgumentException
 
 class NodeViewModel(application: Application, savedStateHandle: SavedStateHandle) : BasePageViewModel(application) {
 

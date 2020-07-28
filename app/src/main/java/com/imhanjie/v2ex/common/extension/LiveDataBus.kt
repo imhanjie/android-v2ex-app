@@ -1,4 +1,4 @@
-package com.imhanjie.v2ex.common
+package com.imhanjie.v2ex.common.extension
 
 import android.os.Looper
 import androidx.lifecycle.MutableLiveData

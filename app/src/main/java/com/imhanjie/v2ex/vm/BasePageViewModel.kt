@@ -3,8 +3,8 @@ package com.imhanjie.v2ex.vm
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.imhanjie.v2ex.common.NonStickyLiveData
-import com.imhanjie.v2ex.common.valueIsNull
+import com.imhanjie.v2ex.common.extension.NonStickyLiveData
+import com.imhanjie.v2ex.common.extension.valueIsNull
 
 abstract class BasePageViewModel(application: Application) : BaseViewModel(application) {
 
