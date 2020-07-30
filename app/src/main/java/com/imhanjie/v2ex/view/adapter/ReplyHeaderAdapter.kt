@@ -8,7 +8,7 @@ import com.imhanjie.widget.recyclerview.base.VBViewHolder
 
 class ReplyHeaderAdapter(
     private val reverseBlock: (() -> Unit)? = {}
-) : BaseItemViewDelegate<ReplyHeaderType, ItemReplyHeaderBinding>() {
+) : BaseItemViewDelegate<ItemReplyHeaderBinding, ReplyHeaderType>() {
 
     override fun bindTo(holder: VBViewHolder<ItemReplyHeaderBinding>, position: Int, item: ReplyHeaderType) {
         with(holder.vb) {

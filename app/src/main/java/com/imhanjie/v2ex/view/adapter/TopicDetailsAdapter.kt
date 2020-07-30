@@ -12,7 +12,7 @@ import com.imhanjie.v2ex.view.NodeActivity
 import com.imhanjie.widget.recyclerview.base.BaseItemViewDelegate
 import com.imhanjie.widget.recyclerview.base.VBViewHolder
 
-class TopicDetailsAdapter : BaseItemViewDelegate<Topic, ItemTopicDetailsBinding>() {
+class TopicDetailsAdapter : BaseItemViewDelegate<ItemTopicDetailsBinding, Topic>() {
 
     override fun bindTo(holder: VBViewHolder<ItemTopicDetailsBinding>, position: Int, item: Topic) {
         with(holder.vb) {

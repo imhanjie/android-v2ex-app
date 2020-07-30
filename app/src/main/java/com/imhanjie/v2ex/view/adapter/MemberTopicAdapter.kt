@@ -7,7 +7,7 @@ import com.imhanjie.v2ex.view.NodeActivity
 import com.imhanjie.widget.recyclerview.base.BaseItemViewDelegate
 import com.imhanjie.widget.recyclerview.base.VBViewHolder
 
-class MemberTopicAdapter : BaseItemViewDelegate<TopicItem, ItemMemberTopicBinding>() {
+class MemberTopicAdapter : BaseItemViewDelegate<ItemMemberTopicBinding, TopicItem>() {
 
     override fun bindTo(holder: VBViewHolder<ItemMemberTopicBinding>, position: Int, item: TopicItem) {
         with(holder.vb) {

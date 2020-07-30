@@ -55,29 +55,23 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
         if (userName.isEmpty() || password.isEmpty() || verCode.isEmpty() || signInData == null) {
             return
         }
-        request(
-            onRequest = {
-                _loginState.value = true
-                // 1. 登录
-                val loginInfo = repo.login(signInData!!, userName, password, verCode)
-                // 2. 存储用户标识 cookie
-                AppSession.setOrUpdateUserInfo(
-                    AppSession.getUserInfo().value!!.copy(
-                        a2Cookie = loginInfo.cookie
-                    )
+        request(onError = { loadSignIn() },
+            onComplete = { _loginState.value = false }
+        ) {
+            _loginState.value = true
+            // 1. 登录
+            val loginInfo = repo.login(signInData!!, userName, password, verCode)
+            // 2. 存储用户标识 cookie
+            AppSession.setOrUpdateUserInfo(
+                AppSession.getUserInfo().value!!.copy(
+                    a2Cookie = loginInfo.cookie
                 )
-                // 3. 获取用户信息
-                val myUserInfo = repo.loadMyUserInfo()
-                AppSession.setOrUpdateUserInfo(myUserInfo)
-                _loginResult.value = loginInfo
-            },
-            onError = {
-                loadSignIn()
-            },
-            onComplete = {
-                _loginState.value = false
-            }
-        )
+            )
+            // 3. 获取用户信息
+            val myUserInfo = repo.loadMyUserInfo()
+            AppSession.setOrUpdateUserInfo(myUserInfo)
+            _loginResult.value = loginInfo
+        }
     }
 
 }

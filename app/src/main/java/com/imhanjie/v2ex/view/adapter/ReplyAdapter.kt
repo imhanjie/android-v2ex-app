@@ -11,7 +11,7 @@ import com.imhanjie.v2ex.view.MemberActivity
 import com.imhanjie.widget.recyclerview.base.BaseItemViewDelegate
 import com.imhanjie.widget.recyclerview.base.VBViewHolder
 
-class ReplyAdapter : BaseItemViewDelegate<Reply, ItemReplyBinding>() {
+class ReplyAdapter : BaseItemViewDelegate<ItemReplyBinding, Reply>() {
 
     override fun bindTo(holder: VBViewHolder<ItemReplyBinding>, position: Int, item: Reply) {
         with(holder.vb) {

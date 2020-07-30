@@ -6,12 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.viewbinding.ViewBinding
-import java.lang.reflect.ParameterizedType
+import com.imhanjie.widget.common.getVBClass
 
 /**
  * with diff
  */
-abstract class BaseListAdapter<T, VB : ViewBinding>(diffCallback: DiffUtil.ItemCallback<T>) :
+abstract class BaseListAdapter<VB : ViewBinding, T>(diffCallback: DiffUtil.ItemCallback<T>) :
     ListAdapter<T, VBViewHolder<VB>>(diffCallback) {
 
     public var onItemClickListener: ((holder: VBViewHolder<VB>, item: T, position: Int) -> Unit)? = null
@@ -20,9 +20,8 @@ abstract class BaseListAdapter<T, VB : ViewBinding>(diffCallback: DiffUtil.ItemC
 
     @Suppress("UNCHECKED_CAST")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VBViewHolder<VB> {
-        val type = javaClass.genericSuperclass as ParameterizedType
-        val clazz: Class<VB> = type.actualTypeArguments[1] as Class<VB>
-        val method = clazz.getMethod(
+        val vbClass = getVBClass<VB>(javaClass)
+        val method = vbClass.getMethod(
             "inflate",
             LayoutInflater::class.java,
             ViewGroup::class.java,

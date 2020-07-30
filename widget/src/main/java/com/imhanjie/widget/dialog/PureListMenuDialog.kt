@@ -30,7 +30,7 @@ class PureListMenuDialog(ctx: Context) : BaseCustomDialog<WidgetDialogListMenuBi
 
     override fun initView(root: View) {
         vb.rvMenu.layoutManager = LinearLayoutManager(context)
-        val adapter = object : BaseAdapter<Item, WidgetItemListMenuBinding>(menus) {
+        val adapter = object : BaseAdapter<WidgetItemListMenuBinding, Item>(menus) {
             override fun bindTo(vb: WidgetItemListMenuBinding, position: Int, item: Item) {
                 vb.tvMenu.text = item.name
                 vb.tvMenu.setDrawableStart(item.drawableRes)

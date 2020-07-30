@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
 import com.drakeet.multitype.ItemViewDelegate
-import java.lang.reflect.ParameterizedType
+import com.imhanjie.widget.common.getVBClass
 
-abstract class BaseItemViewDelegate<T, VB : ViewBinding> : ItemViewDelegate<T, VBViewHolder<VB>>() {
+abstract class BaseItemViewDelegate<VB : ViewBinding, T> : ItemViewDelegate<T, VBViewHolder<VB>>() {
 
     public var onItemClickListener: ((holder: VBViewHolder<VB>, item: T, position: Int) -> Unit)? = null
     public var onItemLongClickListener: ((holder: VBViewHolder<VB>, item: T, position: Int) -> Boolean)? = null
@@ -15,9 +15,8 @@ abstract class BaseItemViewDelegate<T, VB : ViewBinding> : ItemViewDelegate<T, V
 
     @Suppress("UNCHECKED_CAST")
     override fun onCreateViewHolder(context: Context, parent: ViewGroup): VBViewHolder<VB> {
-        val type = javaClass.genericSuperclass as ParameterizedType
-        val clazz: Class<VB> = type.actualTypeArguments[1] as Class<VB>
-        val method = clazz.getMethod(
+        val vbClass = getVBClass<VB>(javaClass)
+        val method = vbClass.getMethod(
             "inflate",
             LayoutInflater::class.java,
             ViewGroup::class.java,

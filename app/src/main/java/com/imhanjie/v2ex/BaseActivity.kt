@@ -13,9 +13,9 @@ import com.imhanjie.support.ext.toast
 import com.imhanjie.support.statusbar.StatusBarUtil
 import com.imhanjie.v2ex.common.GlobalViewModel
 import com.imhanjie.v2ex.common.SpConstants
-import com.imhanjie.v2ex.common.getVBClass
-import com.imhanjie.v2ex.model.VMEvent
+import com.imhanjie.v2ex.model.VmEvent
 import com.imhanjie.v2ex.vm.BaseViewModel
+import com.imhanjie.widget.common.getVBClass
 import com.imhanjie.widget.dialog.PureLoadingDialog
 
 abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
@@ -42,9 +42,9 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
         for (vm in getViewModels()) {
             vm.event.observe(this) {
                 when (it.event) {
-                    VMEvent.Event.SHOW_LOADING -> loadingDialog.update(false)
-                    VMEvent.Event.HIDE_LOADING -> loadingDialog.update(true)
-                    VMEvent.Event.TOAST, VMEvent.Event.ERROR -> toast(it.text)
+                    VmEvent.Event.SHOW_LOADING -> loadingDialog.update(false)
+                    VmEvent.Event.HIDE_LOADING -> loadingDialog.update(true)
+                    VmEvent.Event.TOAST, VmEvent.Event.ERROR -> toast(it.text)
                 }
             }
         }

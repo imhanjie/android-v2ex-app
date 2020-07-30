@@ -9,7 +9,7 @@ import com.google.gson.stream.MalformedJsonException
 import com.imhanjie.v2ex.App
 import com.imhanjie.v2ex.common.exception.BizException
 import com.imhanjie.v2ex.common.extension.SingleLiveEvent
-import com.imhanjie.v2ex.model.VMEvent
+import com.imhanjie.v2ex.model.VmEvent
 import com.imhanjie.v2ex.repository.AppRepository
 import com.imhanjie.v2ex.repository.provideAppRepository
 import kotlinx.coroutines.CoroutineScope
@@ -23,9 +23,9 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
 
     protected val repo: AppRepository by lazy { provideAppRepository() }
 
-    protected val _event = SingleLiveEvent<VMEvent>()
+    protected val _event = SingleLiveEvent<VmEvent>()
 
-    val event: LiveData<VMEvent>
+    val event: LiveData<VmEvent>
         get() = _event
 
     fun request(
@@ -37,16 +37,16 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
         viewModelScope.launch {
             try {
                 if (withLoading) {
-                    _event.value = VMEvent(VMEvent.Event.SHOW_LOADING)
+                    _event.value = VmEvent(VmEvent.Event.SHOW_LOADING)
                 }
                 onRequest()
             } catch (e: Throwable) {
                 val msg = handleException(e)
-                _event.value = VMEvent(VMEvent.Event.ERROR, msg)
+                _event.value = VmEvent(VmEvent.Event.ERROR, msg)
                 onError(msg)
             } finally {
                 if (withLoading) {
-                    _event.value = VMEvent(VMEvent.Event.HIDE_LOADING)
+                    _event.value = VmEvent(VmEvent.Event.HIDE_LOADING)
                 }
                 onComplete()
             }

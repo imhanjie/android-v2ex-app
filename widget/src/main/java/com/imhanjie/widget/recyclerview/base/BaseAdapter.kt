@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import java.lang.reflect.ParameterizedType
+import com.imhanjie.widget.common.getVBClass
 
-abstract class BaseAdapter<T, VB : ViewBinding>(val dataSet: List<T>) : RecyclerView.Adapter<VBViewHolder<VB>>() {
+abstract class BaseAdapter<VB : ViewBinding, T>(private val dataSet: List<T>) : RecyclerView.Adapter<VBViewHolder<VB>>() {
 
     public var onItemClickListener: ((holder: VBViewHolder<VB>, item: T, position: Int) -> Unit)? = null
     public var onItemLongClickListener: ((holder: VBViewHolder<VB>, item: T, position: Int) -> Boolean)? = null
@@ -15,9 +15,8 @@ abstract class BaseAdapter<T, VB : ViewBinding>(val dataSet: List<T>) : Recycler
 
     @Suppress("UNCHECKED_CAST")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VBViewHolder<VB> {
-        val type = javaClass.genericSuperclass as ParameterizedType
-        val clazz: Class<VB> = type.actualTypeArguments[1] as Class<VB>
-        val method = clazz.getMethod(
+        val vbClass = getVBClass<VB>(javaClass)
+        val method = vbClass.getMethod(
             "inflate",
             LayoutInflater::class.java,
             ViewGroup::class.java,

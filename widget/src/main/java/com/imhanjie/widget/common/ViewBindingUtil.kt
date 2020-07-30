@@ -1,4 +1,4 @@
-package com.imhanjie.v2ex.common
+package com.imhanjie.widget.common
 
 import androidx.viewbinding.ViewBinding
 import java.lang.reflect.ParameterizedType

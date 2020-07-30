@@ -10,7 +10,7 @@ import com.imhanjie.v2ex.databinding.ItemNotificaitonBinding
 import com.imhanjie.widget.recyclerview.base.BaseItemViewDelegate
 import com.imhanjie.widget.recyclerview.base.VBViewHolder
 
-class NotificationAdapter : BaseItemViewDelegate<Notifications.Item, ItemNotificaitonBinding>() {
+class NotificationAdapter : BaseItemViewDelegate<ItemNotificaitonBinding, Notifications.Item>() {
 
     override fun bindTo(holder: VBViewHolder<ItemNotificaitonBinding>, position: Int, item: Notifications.Item) {
         with(holder.vb) {

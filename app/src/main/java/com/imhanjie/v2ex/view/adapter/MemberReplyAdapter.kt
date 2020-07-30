@@ -5,7 +5,7 @@ import com.imhanjie.v2ex.databinding.ItemMemberReplyBinding
 import com.imhanjie.widget.recyclerview.base.BaseItemViewDelegate
 import com.imhanjie.widget.recyclerview.base.VBViewHolder
 
-class MemberReplyAdapter : BaseItemViewDelegate<MemberReplies.Item, ItemMemberReplyBinding>() {
+class MemberReplyAdapter : BaseItemViewDelegate<ItemMemberReplyBinding, MemberReplies.Item>() {
 
     override fun bindTo(holder: VBViewHolder<ItemMemberReplyBinding>, position: Int, item: MemberReplies.Item) {
         with(holder.vb) {

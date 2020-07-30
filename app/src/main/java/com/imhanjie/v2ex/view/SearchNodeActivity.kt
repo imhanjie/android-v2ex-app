@@ -45,7 +45,7 @@ class SearchNodeActivity : BaseActivity<ActivitySearchNodeBinding>() {
         })
 
         vb.rvNodes.layoutManager = LinearLayoutManager(this)
-        val adapter = object : BaseAdapter<SearchNode, ItemSearchNodeBinding>(nodes) {
+        val adapter = object : BaseAdapter<ItemSearchNodeBinding, SearchNode>(nodes) {
             override fun bindTo(vb: ItemSearchNodeBinding, position: Int, item: SearchNode) {
                 vb.tvNode.text = item.text
             }

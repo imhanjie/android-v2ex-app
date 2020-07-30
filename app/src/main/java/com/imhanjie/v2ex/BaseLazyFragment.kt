@@ -12,7 +12,7 @@ abstract class BaseLazyFragment<VB : ViewBinding> : BaseFragment<VB>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         savedInstanceState?.let {
-            isFirstResume = it.getBoolean("is_first_resume", true)
+            isFirstResume = it.getBoolean(IS_FIRST_RESUME, true)
         }
     }
 
@@ -26,7 +26,11 @@ abstract class BaseLazyFragment<VB : ViewBinding> : BaseFragment<VB>() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putBoolean("is_first_resume", isFirstResume)
+        outState.putBoolean(IS_FIRST_RESUME, isFirstResume)
+    }
+
+    companion object {
+        const val IS_FIRST_RESUME = "is_first_resume"
     }
 
 }

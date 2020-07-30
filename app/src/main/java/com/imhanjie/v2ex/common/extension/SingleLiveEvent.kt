@@ -8,7 +8,8 @@ import androidx.lifecycle.Observer
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
- * From: https://github.com/android/architecture-samples/blob/dev-todo-mvvm-live/todoapp/app/src/main/java/com/example/android/architecture/blueprints/todoapp/SingleLiveEvent.java
+ * From: https://github.com/android/architecture-samples/blob/dev-t
+ * odo-mvvm-live/todoapp/app/src/main/java/com/example/android/architecture/blueprints/todoapp/SingleLiveEvent.java
  * - 去除 LiveData 黏性事件
  * - 发送事件时，确保只有一个 observer 能接受事件
  */

@@ -9,7 +9,7 @@ import com.imhanjie.widget.databinding.WidgetItemLoadMoreBinding
 import com.imhanjie.widget.recyclerview.base.BaseItemViewDelegate
 import com.imhanjie.widget.recyclerview.base.VBViewHolder
 
-class LoadMoreItemViewDelegate : BaseItemViewDelegate<FooterItem, WidgetItemLoadMoreBinding>() {
+class LoadMoreItemViewDelegate : BaseItemViewDelegate<WidgetItemLoadMoreBinding, FooterItem>() {
 
     public var retryBlock: (() -> Unit)? = null
 

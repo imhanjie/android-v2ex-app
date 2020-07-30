@@ -6,7 +6,7 @@ import com.imhanjie.v2ex.databinding.ItemSubtleBinding
 import com.imhanjie.widget.recyclerview.base.BaseItemViewDelegate
 import com.imhanjie.widget.recyclerview.base.VBViewHolder
 
-class SubtleAdapter : BaseItemViewDelegate<Topic.Subtle, ItemSubtleBinding>() {
+class SubtleAdapter : BaseItemViewDelegate<ItemSubtleBinding, Topic.Subtle>() {
 
     override fun bindTo(holder: VBViewHolder<ItemSubtleBinding>, position: Int, item: Topic.Subtle) {
         with(holder.vb) {

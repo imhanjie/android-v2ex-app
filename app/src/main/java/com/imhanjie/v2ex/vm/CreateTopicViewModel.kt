@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.imhanjie.v2ex.R
 import com.imhanjie.v2ex.api.model.SearchNode
 import com.imhanjie.v2ex.common.extension.valueIsNull
-import com.imhanjie.v2ex.model.VMEvent
+import com.imhanjie.v2ex.model.VmEvent
 
 class CreateTopicViewModel(application: Application) : BaseViewModel(application) {
 
@@ -37,15 +37,15 @@ class CreateTopicViewModel(application: Application) : BaseViewModel(application
 
     fun createTopic(title: String, content: String) {
         if (once == null) {
-            _event.value = VMEvent(VMEvent.Event.TOAST, getResString(R.string.tips_empty_page_once))
+            _event.value = VmEvent(VmEvent.Event.TOAST, getResString(R.string.tips_empty_page_once))
             return
         }
         if (title.isEmpty()) {
-            _event.value = VMEvent(VMEvent.Event.TOAST, getResString(R.string.tips_empty_topic_title))
+            _event.value = VmEvent(VmEvent.Event.TOAST, getResString(R.string.tips_empty_topic_title))
             return
         }
         if (_selectedNode.valueIsNull()) {
-            _event.value = VMEvent(VMEvent.Event.TOAST, getResString(R.string.plz_choose_node))
+            _event.value = VmEvent(VmEvent.Event.TOAST, getResString(R.string.plz_choose_node))
             return
         }
         request(withLoading = true) {

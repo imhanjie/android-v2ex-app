@@ -14,9 +14,9 @@ import com.imhanjie.support.e
 import com.imhanjie.support.ext.toast
 import com.imhanjie.v2ex.common.GlobalViewModel
 import com.imhanjie.v2ex.common.SpConstants
-import com.imhanjie.v2ex.common.getVBClass
-import com.imhanjie.v2ex.model.VMEvent
+import com.imhanjie.v2ex.model.VmEvent
 import com.imhanjie.v2ex.vm.BaseViewModel
+import com.imhanjie.widget.common.getVBClass
 import com.imhanjie.widget.dialog.PureLoadingDialog
 
 abstract class BaseFragment<VB : ViewBinding> : Fragment() {
@@ -60,9 +60,9 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         for (vm in initViewModels()) {
             vm.event.observe(viewLifecycleOwner) {
                 when (it.event) {
-                    VMEvent.Event.SHOW_LOADING -> loadingDialog.update(false)
-                    VMEvent.Event.HIDE_LOADING -> loadingDialog.update(true)
-                    VMEvent.Event.TOAST, VMEvent.Event.ERROR -> toast(it.text)
+                    VmEvent.Event.SHOW_LOADING -> loadingDialog.update(false)
+                    VmEvent.Event.HIDE_LOADING -> loadingDialog.update(true)
+                    VmEvent.Event.TOAST, VmEvent.Event.ERROR -> toast(it.text)
                 }
             }
         }
@@ -113,17 +113,5 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         super.onDetach()
         e("${javaClass.simpleName} : onDetach()")
     }
-
-    // 递归向上寻找 ViewBinding 泛型
-//    @Suppress("UNCHECKED_CAST")
-//    private fun getVBClass(enterClazz: Class<*>): Class<*> {
-//        val type = enterClazz.genericSuperclass as ParameterizedType
-//        val clazz: Class<VB> = type.actualTypeArguments[0] as Class<VB>
-//        return if (ViewBinding::class.java.isAssignableFrom(clazz)) {
-//            clazz
-//        } else {
-//            getVBClass(enterClazz.superclass as Class<*>)
-//        }
-//    }
 
 }
