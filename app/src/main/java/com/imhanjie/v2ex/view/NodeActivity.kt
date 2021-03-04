@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.core.os.bundleOf
-import androidx.lifecycle.observe
 import com.imhanjie.support.ext.toActivity
 import com.imhanjie.support.ext.toast
 import com.imhanjie.v2ex.BaseActivity
@@ -26,9 +25,9 @@ class NodeActivity : BaseActivity<ActivityNodeBinding>() {
 
         val title: String? = intent.getStringExtra(ExtraKeys.NODE_TITLE)
         vb.topBar.setTitleText(title)
-        vb.topBar.setOnRightClickListener(View.OnClickListener {
+        vb.topBar.setOnRightClickListener {
             vm.doFavoriteNode()
-        })
+        }
 
         vm.node.observe(this) {
             vb.topBar.setTitleText(it.title)

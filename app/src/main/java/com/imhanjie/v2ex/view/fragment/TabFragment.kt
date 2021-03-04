@@ -1,15 +1,14 @@
 package com.imhanjie.v2ex.view.fragment
 
 import android.os.Bundle
-import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DiffUtil
 import com.drakeet.multitype.MultiTypeAdapter
 import com.imhanjie.v2ex.api.model.TopicItem
-import com.imhanjie.v2ex.common.*
+import com.imhanjie.v2ex.common.ExtraKeys
+import com.imhanjie.v2ex.common.TopicTab
 import com.imhanjie.v2ex.common.exception.MissingArgumentException
 import com.imhanjie.v2ex.common.extension.ViewModelProvider
 import com.imhanjie.v2ex.common.extension.valueIsNull
-import com.imhanjie.v2ex.common.TopicTab
 import com.imhanjie.v2ex.view.BasePageFragment
 import com.imhanjie.v2ex.view.TopicActivity
 import com.imhanjie.v2ex.view.adapter.TopicAdapter

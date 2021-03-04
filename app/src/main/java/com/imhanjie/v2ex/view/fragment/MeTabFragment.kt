@@ -2,7 +2,6 @@ package com.imhanjie.v2ex.view.fragment
 
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.observe
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.imhanjie.support.ext.toActivity

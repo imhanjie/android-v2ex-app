@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.observe
 import androidx.viewbinding.ViewBinding
 import com.imhanjie.support.PreferencesManager
 import com.imhanjie.support.e
@@ -33,7 +32,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        globalViewModel = ViewModelProvider(requireActivity().applicationContext as App).get(GlobalViewModel::class.java)
+        globalViewModel = ViewModelProvider(requireActivity().applicationContext as V2exApp).get(GlobalViewModel::class.java)
         e("${javaClass.simpleName} : onCreate()")
     }
 

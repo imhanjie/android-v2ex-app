@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.observe
 import androidx.viewbinding.ViewBinding
 import com.imhanjie.support.PreferencesManager
 import com.imhanjie.support.ext.getResColor
@@ -49,7 +48,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
             }
         }
 
-        globalViewModel = ViewModelProvider(applicationContext as App).get(GlobalViewModel::class.java)
+        globalViewModel = ViewModelProvider(applicationContext as V2exApp).get(GlobalViewModel::class.java)
 
         when (configSp.getInt(SpConstants.UI_MODE, AppCompatDelegate.MODE_NIGHT_NO)) {
             AppCompatDelegate.MODE_NIGHT_NO -> {

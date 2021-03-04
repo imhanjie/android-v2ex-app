@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.core.os.bundleOf
-import androidx.lifecycle.observe
 import com.imhanjie.support.e
 import com.imhanjie.support.ext.dp
 import com.imhanjie.support.ext.toActivity

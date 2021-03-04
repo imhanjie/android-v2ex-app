@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import androidx.activity.viewModels
-import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.imhanjie.support.ext.postDelayed
 import com.imhanjie.support.ext.toActivity
@@ -71,7 +70,7 @@ class SearchNodeActivity : BaseActivity<ActivitySearchNodeBinding>() {
         }
 
         fun extractResult(data: Intent): SearchNode {
-            return data.getParcelableExtra(ExtraKeys.NODE) as SearchNode
+            return data.getParcelableExtra(ExtraKeys.NODE)!!
         }
     }
 

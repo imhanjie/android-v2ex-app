@@ -3,7 +3,6 @@ package com.imhanjie.v2ex.view.fragment
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.observe
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
@@ -11,8 +10,8 @@ import com.imhanjie.support.ext.toActivity
 import com.imhanjie.v2ex.AppSession
 import com.imhanjie.v2ex.BaseFragment
 import com.imhanjie.v2ex.common.Event
-import com.imhanjie.v2ex.common.extension.LiveDataBus
 import com.imhanjie.v2ex.common.TopicTab
+import com.imhanjie.v2ex.common.extension.LiveDataBus
 import com.imhanjie.v2ex.databinding.FragmentTabMainBinding
 import com.imhanjie.v2ex.view.CreateTopicActivity
 import com.imhanjie.v2ex.vm.MainTabViewModel
@@ -27,9 +26,9 @@ class MainTabFragment : BaseFragment<FragmentTabMainBinding>() {
         vb.topBar.setOnClickListener {
             LiveDataBus.get().post(Event.MAIN_SCROLL_TO_TOP, Any())
         }
-        vb.topBar.setOnRightClickListener(View.OnClickListener {
+        vb.topBar.setOnRightClickListener {
             toActivity<CreateTopicActivity>()
-        })
+        }
         AppSession.getLoginState().observe(viewLifecycleOwner) { isLogin ->
             vb.topBar.setRightVisibility(if (isLogin) View.VISIBLE else View.INVISIBLE)
         }

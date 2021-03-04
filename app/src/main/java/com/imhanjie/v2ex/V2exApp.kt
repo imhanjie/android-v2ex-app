@@ -13,8 +13,10 @@ import com.imhanjie.support.ext.toActivity
 import com.imhanjie.v2ex.api.V2exApi
 import com.imhanjie.v2ex.common.SpConstants
 import com.imhanjie.v2ex.view.LoginActivity
+import dagger.hilt.android.HiltAndroidApp
 
-class App : MultiDexApplication(), ViewModelStoreOwner {
+@HiltAndroidApp
+class V2exApp : MultiDexApplication(), ViewModelStoreOwner {
 
     private val globalViewModelStore = ViewModelStore()
 

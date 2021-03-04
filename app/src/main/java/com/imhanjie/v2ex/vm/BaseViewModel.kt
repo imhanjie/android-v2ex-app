@@ -6,7 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.google.gson.stream.MalformedJsonException
-import com.imhanjie.v2ex.App
+import com.imhanjie.v2ex.V2exApp
 import com.imhanjie.v2ex.common.exception.BizException
 import com.imhanjie.v2ex.common.extension.SingleLiveEvent
 import com.imhanjie.v2ex.model.VmEvent
@@ -54,7 +54,7 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
     fun getResString(@StringRes resId: Int): String {
-        return getApplication<App>().getString(resId)
+        return getApplication<V2exApp>().getString(resId)
     }
 
     private fun handleException(e: Throwable): String {

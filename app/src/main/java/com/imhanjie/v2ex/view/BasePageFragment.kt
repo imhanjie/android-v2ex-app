@@ -1,6 +1,5 @@
 package com.imhanjie.v2ex.view
 
-import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DiffUtil
 import com.drakeet.multitype.MultiTypeAdapter
 import com.imhanjie.support.ext.dpi

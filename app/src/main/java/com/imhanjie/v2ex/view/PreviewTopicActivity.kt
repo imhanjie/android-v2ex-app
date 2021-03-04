@@ -3,7 +3,6 @@ package com.imhanjie.v2ex.view
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.os.bundleOf
-import androidx.lifecycle.observe
 import com.imhanjie.support.ext.toActivity
 import com.imhanjie.v2ex.BaseActivity
 import com.imhanjie.v2ex.common.ExtraKeys

@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
-import androidx.lifecycle.observe
 import com.imhanjie.support.ext.postDelayed
 import com.imhanjie.support.ext.toast
 import com.imhanjie.support.showKeyBoard

@@ -1,7 +1,6 @@
 package com.imhanjie.v2ex.view.fragment
 
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.observe
 import androidx.recyclerview.widget.GridLayoutManager
 import com.drakeet.multitype.MultiTypeAdapter
 import com.imhanjie.v2ex.AppSession

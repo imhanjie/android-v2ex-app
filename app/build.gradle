@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -82,6 +83,10 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:${rootProject.ext.lifecycle}"
     implementation "androidx.lifecycle:lifecycle-common-java8:${rootProject.ext.lifecycle}"
 
+    // 依赖注入
+    implementation "com.google.dagger:hilt-android:${rootProject.ext.hilt}"
+    kapt "com.google.dagger:hilt-android-compiler:${rootProject.ext.hilt}"
+
     // androidx 其他组件
     implementation "androidx.appcompat:appcompat:${rootProject.ext.appcompat}"
     implementation "androidx.core:core-ktx:${rootProject.ext.core_ktx}"
@@ -103,6 +108,8 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-scalars:${rootProject.ext.retrofit}"
     implementation "com.squareup.okhttp3:logging-interceptor:${rootProject.ext.okhttp}"
 
+    implementation "com.squareup.okhttp3:okhttp:4.9.0"
+
     // Glide
     implementation "com.github.bumptech.glide:glide:${rootProject.ext.glide}"
     kapt "com.github.bumptech.glide:compiler:${rootProject.ext.glide}"
@@ -110,6 +117,7 @@ dependencies {
 
     // 调试工具
     implementation "com.facebook.stetho:stetho:${rootProject.ext.stetho}"
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.6'
 
     // 大图预览
     implementation "com.github.SherlockGougou:BigImageViewPager:${rootProject.ext.big_image_view_pager}"

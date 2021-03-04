@@ -1,12 +1,10 @@
 buildscript {
     apply from: "config.gradle"
-    ext {
-        kotlin_version = '1.3.72'
-    }
     addRepository(repositories)
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.1'
+        classpath 'com.android.tools.build:gradle:4.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${rootProject.ext.kotlin}"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:${rootProject.ext.hilt}"
     }
 }
 

@@ -1,7 +1,6 @@
 package com.imhanjie.v2ex.view.fragment
 
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DiffUtil
 import com.drakeet.multitype.MultiTypeAdapter
 import com.imhanjie.v2ex.api.model.TopicItem

@@ -12,7 +12,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.imhanjie.support.ext.dpi
-import com.imhanjie.v2ex.App
+import com.imhanjie.v2ex.V2exApp
 
 class GlideImageGetter(private val container: TextView) : Html.ImageGetter {
 
@@ -46,7 +46,7 @@ class GlideImageGetter(private val container: TextView) : Html.ImageGetter {
                 container.text = container.text
             }
         }
-        Glide.with(App.INSTANCE)
+        Glide.with(V2exApp.INSTANCE)
             .asBitmap()
             .load(source)
             .diskCacheStrategy(DiskCacheStrategy.ALL)

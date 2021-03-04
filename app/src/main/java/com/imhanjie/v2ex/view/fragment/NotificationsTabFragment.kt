@@ -1,7 +1,6 @@
 package com.imhanjie.v2ex.view.fragment
 
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.observe
 import com.imhanjie.v2ex.AppSession
 import com.imhanjie.v2ex.BaseLazyFragment
 import com.imhanjie.v2ex.R

@@ -1,7 +1,7 @@
 package com.imhanjie.v2ex.repository
 
 import com.imhanjie.support.parseJsonList
-import com.imhanjie.v2ex.App
+import com.imhanjie.v2ex.V2exApp
 import com.imhanjie.v2ex.api.ApiServer
 import com.imhanjie.v2ex.api.ApiService
 import com.imhanjie.v2ex.api.model.*
@@ -23,7 +23,7 @@ object AppRepositoryImpl : AppRepository {
             return data ?: throw BizException("data can not be null!")
         } else {
             if (code == RestfulResult.CODE_USER_EXPIRED) {
-                App.logout()
+                V2exApp.logout()
             }
             throw BizException(message!!)
         }
@@ -97,9 +97,9 @@ object AppRepositoryImpl : AppRepository {
 
     override suspend fun loadNavNodes(): List<NavNode> {
         return withContext(Dispatchers.IO) {
-            val assetManager = App.INSTANCE.assets
+            val assetManager = V2exApp.INSTANCE.assets
             val json = assetManager.open("nav_nodes.json").bufferedReader().readText()
-            parseJsonList<NavNode>(json)
+            parseJsonList(json)
         }
     }
 
