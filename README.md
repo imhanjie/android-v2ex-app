@@ -11,4 +11,4 @@ API 基于 https://github.com/imhanjie/android-v2ex-api 项目
 - 我收藏的主题
 - 用户信息
 - 用户评论
-- 用户创建的帖子
+- 用户主题
